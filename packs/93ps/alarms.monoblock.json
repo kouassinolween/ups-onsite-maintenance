@@ -1,4 +1,4 @@
-﻿{
+{
     "_source":  "Alarms Manual for Eaton, P-164000681 rev 003 (2023), section 3 : 91PS/93PS Monoblock UPS, 8-10 kVA (UPM 0-138, CSB 192-280). Pas de MCU en monobloc.",
     "_status":  "Extraction automatique à relire. La numérotation CSB (192-280) recouvre la numérotation MCU du catalogue modulaire : un événement se désigne par (famille, source, id).",
     "family":  "monoblock",

@@ -197,7 +197,7 @@ foreach ($r in ($rows | Where-Object { $_.family -eq 'modular' })) {
 $sorted = $events | Sort-Object @{e={ switch ($_.source) { 'UPM' {0} 'MCU' {1} default {2} } }}, @{e={ [int]$_.ids[0] }}
 $cur.events = @($sorted)
 $cur._status = "COMPLET (extraction automatique v0.3 + sélection relue v0.1). Entrées import='curated' : relues à la main ; import='auto' : extraites par tools/import-alarms.ps1 du texte du manuel, à relire. desc_en = texte source ; desc_fr = traduction (translation: curated | reused | dictionary | template | todo)."
-$cur | ConvertTo-Json -Depth 8 | Out-File $modPath -Encoding utf8
+[IO.File]::WriteAllText($modPath, ($cur | ConvertTo-Json -Depth 8), (New-Object System.Text.UTF8Encoding($false)))
 
 # --- monobloc : nouveau catalogue ---------------------------------------------------
 $mono = New-Object System.Collections.Generic.List[object]
@@ -210,7 +210,7 @@ $monoDoc = [ordered]@{
     family  = 'monoblock'
     events  = @($mono | Sort-Object @{e={ $_.source }}, @{e={ [int]$_.ids[0] }})
 }
-$monoDoc | ConvertTo-Json -Depth 8 | Out-File (Join-Path $monoDir 'alarms.monoblock.json') -Encoding utf8
+[IO.File]::WriteAllText((Join-Path $monoDir 'alarms.monoblock.json'), ($monoDoc | ConvertTo-Json -Depth 8), (New-Object System.Text.UTF8Encoding($false)))
 
 $todo | Out-File (Join-Path $env:TEMP 'alarms-translation-todo.txt') -Encoding utf8
 Write-Host ("Modulaire : +{0} entrées ; monobloc : {1} entrées ; FR renseigné : {2} ; à traduire : {3}" -f $stats.modular_new, $stats.mono, $stats.fr_ok, $stats.fr_todo)

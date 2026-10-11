@@ -1,4 +1,4 @@
-﻿{
+{
   "_doc": "Traductions françaises des événements importés automatiquement. Clé = nom normalisé (minuscules, lettres et chiffres seulement) ou 'famille|nom normalisé' pour une traduction propre à modular / monoblock. Rédigées d'après le texte du manuel d'alarmes Rev03 ; à relire par un technicien.",
   "essinvertergapping": "Pendant les 20 premières ms d'un transfert direct, l'onduleur se coupe brièvement si la limite de courant matérielle est atteinte, pour aider à bloquer les SCR (création d'un creux dans la sortie).",
   "rectifierbreakeropen": "Disjoncteur redresseur ouvert (peut aussi signaler un fusible redresseur HS). Réservé, non encore implémenté.",

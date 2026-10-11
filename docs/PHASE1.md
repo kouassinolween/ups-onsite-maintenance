@@ -1,6 +1,6 @@
-# Phase 1 : squelette de l'application
+# Phase 1 : application React + TypeScript
 
-Version 0.1 · 2026-10-11
+Version 0.2 · 2026-10-11
 
 ## 1. Livré
 
@@ -10,32 +10,32 @@ Version 0.1 · 2026-10-11
 | Décodeur de codes d'erreur | Énumérations (jokers `x1`, `1xxx`, `0x001x`), champs de bits (saisie décimale ou hexadécimale, cases à cocher qui calculent le code), phases (`12` = phases 1 et 2) |
 | Fiche événement | Explication française, texte du manuel (anglais), page de référence, valeurs par défaut, pièces candidates et « à vérifier d'abord » |
 | Familles | 93PM / 93PS modulaire (389 ids) et 91PS / 93PS monobloc (223 ids) |
-| Hors ligne | Service worker et cache des packs (voir limite §3) |
-| Lien direct | `#/<famille>|<source>|<id>/<code>` ouvre une fiche avec le code déjà décodé |
-| Tests | `app/tests.html` : 44 tests du décodeur et de la recherche, tous réussis |
+| Lien direct | `#/<famille>\|<source>\|<id>/<code>` ouvre une fiche avec le code déjà décodé |
+| PWA | Précache Workbox généré au build (voir limite §3) |
+| Tests | `npm test` : 28 tests du décodeur, de la recherche et des packs réels, tous réussis |
 
 ## 2. Choix techniques
 
-- **Modules ES natifs, sans build** : Node.js n'est pas installé sur le poste ; plutôt que d'ajouter un toolchain sans accord, le squelette fonctionne avec un simple serveur statique (`tools/serve.ps1`).
-- **`decoder.js` est pur** (aucun DOM) : il se porte tel quel en TypeScript, et se testera avec n'importe quel moteur de test.
-- **Packs = JSON versionnés** chargés à l'exécution : ajouter un modèle d'onduleur ne change pas le code (`CATALOGS` dans `catalog.js`).
-- **Sécurité du serveur local** : n'expose que `app/` et `packs/`, jamais les outils ni les PDF.
-
-Migration prévue vers React + TypeScript + IndexedDB quand Node sera installé : les modules `decoder` et `catalog` passent sans réécriture, seule la couche `main.js` est à remplacer.
+- **React 19 + TypeScript 7 + Vite 8**, tests Vitest ; Node.js 24 LTS installé le 2026-10-11 (winget `OpenJS.NodeJS.LTS`).
+- **Migration sans réécriture de la logique** : `decoder.ts` et `catalog.ts` sont le portage typé des modules précédents ; les vérifications de la page de test native sont reprises en tests Vitest, plus des garde-fous sur les vrais packs (nombre d'identifiants, aucun doublon, explication française présente).
+- **Packs = JSON versionnés** chargés à l'exécution depuis `packs/` : ajouter un modèle d'onduleur ne change pas le code (`CATALOGS` dans `catalog.ts`). Un plugin de `vite.config.ts` les sert en développement et les copie dans `dist/` sans les dupliquer.
+- **PWA** par `vite-plugin-pwa` (Workbox, précache de 15 fichiers, environ 977 Ko).
+- **Garde-fous** : `npm run check` enchaîne types, tests et validation des packs.
 
 ## 3. Limites et points non vérifiés
 
-- **Hors ligne non vérifié** : le navigateur intégré à l'outil de développement refuse l'enregistrement de tout service worker (même un service worker vide), donc le cache hors ligne n'a pas pu être testé. À vérifier sur un téléphone ou dans Chrome.
+- **Hors ligne non vérifié** : le navigateur intégré à l'outil de développement refuse l'enregistrement de service workers. Le précache est généré au build (`dist/sw.js`) mais n'a jamais été exécuté : à tester sur un téléphone ou dans Chrome.
 - **Pas d'icônes** dans le manifeste : l'installation « écran d'accueil » fonctionne mais sans icône dédiée.
-- **Pas de persistance** : aucune donnée utilisateur (interventions, signatures, rapports) pour l'instant, c'est la suite de la phase 1.
+- **Pas de persistance** : aucune donnée utilisateur (interventions, signatures, rapports) pour l'instant.
 - **Catalogue automatique** : 252 + 223 entrées sont marquées « à relire » dans l'interface.
 - **Groupes d'identifiants** : une entrée de groupe (ex. surcharge phases A/B/C) affiche le même nom pour chaque numéro du groupe.
 - **Accessibilité** : navigation clavier et lecteur d'écran non audités.
+- **BOM UTF-8** : les fichiers JSON écrits par PowerShell contenaient un BOM que `JSON.parse` refuse ; corrigé, et les outils écrivent désormais sans BOM.
 
 ## 4. Suite de la phase 1
 
 1. Parc : fiche équipement (modèle, n° de série, firmware, batterie) et import de la liste SOGB.
-2. Intervention : formulaire (symptômes, alarmes relevées avec code décodé, mesures, pièces, signature), stockage local puis synchronisation.
+2. Intervention : formulaire (symptômes, alarmes relevées avec code décodé, mesures, pièces, signature), stockage local (IndexedDB) puis synchronisation.
 3. Rapport PDF et protocole HSE de fin d'intervention.
 4. Assistants guidés : mise en service parallèle, ajout/retrait d'une UPS (voir `parallel.json`).
-5. Installer Node.js et migrer l'interface vers React + TypeScript si vous le souhaitez.
+5. Icônes PWA et vérification du hors ligne sur un appareil réel.

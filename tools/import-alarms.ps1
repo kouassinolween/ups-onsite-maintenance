@@ -128,7 +128,7 @@ $result = foreach ($e in $entries) {
         page = $e.page; desc_en = ($e.desc -join "`n")
     }
 }
-$result | ConvertTo-Json -Depth 4 | Out-File $Out -Encoding utf8
+[IO.File]::WriteAllText($Out, ($result | ConvertTo-Json -Depth 4), (New-Object System.Text.UTF8Encoding($false)))
 Write-Host "Entrées extraites : $($entries.Count)"
 $result | Group-Object family, source | ForEach-Object { "{0} : {1}" -f $_.Name, $_.Count }
 

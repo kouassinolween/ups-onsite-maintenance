@@ -1,4 +1,4 @@
-﻿{
+{
     "_source":  "Alarms Manual for Eaton, P-164000681 rev 003 (2023), sections 2.1 UPM, 2.2 MCU, 2.3 CSB (93PM modulaire). Les noms sont les libellés officiels du HMI.",
     "_status":  "COMPLET (extraction automatique v0.3 + sélection relue v0.1). Entrées import=\u0027curated\u0027 : relues à la main ; import=\u0027auto\u0027 : extraites par tools/import-alarms.ps1 du texte du manuel, à relire. desc_en = texte source ; desc_fr = traduction (translation: curated | reused | dictionary | template | todo).",
     "_conventions":  {

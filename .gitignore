@@ -6,3 +6,8 @@ Thumbs.db
 *.pdf
 *.exe
 *.ROM
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
