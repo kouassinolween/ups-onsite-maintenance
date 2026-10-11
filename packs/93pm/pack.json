@@ -1,0 +1,56 @@
+﻿{
+  "pack_format": "1.0",
+  "pack_id": "eaton-93pm",
+  "pack_version": "0.3.1-phase0",
+  "status": "draft",
+  "vendor": "Eaton",
+  "family": "93PM",
+  "label": "Eaton 93PM (modulaire 30-500 kW)",
+  "ratings": [
+    { "range": "30-50 kW",   "notes": "Guide installation FR + site planning P-110000454" },
+    { "range": "80-100 kW",  "notes": "Site planning P-110000455" },
+    { "range": "120-150 kW", "notes": "Site planning P-110000456" },
+    { "range": "160-200 kW", "notes": "Site planning P-110000457" },
+    { "range": "100-500 kVA", "notes": "Guide installation FR Rev002, site planning P-110000547, prérequis MES 500 kVA" }
+  ],
+  "architecture": {
+    "description": "Un système 93PM = 1..n modules de puissance (UPM) pilotés par une MCU et une CSB (affichage/commande). Les systèmes peuvent être mis en parallèle (interne ou externe, bus CAN + pull chain).",
+    "component_types": [
+      { "type": "UPM", "label": "Module de puissance (redresseur + onduleur + chargeur)", "event_range": "0-134" },
+      { "type": "MCU", "label": "Unité de contrôle / interrupteur statique (STS)",        "event_range": "192-393" },
+      { "type": "CSB", "label": "Bloc de commande et d'affichage (HMI)",                   "event_range": "384-485" },
+      { "type": "BATTERY", "label": "Batterie interne / EBC externe", "event_range": null }
+    ],
+    "event_key": ["source", "id"],
+    "event_key_note": "Les plages MCU (192-393) et CSB (384-485) se recouvrent sur 384-393 : un événement s'identifie par (source, id), jamais par id seul."
+  },
+  "firmware": {
+    "known_versions_in_folder": ["1.02.00", "1.06.03", "1.10", "1.14", "1.18.0007", "1.20.0004", "1.22.0000", "1.26.0025", "1.30.0001/1.30.0020", "1.38.0000/1.38.0113"],
+    "notes": [
+      "Avant le firmware 1.24, les événements CSB commençaient au n°320 (manuel d'alarmes Rev03, section 2.3).",
+      "Le fichier d'historique est nommé '1.14 = Latest' alors que le dossier contient des versions jusqu'à 1.38 : à clarifier avant d'afficher une version 'recommandée'."
+    ],
+    "distribution_policy": "Référencer seulement (nom, version, emplacement). Ne pas embarquer les .exe/.ROM Eaton dans l'application."
+  },
+  "sources": [
+    { "file": "Alarms_Manual_For_Eaton_Rev03.pdf", "ref": "P-164000681 rev 003 (2023)", "used_for": "alarms.json" },
+    { "file": "SPART_PART 93PM/Spare_Part_Kits_93PM_Rev05.pdf", "ref": "Rev 05, 4.9.2014", "used_for": "parts.json (kits)" },
+    { "file": "SPART_PART 93PM/93PM__30-50_kVA_SPARE_PART_KITS.pdf", "ref": "20.8.2013", "used_for": "parts.json (kits_legacy_2013)" },
+    { "file": "Service Manual/93PM Service Manual Rev B02/Eaton 93PM Rev B02.pdf", "ref": "P-164000219 Rev B02 (fév. 2014), 384 p.", "used_for": "procedure_ref, consignes (§1.8, §8.2, §8.3), comportement ventilateurs (§4.3.19), modes, ABM, parallèle" },
+    { "file": "Parallel Systems 93PM/93PM_Adding_and_Removing_units_to_set_up_parallel_system.pdf", "ref": "Eaton Tech Support EMEA, 24.04.2015", "used_for": "parallel.json (add_remove_unit, eeprom_parameters)" },
+    { "file": "Parallel Systems 93PM/Procedure for installing the parallel harness for 93PM_draft.pdf", "ref": "Eaton Field Service Instruction, 14/12/2015 (brouillon)", "used_for": "parallel.json (harness_retrofit)" },
+    { "file": "Parallel Systems 93PM/TEST_SYSTEM_WIRING_HPO_XParSys.pdf", "ref": "Schéma de test 4 UPS", "used_for": "parallel.json (test_wiring_reference)" }
+  ],
+  "service_manual_scope": {
+    "covers": "93PM 50-200 kW (480 V : chapitres 6 et 8 ; 400 V : chapitres 7 et 9, plus restreints, 50 kW 400 V en démarrage)",
+    "does_not_cover": ["30-40 kW (non couvert par ce manuel)", "93PM 100-500 kVA G2 (manuel utilisateur séparé)", "Procédure de maintenance préventive officielle (document séparé, SM §11.2)", "Manuel de maintenance batterie (document séparé, SM §11.2)"],
+    "confidentiality": "Document propriétaire Eaton, reproduction interdite hors accord écrit. L'application ne recopie pas son texte : uniquement des références de sections et des reformulations.",
+    "secrets_policy": "Le manuel contient des mots de passe par défaut des niveaux d'accès HMI : ne jamais les stocker dans l'application."
+  },
+  "roadmap_packs": ["eaton-9e", "eaton-93e", "eaton-93t", "eaton-93ps"],
+  "roadmap_note": "93PS apparaît déjà dans le manuel d'alarmes (section 3 : 91PS/93PS monobloc 8-10 kVA, UPM 0-138, CSB 192-280) : son catalogue d'alarmes peut être extrait du même document.",
+  "deployment_context": "Puissances exploitées : 30 à 200 kW, unitaires et en parallèle.",
+  "contents": ["alarms.json", "parts.json", "checklists.draft.json", "modes.json", "abm.json", "parallel.json"]
+}
+
+

@@ -1,0 +1,8 @@
+# Fichiers temporaires et sources propriétaires
+*.raw.json
+*.curated.backup.json
+~$*
+Thumbs.db
+*.pdf
+*.exe
+*.ROM

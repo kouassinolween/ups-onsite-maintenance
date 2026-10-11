@@ -1,0 +1,12 @@
+{
+  "name": "Entretien UPS - Alarmes Eaton",
+  "short_name": "UPS Alarmes",
+  "description": "Recherche et décodage des alarmes Eaton 93PM / 93PS, hors ligne.",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#0b5cab",
+  "icons": []
+}

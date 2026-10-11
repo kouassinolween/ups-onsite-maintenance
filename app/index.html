@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b5cab">
+  <title>Entretien UPS - Alarmes Eaton</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Entretien UPS <span class="sub">Alarmes Eaton 93PM / 93PS</span></h1>
+    <span id="net" class="net" role="status"></span>
+  </header>
+
+  <main>
+    <section id="list-view" aria-label="Recherche d'alarmes">
+      <label class="visually-hidden" for="q">Rechercher</label>
+      <input id="q" type="search" placeholder="Nom, mot du texte, ou « UPM 53 » / « MCU 204 1001 »" autocomplete="off" enterkeyhint="search">
+
+      <div class="filters" role="group" aria-label="Filtres">
+        <select id="f-catalog" aria-label="Famille"></select>
+        <select id="f-source" aria-label="Source">
+          <option value="">Toutes sources</option>
+          <option value="UPM">UPM</option><option value="MCU">MCU</option><option value="CSB">CSB</option>
+        </select>
+        <select id="f-kind" aria-label="Type">
+          <option value="">Tous types</option>
+          <option value="alarm">Alarmes</option><option value="sticky_alarm">Alarmes mémorisées</option>
+          <option value="notice">Avis</option><option value="sticky_notice">Avis mémorisés</option>
+          <option value="status">Statuts</option><option value="command">Commandes</option>
+        </select>
+        <select id="f-target" aria-label="Cible">
+          <option value="">Utilisateur et service</option>
+          <option value="service">Service</option><option value="user">Utilisateur</option>
+        </select>
+      </div>
+
+      <p id="count" class="muted" aria-live="polite"></p>
+      <ul id="results" class="results"></ul>
+    </section>
+
+    <section id="detail-view" hidden aria-label="Détail de l'événement"></section>
+  </main>
+
+  <footer class="foot">
+    <p>Aide au diagnostic : ne remplace ni la documentation constructeur, ni la procédure de sécurité du site.
+       Catalogue extrait du manuel d'alarmes Eaton rev 003 ; entrées « extraction automatique » à relire.</p>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

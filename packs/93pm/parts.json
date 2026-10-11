@@ -1,0 +1,168 @@
+{
+  "_source": "Spare_Part_Kits_93PM_Rev05.pdf (Rev 05, 4.9.2014) + 93PM__30-50_kVA_SPARE_PART_KITS.pdf (20.8.2013, génération antérieure : voir kits_legacy_2013). Les quantités sont celles des kits.",
+  "parts": [
+    { "ref": "744-A2555-00P", "label": "ASSY INVERTER PM ASSEMBLY",                "category": "module_puissance" },
+    { "ref": "744-A1921-00P", "label": "ASSY RECTIFIER PM ASSEMBLY",               "category": "module_puissance" },
+    { "ref": "744-09172-00P", "label": "PCBAS CAPACITOR BOARD",                    "category": "carte" },
+    { "ref": "744-09599-00P", "label": "PCBAS RECTIFIER IO BOARD 400-480 V",       "category": "carte" },
+    { "ref": "744-09600-00P", "label": "PCBAS INVERTER IO BOARD 400-480 V",        "category": "carte" },
+    { "ref": "744-A2847-00P", "label": "PCBAS CSB BOARD",                          "category": "carte" },
+    { "ref": "744-A2619-00P", "label": "MCU MODULE ASSEMBLY (kit 50 kVA)",         "category": "mcu" },
+    { "ref": "744-A2494-00P", "label": "MCU MODULE ASSY 13X2/EATON M (kit 100 kW)", "category": "mcu" },
+    { "ref": "744-A2466-00P", "label": "ASSY MCU MODULE, 93PM 150-200K",           "category": "mcu" },
+    { "ref": "744-A2678-00P", "label": "HMI MODULE",                               "category": "hmi" },
+    { "ref": "744-09601-00P", "label": "PCBAS 480V MCU STS/1382/EATON (MCU BOARD)", "category": "carte" },
+    { "ref": "744-00320-00P", "label": "MCU INTERFACE BOARD",                      "category": "carte" },
+    { "ref": "744-09479-00P", "label": "PCBAS SURGE BOARD (400V)",                 "category": "carte" },
+    { "ref": "744-09212-00P", "label": "PCBAS SCR/RELAY BOARD (kit 50 kVA B)",     "category": "carte" },
+    { "ref": "P-128000007",   "label": "FUSE BATTERY 200A 500V FAST",              "category": "fusible" },
+    { "ref": "102-01674",     "label": "FUSE BUS/160FEE 160A 690V FAST 94x31.8",   "category": "fusible" },
+    { "ref": "P-128000016",   "label": "FUSE 400A 690V 200kA aR SQB1 M8",          "category": "fusible" },
+    { "ref": "128307027-001", "label": "FUSE SEMICOND 700A 700V",                  "category": "fusible" },
+    { "ref": "118-20292",     "label": "FAN SANYO 9G1224G1D 24V",                  "category": "ventilateur" },
+    { "ref": "090-01079-0X",  "label": "THYRISTOR SKKT273/16E 273A 1600V",         "category": "thyristor" },
+    { "ref": "090-01217",     "label": "THYRISTOR VISHAY VSKT570-16PBF 570A 1600V", "category": "thyristor" },
+    { "ref": "P-123000002",   "label": "CONTACTOR 225A 690VAC 3P coil 60VDC",      "category": "contacteur" },
+    { "ref": "P-123000001",   "label": "CONTACTOR 490A 1000VAC 3P coil 48VDC",     "category": "contacteur" },
+
+    { "ref": "744-A1920-00P", "label": "ASSY INVERTER PM ASSEMBLY (génération 2013)", "category": "module_puissance", "generation": "2013" },
+    { "ref": "744-09180-00P", "label": "PCBAS RECTIFIER IO BOARD (génération 2013)",  "category": "carte", "generation": "2013" },
+    { "ref": "744-09181-00P", "label": "PCBAS INVERTER IO BOARD (génération 2013)",   "category": "carte", "generation": "2013" },
+    { "ref": "744-09184-00P", "label": "CSB BOARD (génération 2013)",                 "category": "carte", "generation": "2013" },
+    { "ref": "744-A1829-00P", "label": "MCU MODULE ASSEMBLY (génération 2013)",       "category": "mcu", "generation": "2013" },
+    { "ref": "744-A1922-00P", "label": "HMI MODULE (génération 2013)",                "category": "hmi", "generation": "2013" },
+    { "ref": "744-09183-00P", "label": "MCU BOARD (génération 2013)",                 "category": "carte", "generation": "2013" },
+    { "ref": "744-09477-00P", "label": "PCBAS MCU INTERFACE BOARD (génération 2013)", "category": "carte", "generation": "2013" }
+  ],
+  "kits_legacy_2013": {
+    "_source": "93PM__30-50_kVA_SPARE_PART_KITS.pdf (20.8.2013)",
+    "_warning": "Mêmes numéros de kits HPO-1040580/581/582 que la Rev05 (2014) mais composition et références de pièces différentes. Quelle génération s'applique à une machine donnée dépend de sa date/révision de fabrication : à déterminer avec Eaton ou sur la plaque. Ne pas fusionner avec les kits Rev05.",
+    "kits": [
+      { "kit": "HPO-1040580", "model": "93PM 50 kVA", "variant": "A", "generation": "2013", "items": [
+        ["744-A1920-00P",1],["744-A1921-00P",1],["744-09180-00P",1],["744-09181-00P",1],["744-09184-00P",1],
+        ["744-A1829-00P",1],["744-A1922-00P",1],["P-128000007",1],["118-20292",5],["102-01674",3] ] },
+      { "kit": "HPO-1040581", "model": "93PM 50 kVA", "variant": "B", "generation": "2013", "items": [
+        ["744-A1920-00P",1],["744-A1921-00P",1],["744-09172-00P",1],["744-09184-00P",1],["744-09183-00P",1],
+        ["744-09477-00P",1],["744-09479-00P",1],["744-09212-00P",1],["P-128000007",1],["118-20292",5],["102-01674",3] ] },
+      { "kit": "HPO-1040582", "model": "93PM 50 kVA", "variant": "C", "generation": "2013", "items": [
+        ["118-20292",5],["P-128000007",1],["102-01674",3] ] }
+    ]
+  },
+  "kits": [
+    { "kit": "HPO-1040580", "model": "93PM 50 kVA",  "variant": "A", "items": [
+      ["744-A2555-00P",1],["744-A1921-00P",1],["744-09599-00P",1],["744-09600-00P",1],["744-09172-00P",1],
+      ["744-A2847-00P",1],["744-A2619-00P",1],["744-A2678-00P",1],["P-128000007",1],["118-20292",5],["102-01674",3] ] },
+    { "kit": "HPO-1040581", "model": "93PM 50 kVA",  "variant": "B", "items": [
+      ["744-A2555-00P",1],["744-A1921-00P",1],["744-A2847-00P",1],["744-09601-00P",1],["744-00320-00P",1],
+      ["744-09479-00P",1],["744-09212-00P",1],["P-128000007",1],["118-20292",5],["102-01674",3] ] },
+    { "kit": "HPO-1040582", "model": "93PM 50 kVA",  "variant": "C", "items": [
+      ["118-20292",5],["P-128000007",1],["102-01674",3] ] },
+
+    { "kit": "HPO-1041139", "model": "93PM 100 kW",  "variant": "A", "items": [
+      ["744-A2555-00P",1],["744-A1921-00P",1],["744-09172-00P",1],["744-09599-00P",1],["744-09600-00P",1],
+      ["744-A2847-00P",1],["744-A2494-00P",1],["744-A2678-00P",1],["P-128000007",1],["118-20292",5],
+      ["102-01674",3],["P-128000016",3],["P-123000002",1] ] },
+    { "kit": "HPO-1041140", "model": "93PM 100 kW",  "variant": "B", "items": [
+      ["744-A2555-00P",1],["744-A1921-00P",1],["090-01079-0X",3],["744-A2847-00P",1],["744-09601-00P",1],
+      ["744-00320-00P",1],["744-09479-00P",1],["P-128000007",1],["118-20292",5],["102-01674",3],["P-128000016",3] ] },
+    { "kit": "HPO-1041141", "model": "93PM 100 kW",  "variant": "C", "items": [
+      ["118-20292",5],["P-128000007",1],["102-01674",3],["P-128000016",3] ] },
+
+    { "kit": "HPO-1041142", "model": "93PM 150 kW",  "variant": "A", "items": [
+      ["744-A2555-00P",1],["744-A1921-00P",1],["744-09172-00P",1],["744-09599-00P",1],["744-09600-00P",1],
+      ["744-A2847-00P",1],["744-A2466-00P",1],["744-A2678-00P",1],["P-128000007",1],["118-20292",5],
+      ["102-01674",3],["128307027-001",3],["P-123000001",1] ] },
+    { "kit": "HPO-1041143", "model": "93PM 150 kW",  "variant": "B", "items": [
+      ["744-A2555-00P",1],["744-A1921-00P",1],["090-01217",3],["744-A2847-00P",1],["744-09601-00P",1],
+      ["744-00320-00P",1],["744-09479-00P",1],["P-128000007",1],["118-20292",5],["102-01674",3],["128307027-001",3] ] },
+    { "kit": "HPO-1041144", "model": "93PM 150 kW",  "variant": "C", "items": [
+      ["118-20292",5],["P-128000007",1],["102-01674",3],["128307027-001",3] ] },
+
+    { "kit": "HPO-1041145", "model": "93PM 200 kW",  "variant": "A", "items": [
+      ["744-A2555-00P",1],["744-A1921-00P",1],["744-09172-00P",1],["744-09599-00P",1],["744-09600-00P",1],
+      ["744-A2847-00P",1],["744-A2466-00P",1],["744-A2678-00P",1],["P-128000007",1],["118-20292",5],
+      ["102-01674",3],["128307027-001",3],["P-123000001",1] ] },
+    { "kit": "HPO-1041146", "model": "93PM 200 kW",  "variant": "B", "items": [
+      ["744-A2555-00P",1],["744-A1921-00P",1],["090-01217",3],["744-A2847-00P",1],["744-09601-00P",1],
+      ["744-00320-00P",1],["744-09479-00P",1],["P-128000007",1],["118-20292",5],["102-01674",3],["128307027-001",3] ] },
+    { "kit": "HPO-1041147", "model": "93PM 200 kW",  "variant": "C", "items": [
+      ["118-20292",5],["P-128000007",1],["102-01674",3],["128307027-001",3] ] }
+  ],
+  "kit_variant_meaning": {
+    "A": "Kit modules + cartes d'entrées/sorties + MCU + HMI + fusibles + ventilateurs (+ contacteur)",
+    "B": "Kit modules + thyristors/cartes STS + carte interface MCU + carte surge + fusibles + ventilateurs",
+    "C": "Kit consommables : ventilateurs et fusibles",
+    "_note": "Lecture déduite du contenu des kits, pas d'une définition Eaton. À valider."
+  },
+  "alarm_to_part_hints": {
+    "_status": "CANDIDATS DE DIAGNOSTIC révisés v0.2 à partir du service manual P-164000219 Rev B02 (références de sections). Ni le manuel d'alarmes ni le service manual ne donnent de table 'alarme → pièce' : ces associations sont une lecture raisonnée, à confirmer par mesure (processus en six étapes, SM §11.3.1) puis valider par un technicien. Ne jamais remplacer une pièce sur la seule foi d'une alarme.",
+    "_doc": "P-164000219 Rev B02 (93PM 50-200 kW). Les chapitres 8 (480 V) et 9 (400 V) couvrent le remplacement des composants.",
+    "UPM:48": {
+      "candidate_parts": ["118-20292"],
+      "procedure_ref": ["SM §8.4.2 ensemble ventilateurs UPM", "SM §8.4.10 carte alimentation ventilateurs", "SM §8.4.11 ventilateurs module 100 kW", "SM §8.4.12 ventilateur extraction haut"],
+      "behaviour_note": "Alarme seule ; transfert sur bypass uniquement si la surtempérature du module est atteinte et sans UPM redondant (SM §4.3.19.1).",
+      "verify_first": ["Identifier le ventilateur concerné (code d'erreur / détail de l'alarme)", "Contrôler l'alimentation du ventilateur (carte alimentation) avant de remplacer le ventilateur"],
+      "confidence": "candidate"
+    },
+    "UPM:123": {
+      "candidate_parts": ["118-20292"],
+      "procedure_ref": ["SM §8.4.2", "SM §8.4.10"],
+      "verify_first": ["Relever le numéro de ventilateur (1 à 3) dans le code d'erreur"],
+      "confidence": "candidate"
+    },
+    "MCU:288": {
+      "candidate_parts": [],
+      "procedure_ref": ["SM §8.4.9 ensemble interrupteur statique (STSW)"],
+      "behaviour_note": "Un défaut ventilateur MCU/STS sert d'alarme et inhibe l'état ESS ; pendant le fonctionnement sur bypass la charge reste alimentée, mais le matériel de l'interrupteur statique peut être endommagé en cas de vraie panne (SM §4.3.19.1).",
+      "verify_first": ["Confirmer que la référence 118-20292 s'applique aux ventilateurs STS : NON établi dans les sources lues"],
+      "confidence": "unconfirmed"
+    },
+    "UPM:7": {
+      "candidate_parts": ["744-A2555-00P"],
+      "procedure_ref": ["SM §8.4.3 ensemble PM redresseur/onduleur", "SM §8.4.6 cartes IO redresseur/onduleur", "SM §8.4.5 cartes contrôle et interface UPM"],
+      "verify_first": ["Lire le journal service : événements associés (DC link, surintensité)", "Contrôler les cartes IO et interface avant de condamner le module PM"],
+      "confidence": "candidate"
+    },
+    "UPM:104": {
+      "candidate_parts": ["744-A1921-00P"],
+      "procedure_ref": ["SM §8.4.3", "SM §8.4.6"],
+      "verify_first": ["Même démarche que UPM:7 côté redresseur"],
+      "confidence": "candidate"
+    },
+    "UPM:10": {
+      "candidate_parts": ["744-09172-00P"],
+      "procedure_ref": ["SM §8.4.4 carte condensateurs", "SM §3.7 cartes condensateurs DC link"],
+      "verify_first": ["Distinguer coupure immédiate (code 1/2) et différée 500 ms (code 4/5)"],
+      "confidence": "candidate"
+    },
+    "UPM:11": {
+      "candidate_parts": ["744-09172-00P"],
+      "procedure_ref": ["SM §8.4.4"],
+      "confidence": "candidate"
+    },
+    "MCU:224": {
+      "candidate_parts": ["090-01079-0X", "090-01217"],
+      "procedure_ref": ["SM §8.4.9 STSW", "SM §8.4.13 emplacement des fusibles STSW", "SM §4.3.17 Static Switch Short"],
+      "behaviour_note": "La MCU compare le courant bypass à une limite EEP lorsque la charge n'est pas sur bypass (SM §4.3.17).",
+      "verify_first": ["Choisir le thyristor selon la puissance : 090-01079-0X (kit 100 kW), 090-01217 (kits 150 et 200 kW)", "Contrôler les fusibles STSW"],
+      "confidence": "candidate"
+    },
+    "UPM:70": {
+      "candidate_parts": ["P-128000007"],
+      "procedure_ref": ["SM §8.4.13 emplacement des fusibles batterie", "SM §3.8.4 relais batterie"],
+      "verify_first": ["La détection de fusible défaillant n'est PAS implémentée (alarme UPM 47) : mesurer, ne pas déduire"],
+      "confidence": "candidate"
+    },
+    "CSB:414": {
+      "candidate_parts": ["744-A2847-00P"],
+      "procedure_ref": ["SM §8.4.8 carte CSB", "SM §3.2 réseau CAN"],
+      "verify_first": ["Lire les bits : quel UPM / la MCU ne communique pas ; vérifier d'abord le câblage CAN"],
+      "confidence": "candidate"
+    },
+    "CSB:HMI": {
+      "candidate_parts": ["744-A2678-00P"],
+      "procedure_ref": ["SM §8.4.14 afficheur HMI", "SM §10.3 calibration tactile"],
+      "confidence": "candidate"
+    }
+  }
+}

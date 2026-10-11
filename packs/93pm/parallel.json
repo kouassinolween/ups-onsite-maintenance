@@ -1,0 +1,268 @@
+﻿{
+  "_source": "Service manual P-164000219 Rev B02 : §2.6, §4.3.2, §4.3.3, §4.3.12, §4.3.13, §4.3.14, §4.3.16, §6.3 ; manuel d'alarmes P-164000681 rev 003. Reformulé et structuré, texte non recopié. 50-200 kW (480 V) ; applicabilité aux 30-40 kW et aux 400 V à confirmer.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié.",
+
+  "topologies": [
+    {
+      "id": "single_ups",
+      "label": "UPS unique (un seul UPM)",
+      "alarm_hint": "MCU:274 Single UPS System"
+    },
+    {
+      "id": "internal_parallel",
+      "label": "Parallèle interne : plusieurs UPM dans une même UPS",
+      "max_upm": 4,
+      "redundancy": ["N+0", "N+1", "N+2", "N+3"],
+      "load_share_error_pct": "< 5",
+      "selective_trip_ms": { "bypass_available": "< 4", "bypass_unavailable": "< 10" },
+      "alarm_hint": "MCU:275 Internal Redundant System",
+      "source": "SM §2.6.1"
+    },
+    {
+      "id": "external_parallel",
+      "label": "Parallèle externe : plusieurs UPS reliées par bus CAN externe (ECAN) et pull chain",
+      "max_ups": 8,
+      "mixed_ratings_allowed": true,
+      "mixed_ratings_condition": "Les UPS peuvent avoir un nombre de modules différent, mais les interrupteurs statiques (STS) doivent être identiques.",
+      "load_share_error_pct": { "ecan_ok": "< 3", "no_communication": "< 5" },
+      "alarm_hint": "MCU:276 Distributed Parallel System",
+      "source": "SM §2.6.2"
+    }
+  ],
+
+  "identification": {
+    "per_ups": ["Nombre total d'UPS dans le système (1 à 8)", "Numéro de cette UPS (1 à 8, unique)"],
+    "how_set": "Outil logiciel de service Eaton, panneau Service > Parallel Setup (SM §6.3.1) ; paramétrage sur chaque UPS, puis mise hors tension.",
+    "related_alarms": [
+      { "event": "UPM:53", "bit": "0x08", "meaning": "Deux UPS ont le même numéro, ou numéro mal configuré" },
+      { "event": "MCU:239", "bit": "0x80", "meaning": "Échec de configuration parallèle : MyUPSNumber > max ou numéros dupliqués" },
+      { "event": "MCU:239", "bit": "0x8000", "meaning": "Une ou plusieurs UPS en parallèle externe ont une puissance différente (configuration de la puissance à harmoniser)" },
+      { "event": "MCU:258", "meaning": "Parallel Setup Failure : le code donne le numéro du paramètre en échec" },
+      { "event": "MCU:316", "meaning": "Parameter Match Failed : paramètre partagé différent entre MCU ; corriger l'EEP en écart, puis réinitialiser les alarmes" }
+    ],
+    "note_overlap": "Ne pas confondre 'puissance différente' (0x8000, à harmoniser pour la configuration) avec 'nombre de modules différent' (autorisé, SM §2.6.2) : à clarifier avec le constructeur."
+  },
+
+  "wiring": {
+    "per_ups": [
+      "Disjoncteur de sortie de module (MOB) avec contacts auxiliaires",
+      "Contact NO du MOB vers les bornes d'entrée pull chain (bornes 1-2)",
+      "Autre contact auxiliaire du MOB vers une entrée d'alarme bâtiment (building input), NO ou NF configurable"
+    ],
+    "can": {
+      "chain": "Sortie CAN (bornes 7 CANBH, 8 CANBL, 9 GND) d'une UPS vers l'entrée CAN (bornes 3 CANBH, 4 CANBL, 5 GND) de la suivante",
+      "termination": "Résistance de terminaison 120 ohms entre les bornes 3-4 de la première UPS et entre les bornes 7-8 de la dernière ; retirer les résistances non utilisées sur les autres UPS",
+      "source": "SM §6.3.2"
+    },
+    "cable_notes": "Les schémas (figures 6.26 à 6.28) et la procédure d'harnais parallèle sont dans le dossier 'Parallel Systems 93PM' (non analysé en détail)."
+  },
+
+  "commissioning_procedure": {
+    "_status": "Séquence de référence SM §6.3, reformulée. Chaque UPS doit d'abord avoir passé son démarrage individuel (SM §6.2) sans alarme, puis être commandée hors ligne.",
+    "steps": [
+      { "n": 1, "text": "Chaque UPS a terminé son démarrage unitaire, sans aucune alarme, et est commandée hors ligne", "checkpoint": true },
+      { "n": 2, "text": "Programmer sur chaque UPS le nombre d'UPS et son numéro unique, puis hors tension" },
+      { "n": 3, "text": "Câbler pull chain et contact MOB (bornes 1-2 et alarme bâtiment) sur chaque UPS" },
+      { "n": 4, "text": "Câbler la chaîne CAN externe et ajuster les résistances de terminaison (première et dernière UPS seulement)" },
+      { "n": 5, "text": "Remettre sous tension ; vérifier sur chaque UPS le nombre d'UPS et le numéro unique" },
+      { "n": 6, "text": "Configurer l'entrée bâtiment du MOB : nom, polarité NO/NF, indication associée" }
+    ],
+    "verification": [
+      { "n": 1, "text": "Aucune UPS n'affiche l'alarme External CAN Bus Failed (MCU:265)", "event": "MCU:265" },
+      { "n": 2, "text": "Ouvrir chaque MOB : l'UPS associée affiche 'MOB # Open'. Si l'état est inversé, changer la polarité de l'entrée bâtiment", "event": "MCU:279" },
+      { "n": 3, "text": "Tous les MOB ouverts : commander chaque UPS sur bypass, vérifier l'absence de l'alarme Check Pull Chain (UPM:82 / MCU:235) et que toutes les UPS passent sur bypass", "event": "UPM:82" },
+      { "n": 4, "text": "Commander l'arrêt d'une UPS et vérifier que toutes les autres s'arrêtent" },
+      { "n": 5, "text": "Remettre toutes les UPS online avec les MOB fermés" }
+    ],
+    "source": "SM §6.3.1-6.3.3"
+  },
+
+  "system_commands_shared_by_all_mcu": [
+    "System shutdown", "Request inverter output voltage match", "Transfer to bypass", "Synchronized bypass transfer",
+    "Online command", "Synchronized online command", "ESS", "VMMS", "System battery test request"
+  ],
+  "system_commands_source": "SM §4.3.2",
+
+  "building_inputs": {
+    "list": ["Maintenance bypass", "Forced maintenance bypass", "Remote go to bypass", "Module output breaker closed (MOB)", "Remote UPS on", "Remote load off", "Remote power module off", "On generator", "Charger off", "Battery disconnected", "Remote rectifier off / ATS pre-transfer", "Sync control (dual static switch, remote sync)", "Remote ESS/VMMS off", "No sync to bypass", "Disable battery charge and discharge", "Remote ESS command", "Remote VMMS command", "Reset alarms"],
+    "event_catalog": "CSB:388-413, 451-452, 465-466, 469, 477 (entrées de signal)",
+    "source": "SM §4.3.3"
+  },
+
+  "synchronization": {
+    "master_selection_order": [
+      "MOB non actif",
+      "Plus petit numéro d'UPS avec signal de contrôle de synchronisation actif",
+      "Plus petit numéro d'UPS avec bypass disponible",
+      "Plus petit numéro d'UPS"
+    ],
+    "mcu_sync_priority": [
+      { "condition": "Défaut de communication externe, ou perte du signal de synchronisation parallèle sur un UPM", "sync_to": "Base (horloge interne)" },
+      { "condition": "Cette MCU n'est pas maître et son MOB n'est pas actif", "sync_to": "Paquet CAN de synchronisation du maître" },
+      { "condition": "Entrée de contrôle de synchronisation active et dans les tolérances", "sync_to": "Entrée de synchronisation externe" },
+      { "condition": "Bypass dans les tolérances, pas de signal 'No sync to bypass', règles groupe électrogène respectées", "sync_to": "Bypass" },
+      { "condition": "Entrée dans les tolérances et synchronisation d'entrée activée par paramètre", "sync_to": "Entrée" },
+      { "condition": "Aucune des conditions précédentes", "sync_to": "Base" }
+    ],
+    "upm_sync_priority": ["Signal de synchronisation MCU (si pas de perte de sync parallèle)", "Entrée (si dans les tolérances et activée)", "Base"],
+    "can_failure_behavior": "Un défaut CAN gèle la fréquence de synchronisation ; elle reste figée à la limite si elle dépasse la limite de fréquence.",
+    "related_events": ["UPM:79 Loss of Sync Bus", "MCU:267 Output Sync Out of Range", "MCU:268 Bypass Sync Out of Range", "MCU:269 Input Sync Out of Range", "MCU:286/287 Output not in sync with bypass / ext sync", "MCU:317/318 Alternate Sync (Sync Box)"],
+    "source": "SM §4.3.12"
+  },
+
+  "pull_chain": {
+    "role": "Signal matériel entre UPS parallèles qui coordonne le transfert sur bypass et le démarrage simultané des onduleurs ; coupé par le contact du MOB quand celui-ci est ouvert.",
+    "related_events": ["UPM:81 Pull Chain (avis)", "UPM:82 Check Pull Chain", "MCU:234 Pull Chain (avis)", "MCU:235 Check Pull Chain", "UPM:76 code 1 Inverter Startup Failure lié à la pull chain"],
+    "source": "SM §6.3.2, §4.3.16"
+  },
+
+  "synchronized_transfer": {
+    "bypass_startup": [
+      "La commande est diffusée à toutes les MCU concernées",
+      "Chaque MCU avance jusqu'à un état d'où elle peut passer instantanément sur bypass",
+      "Chaque MCU lève son bit 'prêt à transférer' 3 ms après le passage par zéro associé",
+      "Le transfert synchronisé a lieu au passage par zéro suivant, quand tous les bits sont levés"
+    ],
+    "inverter_startup": [
+      "La commande est diffusée aux MCU et UPM",
+      "Chaque MCU et UPM avance jusqu'à un état d'où l'état online est immédiat ; les UPM surveillent la pull chain",
+      "Chaque UPM lève 'prêt à passer online' ; les MCU calculent les kW prêts pour tout le système",
+      "Quand assez d'UPM sont prêts, les MCU activent la pull chain et les UPM démarrent leurs onduleurs simultanément",
+      "Toutes les MCU et UPM passent online"
+    ],
+    "source": "SM §4.3.16"
+  },
+
+  "overload": {
+    "scopes": ["Système parallèle (alarme seule, paramètre kW, 0 = désactivé)", "UPS (limite selon la puissance de l'UPS, protège câblage et disjoncteurs)", "UPM (protège le matériel, préavis d'au moins 2 s avant arrêt)"],
+    "levels": [
+      { "level": "Low capacity (MCU)", "on_pct": 93, "off_pct": 90, "shutdown": null },
+      { "level": 1, "on_pct": 102, "off_pct": 100, "shutdown": "10 min" },
+      { "level": 2, "on_pct": 111, "off_pct": 102, "shutdown": "60 s" },
+      { "level": 3, "on_pct": 126, "off_pct": 111, "shutdown": "10 s" },
+      { "level": 4, "on_pct": 150, "off_pct": 126, "shutdown": "300 ms" }
+    ],
+    "base_conditions": "1000 m d'altitude, 40 °C, tension réseau nominale ; valeurs stockées en EEPROM",
+    "behavior": "Transfert immédiat sur bypass pour tous les niveaux si le bypass est disponible et que 'delay bypass transfer during overload' n'est pas activé ; transfert normal aux niveaux 1-2, transfert d'urgence aux niveaux 3-4 ; sans bypass, arrêt de la charge après la durée de coupure.",
+    "related_events": ["MCU:311 System Overload", "MCU:242-253 UPS Phase A/B/C Overload", "UPM:27-38 Phase A/B/C Overload", "MCU:323 Not Enough Redundant UPMs", "MCU:271 Not enough UPMs"],
+    "source": "SM §4.3.13"
+  },
+
+  "service_mode": {
+    "scope": "Isoler une UPS ou un UPM du système parallèle pour tests et calibration sans affecter la charge des autres unités.",
+    "mob": {
+      "behavior": "MOB ouvert : l'UPS ignore les données externes (pull chain, commandes, sync, statuts, mesures) et signale aux autres d'ignorer ses données.",
+      "caution": "Ne pas fermer le MOB tant que l'UPS en maintenance a de la tension en sortie ; l'UPS ne peut pas se synchroniser avec les autres unités tant que son MOB est ouvert.",
+      "event": "MCU:279 MOB open ; CSB:405 Signal Input MOB Open"
+    },
+    "upm_service_mode": {
+      "behavior": "Persistant en EEPROM (reste actif après coupure de l'alimentation auxiliaire, à sortir par commande). Refusé si l'UPM alimente la charge : l'arrêter d'abord. Arrête le partage de charge ; statut, sync et mesures ne sont plus partagés ; la pull chain est ignorée ; en batterie commune le contacteur batterie est ouvert.",
+      "events": ["UPM:97 UPM in Service Mode", "UPM:83 UPM Command (5 = enable, 6 = disable service mode)"]
+    },
+    "source": "SM §4.3.14"
+  },
+
+  "add_remove_unit": {
+    "_source": "Eaton Tech Support EMEA, instruction technique '93PM, Adding and Removing unit(s) to set up a parallel system', 24.04.2015, priorité D. Reformulé. Cette instruction est postérieure au service manual B02 (2014) et vise les systèmes EMEA ; elle prime sur le §6.3 pour l'ajout/retrait.",
+    "_status": "BROUILLON À VALIDER par un technicien certifié.",
+    "why_it_matters": "Sur le 93PM le fonctionnement du parallèle diffère des générations précédentes ; un incident terrain a montré que l'ordre exact des manœuvres est essentiel à la continuité de la charge.",
+    "scope_note": "Cette instruction traite l'introduction d'une UPS pour la première fois ou son retrait total. L'isolement d'une UPS pour maintenance fait l'objet d'un autre document ('93PM_Isolating_units_from_parallel_system'), ABSENT du dossier.",
+    "base_conditions": [
+      "Une ou plusieurs UPS en ligne alimentent la charge",
+      "Le statut du MOB de chaque UPS est câblé à une entrée de signal et programmé en conséquence",
+      "Aucune alarme active sur aucune unité"
+    ],
+    "if_major_alarm": [
+      "Chercher la cause (External CAN Bus Failed = problème entre UPS ; Internal CAN Bus Failed = problème entre UPM d'une même UPS)",
+      "Corriger (vérifier le câblage et l'état des disjoncteurs d'alimentation)",
+      "Appeler un ingénieur de service si l'alarme persiste"
+    ],
+    "add_units": [
+      { "n": 1,  "text": "MOB ouvert sur la nouvelle UPS" },
+      { "n": 2,  "text": "Câble CAN externe et pull chain débranchés de la nouvelle UPS" },
+      { "n": 3,  "text": "Les UPS existantes peuvent être online, sur bypass, sur MBS ou charge coupée" },
+      { "n": 4,  "text": "Mettre la logique de la nouvelle UPS sous tension" },
+      { "n": 5,  "text": "Configurer la nouvelle UPS à l'identique des existantes (tensions, puissance, fréquence...) ; valeurs EEPROM : voir eeprom_parameters" },
+      { "n": 6,  "text": "Configurer le MOB comme entrée bâtiment de la nouvelle UPS (HMI ou outil de service)" },
+      { "n": 7,  "text": "Vérifier la détection MOB ouvert/fermé avec des cavaliers de test ; les laisser en place jusqu'à l'étape 13 si le signal MOB n'est pas câblé" },
+      { "n": 8,  "text": "Recommandé : passer la nouvelle UPS online avec MOB ouvert (cavalier en place) avant de la paralléler (EEP 5109 = 0 pour l'autoriser)" },
+      { "n": 9,  "text": "Mettre la nouvelle UPS en Load Off avec la commande UPS Load Off, PAS la commande System Load Off (puis EEP 5109 = 1)", "warning": true },
+      { "n": 10, "text": "Sur la nouvelle UPS, configurer 'Number of UPS's' et 'UPS Number' (HMI ou outil de service)" },
+      { "n": 11, "text": "Sur toutes les UPS existantes (HMI), incrémenter 'Number of UPS's' ; des alarmes External CAN Bus Failed apparaissent partout et disparaissent à l'étape 12" },
+      { "n": 12, "text": "Brancher le câble CAN externe et la pull chain sur la nouvelle UPS ; confirmer l'absence d'External CAN Bus Failed" },
+      { "n": 13, "text": "Fermer le MOB de la nouvelle UPS et retirer le cavalier de test ; confirmer l'absence de Parameter Match Failed" },
+      { "n": 14, "text": "Commander la nouvelle UPS online" },
+      { "n": 15, "text": "Répéter pour chaque UPS à ajouter, après que la précédente est passée online" },
+      { "n": 16, "text": "Si la charge client est supérieure à 25 % et stable (variation ≤ ±3), lancer l'auto-calibration (sinon une charge est nécessaire pour la calibration du partage de charge). Elle doit aussi être faite avec moins de 60 % de la puissance du système" }
+    ],
+    "remove_units": [
+      { "n": 17, "text": "Mettre l'UPS à retirer en Load Off (commande UPS Load Off)" },
+      { "n": 18, "text": "Ouvrir son MOB (cavalier de test si le signal MOB n'est pas câblé)" },
+      { "n": 19, "text": "Débrancher son câble CAN externe et sa pull chain ; aucune alarme sur les UPS restées online ; l'UPS retirée affiche une alarme External CAN" },
+      { "n": 20, "text": "Sur les UPS restées online, régler 'Number of UPS's' pour correspondre au système" },
+      { "n": 21, "text": "Sur l'UPS retirée, mettre 'Number of UPS's' à 1" },
+      { "n": 22, "text": "Effacer les alarmes de l'UPS retirée" },
+      { "n": 23, "text": "Confirmer l'absence d'External CAN Bus Failed sur toutes les unités ; 'Batteries Disconnected' est présente si le signal de déclenchement batterie est utilisé" },
+      { "n": 24, "text": "Répéter 17 à 23 pour chaque autre UPS à retirer" },
+      { "n": 25, "text": "Ouvrir les disjoncteurs d'alimentation des UPS arrêtées et retirées du système" },
+      { "n": 26, "text": "Si les disjoncteurs batterie des UPS isolées n'ont pas déclenché automatiquement, les ouvrir" }
+    ]
+  },
+
+  "eeprom_parameters": {
+    "_note": "Valeurs à avoir sur TOUTES les UPS d'un système parallèle externe (instruction du 24.04.2015).",
+    "parameters": [
+      { "eep": 113,  "label": "Enable Selective Trip",            "value": "1 = activé" },
+      { "eep": 268,  "label": "Selective Trip DQ",                "value": "vérifier = 20" },
+      { "eep": 269,  "label": "Selective Trip Vdiff",             "value": "vérifier = 60" },
+      { "eep": 5003, "label": "My UPS Number",                    "value": "selon le site (unique)" },
+      { "eep": 5008, "label": "Number of UPS's in the System",    "value": "selon le site" },
+      { "eep": 5109, "label": "Output off when MOB is open",      "value": "1 en exploitation ; passer temporairement à 0 pour autoriser le démarrage online MOB ouvert (étape 8), puis revenir à 1", "doc_inconsistency": "Le tableau du document indique 1 pour l'exploitation et 'pour le service, 1' (probable coquille) alors que les étapes 8-9 demandent 0 puis 1." },
+      { "eep": 5503, "label": "Ext Sync Enabled",                 "value": "1 = activé" },
+      { "eep": 5505, "label": "DCFeedForwardLoadShare",           "value": "1 = activé" },
+      { "eep": 5602, "label": "System Not Redundant Alarm Enable", "value": "1 pour système redondant, 0 pour non redondant" },
+      { "eep": 5610, "label": "Min Required kVA",                 "value": "selon le site : nombre minimal d'UPM requis pour passer online" },
+      { "eep": 5651, "label": "Par Sys O/L Enable",               "value": "1 pour système redondant, 0 pour non redondant" },
+      { "eep": 5652, "label": "Par Sys O/L Level",                "value": "toujours la puissance du système (sert aux barres du HMI)" },
+      { "eep": 5653, "label": "AutoID Disabled",                  "value": "1 (fonction non disponible)" }
+    ],
+    "caution": "Ne modifier un EEP que selon la procédure et le niveau d'accès Service ; consigner l'ancienne et la nouvelle valeur dans le rapport d'intervention."
+  },
+
+  "harness_retrofit": {
+    "_source": "Eaton Field Service Instruction 'Procedure for installing the parallel harness for 93PM', 14/12/2015, priorité D (informative, version DRAFT).",
+    "applies_to": "Unités à MBS interne : livrées sans harnais parallèle ; il faut le rétrofiter pour un usage en parallèle.",
+    "steps": [
+      "Retirer le capot de protection",
+      "Acheminer les fils du haut vers le côté gauche (vue de face) jusqu'à la MCU ; sur le cadre 200 kW seulement, l'ensemble MCU-STS est au milieu de l'unité, sur les autres cadres il est en bas",
+      "Raccorder les fils au connecteur parallèle situé au-dessus de la carte CSB",
+      "Raccorder la vis de terre et le connecteur parallèle au châssis",
+      "Raccorder l'autre extrémité des fils à la carte MCU, connecteurs CN303, CN304 et CN312"
+    ],
+    "status_note": "Le document est un brouillon avec photos ; références du kit de harnais non précisées."
+  },
+
+  "test_wiring_reference": {
+    "_source": "Schéma 'TEST_SYSTEM_WIRING_HPO_XParSys' (4 UPS), figure de test sans date.",
+    "connectors": [
+      { "ref": "CN5",   "role": "Entrées d'alarme bâtiment (CI_ALM5, retour) : statut du MOB de chaque UPS ; le signal doit être actif quand le MOB est fermé" },
+      { "ref": "CN7",   "role": "EPO (EPO_A, GND_ISO, EPO_B) ; contact EPO normalement ouvert commun" },
+      { "ref": "CN303", "role": "Pull chain externe (EXT_PULLCHAIN_BUS, GND_S) ; normalement fermée ; la pull chain d'une UPS dont le MOB est ouvert doit être séparée de celle des autres" },
+      { "ref": "CN304", "role": "Bus CAN externe : CANBH, CANBL, GND(ISP), EARTH" },
+      { "ref": "CN312", "role": "Terminaison CAN : boucle entre CANBL_1 et CANBL sur la première et la dernière UPS seulement" }
+    ],
+    "consistency_note": "Les désignations de connecteurs (CN303/304/312 sur la carte MCU) diffèrent de la numérotation par bornes 1-9 du service manual §6.3.2 ; probable différence de génération ou d'interface. À rapprocher des figures du service manual avant câblage."
+  },
+
+  "documents_not_for_93pm": [
+    { "file": "Paraller coordinator 93PM - By 9305.pdf", "finding": "La page est une figure du guide utilisateur d'une UPS 20-40 kVA 230/400 V (réf. 1025358 rev D, figure 24 : coordinateur de parallèle SPM-30-4 / SPM-40-4 avec 4 UPS). Ce n'est pas du 93PM malgré le nom du fichier. Ne pas utiliser pour le câblage du 93PM." }
+  ],
+
+  "diagnosis_entry_points": [
+    { "symptom": "Les UPS ne passent pas ensemble sur bypass ou online", "check_first": ["Check Pull Chain (UPM:82, MCU:235)", "Contacts auxiliaires MOB", "External CAN Bus Failed (MCU:265)"] },
+    { "symptom": "Partage de charge anormal", "check_first": ["Nombre d'UPM disponibles (MCU:271, 323)", "Perte de sync (UPM:79)", "Surcharge UPM (UPM:27-38)"] },
+    { "symptom": "Alarme de configuration en parallèle", "check_first": ["Numéros d'UPS dupliqués (UPM:53 bit 0x08, MCU:239 bit 0x80)", "Parameter Match Failed (MCU:316)", "Puissances différentes (MCU:239 bit 0x8000)"] },
+    { "symptom": "Un module est retiré du système", "check_first": ["UPM Selective Trip (UPM:51)", "Journal service de l'UPM concerné"] }
+  ]
+}
+

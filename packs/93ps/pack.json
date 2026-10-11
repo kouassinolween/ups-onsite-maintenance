@@ -1,0 +1,33 @@
+{
+  "pack_format": "1.0",
+  "pack_id": "eaton-93ps",
+  "pack_version": "0.1.0-phase0",
+  "status": "draft",
+  "vendor": "Eaton",
+  "family": "93PS",
+  "label": "Eaton 91PS/93PS (monobloc 8-10 kVA et modulaire)",
+  "extends": "eaton-93pm",
+  "extends_note": "Le manuel d'alarmes décrit la plateforme modulaire 91PS/93PS/93PM dans une seule section (UPM 0-134, MCU 192-393, CSB 384-485) : le catalogue modulaire du pack eaton-93pm s'applique tel quel aux 91PS/93PS modulaires. Ce pack ajoute le catalogue monobloc.",
+  "event_key": ["family", "source", "id"],
+  "event_key_note": "En monobloc, les identifiants CSB (192-280) recouvrent la plage MCU du modulaire. Un événement se désigne par (famille, source, id).",
+  "architecture": {
+    "monoblock": {
+      "description": "Une seule unité (pas de MCU séparée) : UPM 0-138 et CSB 192-280.",
+      "component_types": [
+        { "type": "UPM", "event_range": "0-138" },
+        { "type": "CSB", "event_range": "192-280" }
+      ],
+      "system_types_seen_in_manual": ["3:3", "3:1", "1:1"]
+    },
+    "modular": { "inherits": "eaton-93pm" }
+  },
+  "sources": [
+    { "file": "Alarms_Manual_For_Eaton_Rev03.pdf", "ref": "P-164000681 rev 003 (2023), section 3", "used_for": "alarms.monoblock.json" }
+  ],
+  "gaps": [
+    "Aucune documentation 93PS (installation, service, pièces) n'est présente dans le dossier : seuls les événements sont couverts.",
+    "Gammes de puissance 93PS modulaires non confirmées par les sources lues.",
+    "Hot swap : plusieurs événements UPM (110-112) sont décrits comme 'pour le hot swap 93PS' ; leur application exacte au parc reste à vérifier."
+  ],
+  "contents": ["alarms.monoblock.json"]
+}

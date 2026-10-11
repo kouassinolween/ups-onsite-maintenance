@@ -1,0 +1,101 @@
+{
+  "_source": "Service manual P-164000219 Rev B02, §4.3.11 (gestion avancée de batterie) et §4.3.7 ; manuel d'alarmes P-164000681 rev 003. Reformulé, texte non recopié.",
+  "_status": "BROUILLON À VALIDER. Les paramètres du tableau 4.30 du manuel sont donnés comme EXEMPLE (216 éléments, 4 strings) : ils dépendent de la batterie installée et des réglages EEPROM du site.",
+  "_scope": "Batteries plomb étanches VRLA. Autres chimies : ABM désactivable, charge à tension constante, diagnostics désactivés.",
+
+  "purpose": "Prolonger la durée de vie des batteries VRLA en veille.",
+  "cycle": {
+    "length": "environ 30 jours",
+    "phases": [
+      "Charge à courant constant jusqu'à la tension de floating",
+      "Floating 48 h une fois la tension atteinte",
+      "Repos 28 jours batterie déconnectée (circuit ouvert)"
+    ]
+  },
+
+  "terms": {
+    "OCV": "Tension à vide (batterie ni en charge ni en décharge ; valide après 30 min minimum de circuit ouvert)",
+    "SOC": "État de charge (0 = déchargée, 1 = pleine)",
+    "SOH": "État de santé : capacité courante / capacité nominale ; 80 % = fin de vie en floating, remplacement requis",
+    "ETB": "Transfert d'urgence sur bypass"
+  },
+
+  "states": [
+    { "id": "reset", "label": "ABM Reset", "charger": "off", "event": "UPM:91 ABM State Reset",
+      "enter": "État par défaut", "exit_to_charge": ["Réseau présent, redresseur normal ou suspendu", "Batteries connectées, relais batterie fermé", "Aucune alarme n'interdisant la charge"] },
+    { "id": "charge", "label": "ABM Charge", "charger": "on, courant constant", "event": "UPM:88 ABM State Charging",
+      "to_float": "Tension batterie ≥ tension de floating ABM (ou de floating constant si ABM désactivé)",
+      "to_reset": ["Réseau absent ou redresseur pas normal/suspendu hors batterie", "Batteries déconnectées / relais ouvert", "Alarme interdisant la charge"],
+      "to_discharging": "Bus DC sous la limite de décharge" },
+    { "id": "float", "label": "ABM Float", "charger": "on, tension constante", "event": "UPM:89 ABM State Floating",
+      "to_rest": "Temps de floating total > durée de floating et ABM non désactivé",
+      "to_reset": ["Réseau absent...", "Batteries déconnectées...", "Alarme interdisant la charge", "Temps cumulé sur batterie > limite : nouveau cycle ABM"],
+      "to_discharging": "Bus DC sous la limite de décharge" },
+    { "id": "rest", "label": "ABM Rest", "charger": "off", "event": "UPM:90 ABM State Resting",
+      "note": "Batterie considérée à 100 % ; SOC toujours affiché 100 % ; l'OCV n'est surveillée qu'après 30 min.",
+      "to_reset": ["Temps de repos ≥ maximum", "OCV < tension minimale de repos", "Temps cumulé sur batterie > limite", "Réseau absent...", "Batteries déconnectées..."],
+      "to_discharging": "Bus DC sous la limite de décharge" },
+    { "id": "discharging", "label": "ABM Discharging", "note": "Mémorise l'état précédent et y revient à la fin de la décharge ; incrémente le temps cumulé sur batterie." }
+  ],
+
+  "charging_inhibited_by": [
+    "UPM_NB_REMOTE_EMERGENCY_POWER_OFF", "UPM_NB_INVERTER_OVERTEMPERATURE", "UPM_NB_OUTPUT_OVERLOAD", "UPM_NB_BATTERY_CURRENT_LIMIT",
+    "UPM_NB_BATTERY_DC_OVER_VOLTAGE", "UPM_NB_POWER_SUPPLY_FAILURE", "UPM_NB_BATTERIES_DISCONNECTED", "UPM_NB_RECTIFIER_OVERTEMPERATURE",
+    "UPM_NB_BATTERY_TEST_IN_PROGRESS", "UPM_NB_CHARGER_OFF_COMMAND", "UPM_NB_BATTERY_CONTACTOR_OPEN"
+  ],
+
+  "reference_parameters_example": {
+    "_note": "Valeurs d'exemple du manuel (tableau 4.30). Ne pas utiliser comme réglage de site.",
+    "cells_per_string": { "value": 216, "unit": "éléments", "configurable": true },
+    "strings": { "value": 4, "configurable": true },
+    "max_charge_current": { "value": "12 A (120 en 0,1 A)", "configurable": true },
+    "abm_float_voltage": { "value": 2310, "unit": "mV/élément", "configurable": true },
+    "constant_float_voltage_abm_off": { "value": 2280, "unit": "mV/élément", "configurable": true },
+    "rest_min_voltage": { "value": 2100, "unit": "mV/élément", "configurable": false },
+    "charge_time_max": { "value": 1440, "unit": "min", "configurable": false },
+    "float_time": { "value": 48, "unit": "h", "configurable": false },
+    "max_rest_time": { "value": 672, "unit": "h", "configurable": false },
+    "max_discharge_time_to_restart_cycle": { "value": 15, "unit": "s", "configurable": false },
+    "rest_fail_time": { "value": 240, "unit": "h", "configurable": false },
+    "low_rate_test_threshold": { "value": 1833, "unit": "mV/élément", "configurable": false },
+    "high_rate_test_threshold": { "value": 1810, "unit": "mV/élément", "configurable": false }
+  },
+
+  "temperature_compensation": "Non utilisée sur les 93PM à batteries VRLA (capteur ambiant non calibré, situé dans l'électronique) ; option possible pour d'autres chimies avec capteur externe calibré.",
+
+  "automatic_abm_disable": "Pour les sites à coupures fréquentes : ABM désactivé si 3 cycles consécutifs sont interrompus dans les 2 semaines suivant le début du floating (paramètres configurables).",
+
+  "diagnostics": {
+    "battery_needs_service": {
+      "event": "UPM:26 Service Battery", "type": "sticky_alarm (mémorisée en EEPROM)",
+      "meaning": "Défaillance batterie imminente, remplacement requis ; ne s'efface que par l'action 'Quit alarms' du HMI.",
+      "triggers": ["OCV sous la tension minimale en moins du temps de surveillance du repos", "Tension de floating non atteinte dans le temps de charge maximal"],
+      "note": "Un test réussi n'efface PAS cette alarme."
+    },
+    "battery_test_failed": {
+      "event": "UPM:46 Battery Test Failed", "type": "sticky_alarm, non conservée après redémarrage processeur",
+      "meaning": "Performance dégradée, remplacement à prévoir bientôt ; s'efface à la réussite d'un test batterie ou par 'Quit alarms'."
+    },
+    "discharge_test": {
+      "preconditions": "Batteries chargées à 100 % avant la décharge (état précédent = repos).",
+      "method": "Surveillance de la tension sur les premiers 25 % de l'autonomie prévue au niveau de charge courant ; abandon si la charge varie de plus de 10 %.",
+      "threshold_rule": "Autonomie prévue > 15 min : seuil bas régime ; sinon seuil haut régime.",
+      "example_from_manual": "Autonomie prévue 10 min, 25 W/élément → seuil haut régime 1,810 V/élément, surveillance 2,5 min."
+    },
+    "ocv_monitoring": "En repos, hors des 30 premières minutes.",
+    "charge_failure_test": "En état Charge : tension de floating non atteinte dans le temps maximal."
+  },
+
+  "related_events": {
+    "states": ["UPM:88", "UPM:89", "UPM:90", "UPM:91", "MCU:230 ABM Installed", "MCU:231 ABM Enable", "MCU:232 ABM Active", "MCU:339 ABM State Changed"],
+    "alarms": ["UPM:15 Low Battery Warning", "UPM:19 Battery DC Over Voltage", "UPM:26 Service Battery", "UPM:43 Low Battery Shutdown", "UPM:46 Battery Test Failed", "UPM:50 Batteries Disconnected", "UPM:84 Charger Failed", "UPM:92 Battery Over Temperature", "UPM:107 Battery DC UV Trip Imminent", "MCU:343 Battery Rest Time Failure", "MCU:332 Check Battery Ambient Temperature", "CSB:472 Battery Replacement Due"],
+    "commands": ["CSB:438 Battery Test Command", "CSB:439 Battery Test Cancel Command", "CSB:447/448 Disable/Enable ABM Command", "CSB:470/471 Start/Stop Boost Charge Command"]
+  },
+
+  "field_checklist_hints": [
+    "Relever l'état ABM courant (Charge/Float/Rest) avant de conclure sur une tension batterie",
+    "Ne pas interpréter une tension en Rest comme une tension de floating",
+    "Après un remplacement de batterie : vérifier configuration batterie (nombre d'éléments, strings) : 0x800 et 0x4000 de UPM:53 signalent une configuration batterie à faire",
+    "Après un test batterie réussi, vérifier que 'Service Battery' (UPM:26) n'est pas toujours active : seule l'action HMI l'efface"
+  ]
+}

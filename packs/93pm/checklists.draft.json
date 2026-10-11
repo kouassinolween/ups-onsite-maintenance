@@ -1,0 +1,48 @@
+{
+  "_status": "BROUILLON À VALIDER v0.2. Étapes dérivées du manuel d'alarmes et des sections 1.8, 8.2 et 8.3 du service manual P-164000219 Rev B02 (reformulées, non recopiées). IMPORTANT : le service manual indique (SM §11.2) que la procédure de maintenance préventive officielle est un DOCUMENT SÉPARÉ (site de support technique Eaton) et que la maintenance batterie a son propre manuel : ils ne sont pas dans le dossier et la checklist ci-dessous ne les remplace pas. Couples de serrage, temps de décharge et valeurs de réglage ne sont volontairement pas renseignés.",
+  "checklists": [
+    {
+      "id": "93pm-preventive-v0",
+      "type": "preventive",
+      "title": "Maintenance préventive 93PM (squelette)",
+      "validated": false,
+      "sections": [
+        { "title": "Préparation et sécurité (SM §8.2, formulation AFTELYA)", "items": [
+          { "id": "s0", "text": "Habilitation électrique valide, EPI portés (le manuel exige des EPI adaptés ; niveau 2 US pour la déconnexion batterie) ; personnel autorisé et formé", "source": "SM §1.8, §8.2" },
+          { "id": "s1", "text": "Informer le client que la charge sera sécurisée ou transférée ; relire schémas et procédures du site avant tout changement d'état", "source": "SM §8.2.1" },
+          { "id": "s2", "text": "Ordre général : transférer l'UPS sur bypass → transférer la charge sur bypass de maintenance interne/externe → arrêter l'UPS → consigner les disjoncteurs", "source": "SM §8.2.1 (ordre exact à confirmer avec le schéma du site)" },
+          { "id": "s3", "text": "Ouvrir les disjoncteurs batterie ou déconnecter les batteries", "source": "SM §8.2.1 ; WARNING batteries §1.8.4" },
+          { "id": "s4", "text": "Vérifier l'absence de tension et d'énergie stockée avec un multimètre en état de marche : entrées, sorties, batterie, bus DC, toute borne accessible", "source": "SM §8.2.1 — ne pas présumer l'état électrique", "evidence": "mesures notées" },
+          { "id": "s5", "text": "Attention : charge sur bypass de maintenance = tension de neutre possible", "source": "SM §8.2 WARNING" }
+        ]},
+        { "title": "Avant intervention", "items": [
+          { "id": "p1", "text": "Relever les alarmes actives et le journal (Active Events, System Log, Service Log)", "evidence": "photo HMI", "source": "HMI screens ActiveEvents/SystemLog/ServiceLog" },
+          { "id": "p2", "text": "Relever la version firmware HMI/ROM et l'état des rappels de service", "input": "text", "source": "Alarms manual 2.3.5 (events 428, 472, 473, 474-476)" }
+        ]},
+        { "title": "Mesures", "items": [
+          { "id": "m1", "text": "Tensions et fréquence d'entrée", "input": "measure", "fields": ["V12","V23","V31","Hz"], "limit_hint": "Input UV 196 V / OV 276 V (défauts 400 V, UPM events 2-3)" },
+          { "id": "m2", "text": "Tensions et fréquence bypass", "input": "measure", "fields": ["V12","V23","V31","Hz"], "limit_hint": "±10 % de la tension, ±4 Hz (MCU events 192-194)" },
+          { "id": "m3", "text": "Tensions de sortie et charge par phase", "input": "measure", "fields": ["V","kW","kVA","%"] },
+          { "id": "m4", "text": "Tension batterie et température", "input": "measure", "limit_hint": "Seuils température batterie 74 °C / trip 75 °C (UPM events 92-93)" }
+        ]},
+        { "title": "Contrôles", "items": [
+          { "id": "c1", "text": "Ventilateurs : absence d'alarme Fan Failed / Fan Speed Error, bruit et débit", "source": "UPM events 48, 123 ; MCU 288, 304, 305, 337" },
+          { "id": "c2", "text": "Condensateurs / ventilateurs : date de rappel de remplacement", "source": "CSB event 473" },
+          { "id": "c3", "text": "Batterie : date de remplacement prévue, résultat du dernier test", "source": "CSB event 472 ; UPM events 26, 46" },
+          { "id": "c4", "text": "Test batterie (commande Start Battery Test depuis le HMI), noter le résultat", "source": "MCU event 294 commande 10 ; UPM 46, 60" },
+          { "id": "c5", "text": "Alarmes de câblage site (neutre-terre) absentes", "source": "UPM 49 / MCU 264, 284" }
+        ]},
+        { "title": "Remise en service (SM §8.3)", "items": [
+          { "id": "r1", "text": "Inspecter : connexions desserrées, outils ou pièces oubliés, problèmes mécaniques", "source": "SM §8.3" },
+          { "id": "r2", "text": "Reconnecter les batteries ou fermer les disjoncteurs batterie", "source": "SM §8.3" },
+          { "id": "r3", "text": "Tester chaque mode de fonctionnement ; vérifier calibration, firmware et paramètres", "source": "SM §8.3" },
+          { "id": "r4", "text": "Informer le client, coordonner les transferts online selon schémas et procédures locales", "source": "SM §8.3" }
+        ]},
+        { "title": "Clôture", "items": [
+          { "id": "e1", "text": "Réarmer ou reprogrammer les rappels de maintenance si requis", "source": "CSB events 421, 474-476" },
+          { "id": "e2", "text": "Appliquer le protocole HSE de fin d'intervention (21 points)", "ref": "protocole HSE AFTELYA" }
+        ]}
+      ]
+    }
+  ]
+}

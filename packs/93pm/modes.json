@@ -1,0 +1,108 @@
+﻿{
+  "_source": "Service manual P-164000219 Rev B02, §2.5, §4.3.4 à §4.3.10, §4.3.14 ; manuel d'alarmes P-164000681 rev 003. Reformulé, texte non recopié.",
+  "_status": "BROUILLON À VALIDER. Les états machine détaillés (tableau 4.8 du manuel) ne sont pas encore repris : seuls les modes d'exploitation et les événements qui les signalent.",
+
+  "operating_modes": [
+    {
+      "id": "shutdown",
+      "label": "Arrêt (Shutdown)",
+      "summary": "Alimentation logique présente, HMI opérationnel, relais d'entrée et de sortie ouverts, mais des tensions dangereuses subsistent (entrées redresseur et bypass sous tension, bus de sortie possiblement sous tension en parallèle).",
+      "safety": [
+        "Ouvrir le disjoncteur batterie (batteries internes ou armoire IBC) avant de retirer un panneau de protection",
+        "Pour hors-tension du circuit batterie : couper le chargeur depuis le HMI puis ouvrir le disjoncteur batterie",
+        "Commande 'Load Off' : le redresseur, le bus DC et le chargeur peuvent rester sous tension"
+      ],
+      "typical_use": "Mise à jour firmware et configuration",
+      "events": ["MCU:212 UPS Shutdown", "MCU:273 UPS System Off", "MCU:297 Load Power Off (arrêt anormal)"],
+      "source": "SM §2.5.1"
+    },
+    {
+      "id": "startup",
+      "label": "Démarrage",
+      "summary": "Commande HMI, redémarrage auto ou commande d'une unité parallèle. Vérification du sens des phases et des caractéristiques d'entrée, précharge du bus DC avant démarrage du redresseur, fermeture du relais redresseur, puis démarrage de l'onduleur et des convertisseurs batterie une fois le bus stable.",
+      "events": ["MCU:293 UPS Starting", "UPM:54 Precharge Failed", "UPM:66 Rectifier Startup Failure", "UPM:76 Inverter Startup Failure", "UPM:108 Battery Startup Failure", "MCU:263 Automatic Start Up Pending"],
+      "source": "SM §2.5.2"
+    },
+    {
+      "id": "online",
+      "label": "Normal / online (double conversion)",
+      "summary": "Le redresseur convertit l'alternatif en continu pour l'onduleur et le convertisseur batterie ; l'onduleur produit la sortie triphasée en PWM, relais onduleur fermé. Le relais d'équilibrage ne sert qu'en mode batterie.",
+      "events": ["MCU:214 UPS System Online", "UPM:59 UPM On Normal", "MCU:262 On Line LED Is Lit"],
+      "source": "SM §2.5.3"
+    },
+    {
+      "id": "battery",
+      "label": "Batterie",
+      "summary": "La batterie alimente le bus via le convertisseur batterie, relais batterie fermé. Si redresseur et bypass sont indisponibles, l'appareillage bypass s'ouvre (protection contre le retour sur un SCR en court-circuit). Le relais d'équilibrage relie la branche A du redresseur au neutre pour équilibrer les demi-bus. Quand la tension baisse, alarmes de décharge, transfert sur bypass si disponible, puis arrêt.",
+      "events": ["MCU:215 UPS On Battery", "UPM:58 UPM On Battery", "UPM:15 Low Battery Warning", "UPM:43 Low Battery Shutdown", "UPM:107 Battery DC UV Trip Imminent", "MCU:260 On Battery LED Is Lit"],
+      "source": "SM §2.5.4"
+    },
+    {
+      "id": "battery_test",
+      "label": "Test batterie",
+      "summary": "Utilise la charge client pour tester les batteries. Au démarrage, test à 50 % et 100 % de la charge disponible, et, si le retour est permis, à 20 % et 50 % de la capacité nominale batterie. Ces tests fixent la référence des tests futurs.",
+      "events": ["UPM:60 Battery Test In Progress", "UPM:46 Battery Test Failed", "CSB:460 Battery Test Aborted", "CSB:438 Battery Test Command"],
+      "source": "SM §2.5.5"
+    },
+    {
+      "id": "power_share",
+      "label": "Partage de puissance (Power Share)",
+      "summary": "Redresseur et convertisseur batterie alimentent ensemble l'onduleur quand la tension d'entrée est basse. Aucune alarme n'est affichée ; les LED Normal et Batterie sont toutes deux allumées et 'UPS On Battery' est actif.",
+      "thresholds": "Capacité de charge réduite dès 1,7 % sous la tension nominale à pleine charge ; de 15 % à 50 % sous la tension nominale, redresseur et batterie contribuent tous deux.",
+      "events": ["MCU:215 UPS On Battery (statut, sans alarme)", "UPM:3 Input AC Under Voltage"],
+      "source": "SM §2.5.6"
+    },
+    {
+      "id": "bypass",
+      "label": "Bypass",
+      "summary": "Le réseau est transmis à la charge par l'appareillage bypass et les SCR, avec un filtrage minimal. Transfert possible sur commande utilisateur, d'une unité parallèle, d'une alarme bâtiment ou si la sortie onduleur sort des limites. Le circuit bypass reste capable de supporter la charge même si le DSP est en défaut ; transfert possible avec coupure (break-before-make) si les formes d'onde ne sont pas synchronisées.",
+      "events": ["MCU:211 UPS On Bypass", "MCU:202 Bypass Not Available", "MCU:241 Emergency Transfer To Bypass", "MCU:261 On Bypass LED Is Lit"],
+      "source": "SM §2.5.7"
+    }
+  ],
+
+  "high_efficiency_modes": [
+    { "id": "ess", "label": "ESS (Energy Saver System)", "events": ["MCU:213 ESS Active", "MCU:225/226 ESS Installed/Enabled", "MCU:307 ESS Not Available", "MCU:205 Exit ESS Mode"], "note": "Mode économique en suspension de l'UPM ; non autorisé en cas de site wiring fault." },
+    { "id": "vmms", "label": "VMMS (Variable Module Management System)", "events": ["MCU:227-229 VMMS Installed/Enabled/Active", "MCU:256 VMMS Not Available"] },
+    { "id": "hrs", "label": "HRS", "events": ["MCU:281-283 HRS Installed/Enabled/Active"] },
+    { "id": "ect", "label": "ECT (Easy Capacity Test)", "events": ["MCU:259 System Test In Progress", "MCU:306 UPS Exit ECT Process", "UPM:87 UPM on ECT", "UPM:80 Exit ECT mode abnormally"], "note": "Test de capacité sans charge réelle ; commandes CSB:454/455 Start/Stop ECT." }
+  ],
+
+  "machine_states": {
+    "system_level": ["Initialization", "Shutdown", "Standby", "Online", "Bypass", "ESS", "ECT"],
+    "upm_level": ["Initialization", "Shutdown", "Standby", "Online", "Suspend", "ECT"],
+    "note": "Chaque MCU détermine l'état système de façon indépendante et le diffuse aux autres. La MCU commande périodiquement les UPM ; un UPM qui ne peut pas suivre reste dans l'état précédent et une alarme explique pourquoi. Voir SM §4.3.4 et §4.3.5.",
+    "events": ["MCU:384 MCU State Changed", "UPM:128 Private UPM state changed"]
+  },
+
+  "bypass_availability": {
+    "unavailable_conditions": ["Rotation des phases bypass", "Sous-tension bypass", "Surtension bypass", "Fréquence bypass hors limites", "Défaut de l'interrupteur statique", "Site wiring fault (neutre mal connecté)"],
+    "events": ["MCU:192-194", "MCU:201", "MCU:202", "UPM:49 / MCU:264, 284"],
+    "source": "SM §4.3.10.2, §4.3.15"
+  },
+
+  "site_wiring_fault": {
+    "activation": "Tension châssis-neutre > 15 V (valeur configurable en EEPROM) et option de désactivation non activée.",
+    "deactivation": "Tension < 66 % du seuil actif, avec temporisation de 3 minutes ; non détectable en mode batterie.",
+    "consequences": ["Bypass indisponible, transfert interdit", "Charge coupée si sur bypass et transfert onduleur impossible", "ESS interdit", "Pas de synchronisation de l'onduleur sur bypass ni réseau"],
+    "limit": "Détection non totalement fiable : une charge déséquilibrée avec un partage parfait peut masquer le défaut jusqu'au transfert sur bypass.",
+    "source": "SM §4.3.15"
+  },
+
+  "fan_behavior": {
+    "upm_fans": "Actifs dès qu'un convertisseur est actif ; éteints en arrêt, en ESS chargeur coupé et en VMMS suspendu.",
+    "mcu_fans": "Actifs quand la charge est sur onduleur ou sur bypass.",
+    "speed": "Pleine vitesse ou arrêt (vitesses intermédiaires à déterminer, d'après la révision B02).",
+    "failure_detection": "Signal matériel actif pendant 0,8 s",
+    "upm_fault_effect": "Alarme seule ; transfert sur bypass si la surtempérature du module est atteinte sans UPM redondant.",
+    "mcu_fault_effect": "Alarme et inhibition d'ESS ; la charge reste alimentée sur bypass mais l'interrupteur statique peut être endommagé.",
+    "source": "SM §4.3.19"
+  },
+
+  "access_levels": {
+    "levels": ["Contrôle (niveau 1)", "Configuration (niveau 2)", "Service (niveau 3)"],
+    "note": "Chaque niveau est protégé par mot de passe. Les mots de passe par défaut figurent dans le manuel et NE sont PAS reproduits dans ce pack (SM §4.4).",
+    "events": ["CSB:481 User Log-in Successful (1/2/3)"]
+  }
+}
+

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Tests décodeur</title>
+<style>body{font:15px system-ui;margin:1rem}.ok{color:#1a7f37}.ko{color:#b3261e;font-weight:700}</style></head>
+<body><h1>Tests du décodeur</h1><pre id="out"></pre>
+<script type="module">
+import { decode, parseCode, enumKeyMatches, defaultBase, combine, listBits } from './js/decoder.js';
+import { parseDirect, search } from './js/catalog.js';
+
+const out = document.getElementById('out');
+let fail = 0, total = 0;
+function t(name, got, want) {
+  total++;
+  const g = JSON.stringify(got), w = JSON.stringify(want);
+  const ok = g === w;
+  if (!ok) fail++;
+  out.insertAdjacentHTML('beforeend', `<span class="${ok ? 'ok' : 'ko'}">${ok ? 'OK ' : 'KO '}</span>${name}${ok ? '' : `\n     obtenu  ${g}\n     attendu ${w}`}\n`);
+}
+const labels = (r) => r.matches.map((m) => m.key);
+
+// --- saisie
+t('parseCode décimal', parseCode('12').value, 12);
+t('parseCode 0x', parseCode('0x0C').value, 12);
+t('parseCode hex sans préfixe en base hex', parseCode('0C', 'hex').value, 12);
+t('parseCode invalide', parseCode('12z').ok, false);
+t('parseCode vide', parseCode('  ').reason, 'empty');
+
+// --- bitfield (UPM 53 Configuration Error, clés hexadécimales)
+const cfg = { type: 'bitfield', bits: { '0x08': 'ups dupliquée', '0x10': 'downgrade', '0x800': 'batterie', '0x4000': 'cellules' } };
+t('base par défaut hex', defaultBase(cfg), 'hex');
+t('bits 0x808', labels(decode(cfg, '0x808')), ['0x08', '0x800']);
+t('bits 0x808 en base hex sans préfixe', labels(decode(cfg, '808', 'hex')), ['0x08', '0x800']);
+t('bits 2056 décimal', labels(decode(cfg, '2056', 'dec')), ['0x08', '0x800']);
+t('bit inconnu', decode(cfg, '0x20').status, 'unmatched');
+t('bit connu + inconnu', decode(cfg, '0x28').unknown, '0x20');
+t('code 0', decode(cfg, '0').zero, true);
+
+// --- bitfield décimal (UPM 26 Service Battery)
+const sb = { type: 'bitfield', bits: { '1': 'chute', '2': 'inversée', '4': '+ terre', '8': '- terre', '16': 'float', '32': 'inutilisé' } };
+t('Service Battery 12', labels(decode(sb, '12')), ['4', '8']);
+t('Service Battery défaut décimal', defaultBase(sb), 'dec');
+
+// --- bit spécial 0xffff (CSB 414)
+const comm = { type: 'bitfield', bits: { '0x01': 'MCU', '0x02': 'UPM 1', '0x04': 'UPM 2', '0xffff': 'aucune donnée CAN' } };
+t('0xffff valeur spéciale', labels(decode(comm, '0xffff')), ['0xffff']);
+t('0x06', labels(decode(comm, '0x06')), ['0x02', '0x04']);
+
+// --- énumération simple (UPM 4)
+const freq = { type: 'enum', values: { '1': 'sous-fréquence', '2': 'sur-fréquence' } };
+t('enum exact', labels(decode(freq, '2')), ['2']);
+t('enum absent', decode(freq, '5').status, 'unmatched');
+
+// --- énumération avec jokers (MCU 204 : 1xxx / 2xxx ; UPM 54 : x1, 24, 25 ; UPM 44 : 0x001x)
+const bf = { type: 'enum', values: { '1xxx': 'ne s\'est pas ouvert', '2xxx': 'ne s\'est pas fermé', '3xxx': 'alternée' } };
+t('1001 -> 1xxx', labels(decode(bf, '1001')), ['1xxx']);
+t('2012 -> 2xxx', labels(decode(bf, '2012')), ['2xxx']);
+t('012 -> aucun', decode(bf, '12').status, 'unmatched');
+const pre = { type: 'enum', values: { 'x1': 'pas de tension', 'x2': 'niveau cible', 'x3': 'référence', '24': 'appareillage', '25': 'défaut batterie' } };
+t('précharge 11', labels(decode(pre, '11')), ['x1']);
+t('précharge 22', labels(decode(pre, '22')), ['x2']);
+t('précharge 24 exact', labels(decode(pre, '24')), ['24']);
+const sw = { type: 'enum', values: { '0x001x': 'ID machine', '0x0020': 'PLD', '0x003x': 'révision' } };
+t('0x0013 -> 0x001x', labels(decode(sw, '0x0013')), ['0x001x']);
+t('0x0020 exact', labels(decode(sw, '0x0020')), ['0x0020']);
+t('0x0035 -> 0x003x', labels(decode(sw, '0x0035')), ['0x003x']);
+t('jokers hex : longueur', enumKeyMatches('0x00xx', { value: 0x0105 }), false);
+
+// --- phases
+const ph = { type: 'phases' };
+t('phases 12', decode(ph, '12').matches.length, 2);
+t('phases 123', decode(ph, '123').matches.length, 3);
+t('phases 14 invalide', decode(ph, '14').status, 'unmatched');
+t('phases 11 doublon', decode(ph, '11').status, 'unmatched');
+
+// --- none
+t('none', decode({ type: 'none' }, '').status, 'none');
+
+// --- liste de bits et combinaison
+t('listBits triés', listBits(cfg).map((b) => b.mask), [8, 16, 2048, 16384]);
+t('combine', combine([8, 2048]), 2056);
+
+// --- saisie directe
+t('direct UPM 53', parseDirect('UPM 53'), { source: 'UPM', id: 53, code: null });
+t('direct mcu:204 1001', parseDirect('mcu:204 1001'), { source: 'MCU', id: 204, code: '1001' });
+t('direct csb 414 0xFF', parseDirect('csb 414 0xFF'), { source: 'CSB', id: 414, code: '0xFF' });
+t('direct non reconnu', parseDirect('fan failed'), null);
+
+// --- recherche (jeu de données minimal)
+const ev = [
+  { catalog: 'modular', source: 'UPM', id: 48, name: 'Fan Failed', nameNorm: 'fan failed', haystack: 'fan failed ventilateur bloque upm 48', kind: 'alarm', target: 'user' },
+  { catalog: 'modular', source: 'MCU', id: 288, name: 'STS Fan Failed', nameNorm: 'sts fan failed', haystack: 'sts fan failed ventilateur interrupteur mcu 288', kind: 'alarm', target: 'user' },
+  { catalog: 'monoblock', source: 'UPM', id: 47, name: 'Fan Failed', nameNorm: 'fan failed', haystack: 'fan failed monobloc upm 47', kind: 'alarm', target: 'user' },
+];
+t('recherche "fan" famille modular', search(ev, 'fan', { catalog: 'modular' }).results.map((e) => e.id), [48, 288]);
+t('recherche accent "ventilateur" ', search(ev, 'ventilateur', { catalog: 'modular' }).results.length, 2);
+t('recherche id', search(ev, '288', { catalog: 'modular' }).results.map((e) => e.id), [288]);
+t('recherche directe', search(ev, 'MCU 288', { catalog: 'modular' }).results.map((e) => e.id), [288]);
+t('filtre catalogue', search(ev, 'fan', { catalog: 'monoblock' }).results.map((e) => e.id), [47]);
+
+out.insertAdjacentHTML('beforeend', `\n<b class="${fail ? 'ko' : 'ok'}">${total - fail}/${total} tests réussis</b>\n`);
+document.title = fail ? `ÉCHEC ${fail}` : `OK ${total}`;
+</script></body></html>
