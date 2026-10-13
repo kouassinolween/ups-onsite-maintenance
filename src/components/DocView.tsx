@@ -291,6 +291,7 @@ const PM_INTRO: Record<DocTab, string> = {
   options: 'Options du 93PM : cartes de connectivité MiniSlot, armoires et accessoires (service manual P-164000219 Rev B02, chapitre 5).',
   parts: '',
   parameters: '',
+  eeprom: "Guide de paramétrage de l'EEPROM pour toutes les gammes concernées (93T, 93E, 93PM, 93PS, 9E) : principes, outils, plages d'adresses, procédures, valeurs suggérées.",
   context: 'Contexte des alarmes du 93PS 8-40 kW (manuel de service HPO-1041857 rév. A). Le catalogue d\'événements du 93PS modulaire est celui de la famille « 93PM / 93PS modulaire » de l\'écran Alarmes.',
 };
 
@@ -329,7 +330,7 @@ function Doc93PMView({ tab }: { tab: DocTab }) {
 function OptionsView({ family, tab }: { family: DocFamily; tab: DocTab }) {
   const [items, setItems] = useState<{ family: DocFamily; docs: Awaited<ReturnType<typeof loadPmDoc>> } | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const name = family === '93pm' ? '93PM' : family === '93ps' ? '93PS' : '93T';
+  const name = family === '93pm' ? '93PM' : family === '93ps' ? '93PS' : family === 'eeprom' ? 'EEPROM' : '93T';
 
   useEffect(() => {
     let alive = true;
@@ -398,6 +399,6 @@ export function DocView({ route }: { route: DocRoute }) {
   if ((route.family === '93e' || route.family === '9e') && (route.tab === 'procedures' || route.tab === 'parts' || route.tab === 'parameters')) {
     return <PackView family={route.family} tab={route.tab} />;
   }
-  if (route.tab === 'options' || route.tab === 'context') return <OptionsView family={route.family} tab={route.tab} />;
+  if (route.tab === 'options' || route.tab === 'context' || route.tab === 'eeprom') return <OptionsView family={route.family} tab={route.tab} />;
   return route.family === '93pm' ? <Doc93PMView tab={route.tab} /> : <Doc93TView tab={route.tab} />;
 }

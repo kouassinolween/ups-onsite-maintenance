@@ -1,3 +1,5 @@
+import type { RepairData } from './repair';
+
 export type ErrorCodeType = 'none' | 'enum' | 'bitfield' | 'phases';
 
 export interface ErrorCode {
@@ -63,6 +65,8 @@ export interface CatalogData {
   kits: Kit[];
   /** Clé : même clé que l'événement (famille|source|id). */
   userAlarms: Record<string, UserAlarm>;
+  /** Pistes de réparation (packs/repair). */
+  repair: RepairData | null;
 }
 
 export interface DecodeMatch { key: string; label: string }

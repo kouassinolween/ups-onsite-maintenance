@@ -168,6 +168,16 @@ describe('packs réels', () => {
     }
     expect(read('93e/procedures.json').torque_values.length).toBeGreaterThan(40);
   });
+  it("guide EEPROM : toutes les gammes citées, plages cohérentes, aucun mot de passe", () => {
+    const g = read('eeprom/guide.json');
+    const text = JSON.stringify(g);
+    for (const range of ['93T', '93E', '93PM', '93PS', '9E']) expect(text, range).toContain(range);
+    expect(g.procedures.length).toBeGreaterThanOrEqual(8);
+    for (const p of g.procedures) expect(p.steps.length, p.label).toBeGreaterThan(0);
+    const r = g.address_ranges.ranges_300_400 as { start: number; end: number; base: number }[];
+    for (const x of r) expect(x.end - x.start).toBe(4999);
+    expect(text).not.toMatch(/(01010101|1212|1111)/);
+  });
   it("93PM : niveaux d'accès sans aucun mot de passe par défaut", () => {
     const acc = read('93pm/access.json');
     expect(acc.levels).toHaveLength(3);

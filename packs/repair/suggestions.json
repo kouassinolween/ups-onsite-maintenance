@@ -1,0 +1,773 @@
+{
+  "_source": "Synthèse des manuels de service 93PM (Rev B02), 93T (rev 001), 93E (15-80 et 300-400 kVA), 93PS (HPO-1041857) et 9E (rev 1.0) : tableaux « possible cause / solution », procédures de dépannage, valeurs de contrôle et consignes de réparation, reformulés. Aucune table « alarme → pièce » n'existe dans ces manuels : ces pistes sont des suggestions de diagnostic, pas des affirmations.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Les catégories sont associées aux alarmes par mots-clés du libellé anglais ; une alarme peut recevoir plusieurs catégories. Ne jamais remplacer une pièce sur la seule foi d'une alarme : confirmer par mesure.",
+  "disclaimer": "Pistes de réparation suggérées à partir du libellé de l'alarme et des manuels de service. À confirmer par mesure et selon la procédure du constructeur ; elles ne remplacent ni la documentation officielle ni la procédure de sécurité du site.",
+  "safety": [
+    "Avant d'ouvrir l'unité : transférer ou sécuriser la charge (bypass de maintenance), arrêter l'UPS et consigner les disjoncteurs.",
+    "Vérifier l'absence de tension et d'énergie stockée au multimètre (bus DC et condensateurs compris) avant de toucher un composant.",
+    "Un fusible ouvert est presque toujours la conséquence d'une autre défaillance : chercher la cause avant de le remplacer."
+  ],
+  "general_process": {
+    "label": "Démarche générale en six étapes (si aucune piste ci-dessous ne s'applique)",
+    "steps": [
+      "Reconnaître le symptôme : interroger l'exploitant sur les conditions et la séquence ayant conduit à l'appel, vérifier le défaut par des contrôles de fonctionnement.",
+      "Préciser le symptôme : historique d'événements, voyants, mesures du HMI, code d'erreur de l'événement (outil de décodage de l'application).",
+      "Lister les modules ou fonctions pouvant expliquer le défaut.",
+      "Localiser le module ou la fonction en défaut avec le matériel de test adapté.",
+      "Localiser le circuit ou l'ensemble défectueux dans ce module.",
+      "Identifier le composant ou la carte défaillante et consigner les mesures."
+    ],
+    "source": "93PM §11.3.1, 93T §13.4.1, 93E §9.3.1"
+  },
+  "informational": {
+    "label": "Information d'état",
+    "text": "Cet événement décrit un état ou une commande de l'UPS et n'indique pas un défaut en soi. Aucune réparation n'est à envisager ; l'état sert à interpréter les autres événements du journal."
+  },
+  "categories": [
+    {
+      "id": "fan",
+      "label": "Ventilateur",
+      "keywords": [
+        "fan",
+        "ventilat",
+        "cool fan"
+      ],
+      "steps": [
+        "Observer les ventilateurs : un ventilateur arrêté, bloqué ou nettement plus lent que les autres est la cause la plus fréquente ; vérifier qu'aucun corps étranger ne bloque le rotor et que le connecteur est bien raccordé.",
+        "Le code d'erreur (champ de bits) désigne le ou les ventilateurs concernés lorsque l'événement en fournit un.",
+        "Si aucun ventilateur n'est arrêté : débrancher le connecteur d'alimentation de chaque ventilateur, un par un, pour voir lequel fait disparaître l'alarme.",
+        "Contrôle à l'établi (modèles 93E) : alimenter le ventilateur en 24 V c.c. et mesurer la broche « detect » (au centre) : plus de 5 V = ventilateur défaillant.",
+        "Vérifier la carte d'alimentation des ventilateurs si plusieurs ventilateurs sont signalés ensemble, puis remplacer le ventilateur défaillant par une pièce du même type."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Remplacement d'un ventilateur (93T)",
+            "tab": "procedures"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Ventilateurs UPM et d'extraction (93PM)",
+            "tab": "procedures"
+          }
+        ],
+        "93e": [
+          {
+            "label": "Ventilateurs et pièces (93E)",
+            "tab": "procedures"
+          },
+          {
+            "label": "Références des ventilateurs (93E)",
+            "tab": "parts"
+          }
+        ],
+        "9e": [
+          {
+            "label": "Références des ventilateurs (9E)",
+            "tab": "parts"
+          }
+        ]
+      },
+      "source": "93T tableau 34 ; 93E §9.3.2.2 ; 93PM §8.4.2, §4.3.19 ; 9E §6.1"
+    },
+    {
+      "id": "fuse",
+      "label": "Fusible",
+      "keywords": [
+        "fuse"
+      ],
+      "steps": [
+        "Le code d'erreur indique le fusible : redresseur (phases A/B/C), batterie (positif / négatif), onduleur (phases A/B/C) selon la gamme.",
+        "Vérifier le fusible au multimètre (0 Ω attendu) ; la détection est inhibée par phase si la tension d'entrée tombe sous 25 % de la nominale.",
+        "Ne pas remplacer le fusible seul : un fusible ouvert est presque toujours causé par la défaillance d'un autre composant (IGBT, SCR, diode, condensateur, chargeur). Contrôler le bloc de puissance et les cartes associées avant tout redémarrage.",
+        "Si un module de puissance est suspect, le contrôler hors tension aux valeurs de référence (diodes ≈ 0,3 V, résistances 100 à 110 kΩ sur les modules 93E).",
+        "Remplacer le fusible par une référence identique (voir la liste des pièces) après avoir trouvé et corrigé la cause."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Pièces 93T (fusibles bypass)",
+            "tab": "procedures"
+          }
+        ],
+        "93e": [
+          {
+            "label": "Contrôle des pièces sensibles (93E)",
+            "tab": "procedures"
+          },
+          {
+            "label": "Références des fusibles (93E)",
+            "tab": "parts"
+          }
+        ],
+        "9e": [
+          {
+            "label": "Fusibles à contrôler (9E)",
+            "tab": "parameters"
+          },
+          {
+            "label": "Références des fusibles (9E)",
+            "tab": "parts"
+          }
+        ]
+      },
+      "source": "93T UPM 52 ; 93E §9.3.2.1 ; 9E §8"
+    },
+    {
+      "id": "battery",
+      "label": "Batterie",
+      "keywords": [
+        "batter",
+        "charger",
+        "bat ",
+        "abm",
+        "discharg"
+      ],
+      "exclude": [
+        "battery switchgear",
+        "battery breaker",
+        "battery relay"
+      ],
+      "steps": [
+        "Vérifier que le disjoncteur batterie est fermé et que les batteries sont raccordées : « Batteries Disconnected » s'active quand la tension côté batterie du relais est inférieure à 150 V.",
+        "Contrôler la tension de chaque string et la configuration batterie (nombre d'éléments, strings, courant) : une configuration incorrecte (EEPROM) donne des alarmes de batterie ou de tension DC.",
+        "« Service Battery » (alarme mémorisée) : défaillance de batterie imminente ; vérifier l'OCV en repos, effectuer un test batterie, remplacer les éléments défaillants.",
+        "« Battery Test Failed » : tension passée sous le seuil dans le premier quart du temps de fonctionnement prévu ; refaire un test après charge complète, puis remplacer les batteries si l'échec persiste.",
+        "Surtension batterie (« Battery DC Over Voltage » : les capteurs ont détecté plus de 2,45 V par élément) : contacter le représentant de service.",
+        "Vérifier le chargeur (fusibles, MOSFET, diodes) si la batterie ne se charge pas ; contrôler l'absence de défaut de terre sur la batterie (la batterie ne doit pas être référencée à la terre)."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Configurer la batterie (EEPROM 93T)",
+            "family": "eeprom",
+            "tab": "eeprom"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Gestion avancée de batterie ABM (93PM)",
+            "tab": "modes"
+          }
+        ],
+        "93e": [
+          {
+            "label": "Configuration EEPROM (93E)",
+            "family": "eeprom",
+            "tab": "eeprom"
+          }
+        ],
+        "9e": [
+          {
+            "label": "Contrôle des chargeurs (9E)",
+            "tab": "parameters"
+          }
+        ]
+      },
+      "source": "93T tableau 34 et §7.2.13 ; 93PS tableau 91 ; 93PM abm ; 9E §8"
+    },
+    {
+      "id": "switchgear",
+      "label": "Disjoncteur / relais / contacteur",
+      "keywords": [
+        "switchgear",
+        "relay failed",
+        "contactor",
+        "breaker failed",
+        "backfeed",
+        "mob ",
+        "mob failure",
+        "balance",
+        "breaker",
+        "mbs closed"
+      ],
+      "steps": [
+        "Contrôler la position et l'état du disjoncteur, du relais ou du contacteur indiqué (collé ou qui ne ferme pas) et son câblage de commande.",
+        "Backfeed : mesurer la tension de part et d'autre du relais : le défaut est annulé sous 20 V d'écart ; le code d'erreur donne la ou les phases (ouverture / fermeture).",
+        "Relais d'entrée, d'onduleur ou de batterie : vérifier la bobine, les contacts auxiliaires et la carte pilote avant de remplacer le composant.",
+        "Remplacer la carte relais backfeed ou le contacteur par une pièce identique si le défaut est confirmé."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Remplacement carte backfeed / fusibles bypass (93T)",
+            "tab": "procedures"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Interrupteur statique et relais (93PM)",
+            "tab": "procedures"
+          }
+        ],
+        "93e": [
+          {
+            "label": "Remplacement des contacteurs (93E 300-400 kVA)",
+            "tab": "procedures"
+          }
+        ]
+      },
+      "source": "93T UPM 55 ; 93E §7.4.8 à §7.4.9 ; 93PM §4.3",
+      "exclude": [
+        "battery breaker open/",
+        "battery breaker open /"
+      ]
+    },
+    {
+      "id": "bypass",
+      "label": "Source bypass / interrupteur statique",
+      "keywords": [
+        "bypass",
+        "static switch",
+        "sts ",
+        "scr"
+      ],
+      "exclude": [
+        "on bypass",
+        "to bypass command",
+        "ups on bypass",
+        "led is lit",
+        "go to bypass",
+        "remote goto bypass"
+      ],
+      "steps": [
+        "Vérifier que l'interrupteur / disjoncteur bypass est fermé et que la source bypass est présente, dans les limites de tension et de fréquence (seuils en EEPROM, ±10 % de la tension nominale par défaut).",
+        "Contrôler l'ordre des phases du bypass (câblage) ; une rotation incorrecte interdit le transfert.",
+        "« Static Switch Failed / Short » : contrôler les SCR (diode / résistance) et la carte STS ; remplacer l'ensemble bypass si un SCR est en court-circuit.",
+        "Tant que la source bypass est indisponible, le transfert sur bypass est interdit : maintenir l'UPS en ligne et résoudre la cause avant tout transfert."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Modes de fonctionnement (93T)",
+            "tab": "modes"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Disponibilité du bypass (93PM)",
+            "tab": "modes"
+          },
+          {
+            "label": "Remplacement STSW (93PM)",
+            "tab": "procedures"
+          }
+        ],
+        "93e": [
+          {
+            "label": "Remplacement de l'ensemble bypass (93E 300-400 kVA)",
+            "tab": "procedures"
+          }
+        ]
+      },
+      "source": "93T tableau 34 (alarmes 2 et 29) ; 93E §7.4.11 ; 93PM §4.3.10"
+    },
+    {
+      "id": "input",
+      "label": "Source d'entrée / réseau",
+      "keywords": [
+        "input",
+        "utility",
+        "mains",
+        "line input",
+        "rectifier phase rotation",
+        "grid"
+      ],
+      "exclude": [
+        "input sync",
+        "building input",
+        "signal input",
+        "input contactor",
+        "input breaker"
+      ],
+      "steps": [
+        "Vérifier que l'interrupteur d'entrée (et le disjoncteur amont) est fermé et que le réseau est présent aux bornes.",
+        "Mesurer la tension et la fréquence d'entrée : comparer aux seuils réglés en EEPROM (limites haute et basse) ; l'événement peut n'être qu'un avis (aucune réponse de l'UPS).",
+        "Contrôler l'ordre des phases du redresseur et l'équilibre des trois tensions.",
+        "En cas d'effondrement de tension sur le réseau, l'UPS bascule sur batterie ou en partage de puissance ; attendre le retour du réseau avant d'intervenir.",
+        "Si la source est correcte, contrôler les fusibles et relais d'entrée du redresseur."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Modes batterie et power share (93T)",
+            "tab": "modes"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Modes de fonctionnement (93PM)",
+            "tab": "modes"
+          }
+        ]
+      },
+      "source": "93T tableau 34 (alarmes 5, 66) ; 93PM tableau 11.3"
+    },
+    {
+      "id": "output",
+      "label": "Sortie / charge",
+      "keywords": [
+        "output",
+        "short circuit",
+        "load power off",
+        "voltage abnormal",
+        "output fault"
+      ],
+      "exclude": [
+        "output hot",
+        "output sync",
+        "output overload",
+        "output over temperature",
+        "output breaker",
+        "output switch"
+      ],
+      "steps": [
+        "Contrôler l'interrupteur de sortie et que le bypass de maintenance n'est pas fermé (« Output Voltage Abnormal » : MBS fermé ou tension d'échantillon anormale).",
+        "Court-circuit de sortie : débrancher la charge, mesurer l'isolement et les phases en aval, puis contrôler les fusibles de sortie et la carte EMI de sortie.",
+        "Tension ou fréquence de sortie hors limites : vérifier les réglages de sortie en EEPROM (identiques sur toutes les UPS d'un parallèle).",
+        "Vérifier la synchronisation du bypass et du réseau avant de transférer."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Paramétrage de la sortie (EEPROM)",
+            "family": "eeprom",
+            "tab": "eeprom"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Tension de sortie anormale (93PS, contexte)",
+            "family": "93ps",
+            "tab": "context"
+          }
+        ]
+      },
+      "source": "93T tableau 34 (alarme 59) ; 93PS §13.1.1.4"
+    },
+    {
+      "id": "overload",
+      "label": "Surcharge",
+      "keywords": [
+        "overload",
+        "over load",
+        "over current",
+        "overcurrent",
+        "load share"
+      ],
+      "steps": [
+        "Mesurer le courant et la puissance par phase : comparer aux niveaux de surcharge (niveaux 1 à 4) de la gamme ; réduire la charge ou la répartir sur les phases.",
+        "Charge non linéaire de forte capacité : peut provoquer une surintensité onduleur ; analyser le courant crête et la charge réellement raccordée.",
+        "Surintensité redresseur / onduleur répétée : contrôler les IGBT, les drivers et les inductances (valeurs de diode 0,3 à 0,4 V), puis le bloc de puissance.",
+        "En parallèle, un défaut de partage de charge (écart supérieur à 20 % de la moyenne) demande une vérification des longueurs de câbles, des paramètres communs et du calibrage de partage."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Calibrage du partage de charge (EEPROM)",
+            "family": "eeprom",
+            "tab": "eeprom"
+          }
+        ],
+        "93ps": [
+          {
+            "label": "Niveaux de surcharge (93PS)",
+            "family": "93ps",
+            "tab": "context"
+          }
+        ],
+        "93e": [
+          {
+            "label": "Calibrage (93E)",
+            "tab": "procedures"
+          }
+        ]
+      },
+      "source": "93T tableau 34 (alarme 14) ; 93PS tableau 95 ; 93T §12.3"
+    },
+    {
+      "id": "temperature",
+      "label": "Température",
+      "keywords": [
+        "temperature",
+        "over temp",
+        "overtemp",
+        "thermal"
+      ],
+      "steps": [
+        "Vérifier la température ambiante et la ventilation de la salle (grilles dégagées, flux d'air non obstrué).",
+        "Nettoyer ou remplacer le filtre à air ; contrôler que tous les ventilateurs tournent (voir la piste « Ventilateur »).",
+        "Contrôler les dissipateurs (poussière) et la charge : une surcharge élève la température.",
+        "Une alarme de déclenchement (trip) arrête le convertisseur et peut transférer sur bypass : corriger la cause avant de redémarrer."
+      ],
+      "source": "93PM §4.3.19 ; 93E §9.4.1 ; 9E §6.1"
+    },
+    {
+      "id": "dc_link",
+      "label": "Bus DC / précharge / alimentation interne",
+      "keywords": [
+        "dc link",
+        "bus voltage",
+        "precharge",
+        "pre-charge",
+        "power supply",
+        "dc over",
+        "dc under",
+        "driver voltage"
+      ],
+      "steps": [
+        "Contrôler la tension du bus DC (DC link) après décharge sécurisée des condensateurs et les valeurs attendues (+350 à +390 V c.c. et -350 à -390 V c.c. sur le 9E ; tension nominale de la gamme sur les autres).",
+        "Échec de précharge : vérifier la tension d'entrée (effondrement), le circuit de précharge et les relais d'entrée ; la précharge exige 25 V puis une montée de 30 V au-dessus de la crête de phase en 20 s (93PS).",
+        "Défaut d'alimentation interne 5 V / 12 V / 15 V / 24 V : contrôler la carte d'alimentation (SPS) : résistances 1,35 Ω, diodes 1,17 V, MOSFET 0,45 à 0,47 V (valeurs 93E 300-400 kVA).",
+        "Condensateurs DC : contrôler l'absence de fuite ou de gonflement ; remplacement à 5 ans à 40 °C (échéancier 93E).",
+        "Remplacer la carte ou le module identifié si les mesures sont hors valeurs de référence."
+      ],
+      "links": {
+        "93e": [
+          {
+            "label": "Contrôle de la carte SPS et des modules (93E)",
+            "tab": "procedures"
+          },
+          {
+            "label": "Valeurs de référence (93E)",
+            "tab": "parameters"
+          }
+        ],
+        "9e": [
+          {
+            "label": "Tensions types et composants (9E)",
+            "tab": "parameters"
+          }
+        ],
+        "93ps": [
+          {
+            "label": "Séquence de précharge (93PS)",
+            "family": "93ps",
+            "tab": "context"
+          }
+        ]
+      },
+      "source": "93PS §13.1.1.5 ; 93E §9.3.2.3 ; 9E §8"
+    },
+    {
+      "id": "parallel",
+      "label": "Parallèle / CAN / pull chain / synchronisation",
+      "keywords": [
+        "parallel",
+        "can ",
+        "can bus",
+        "pull chain",
+        "sync",
+        "redundan",
+        "selective trip",
+        "mob "
+      ],
+      "steps": [
+        "Vérifier le câble CAN (raccordement, résistances de terminaison 120 Ω aux deux extrémités) et le câble de pull chain.",
+        "Contrôler le nombre d'UPS et l'identifiant de chaque UPS (EEPROM 5009 / 5003 sur 93T, 5008 / 5003 sur 93PM) : ils doivent être cohérents et uniques.",
+        "Vérifier que le firmware, le CTO (caractères 4 à 8) et les paramètres communs sont identiques sur toutes les UPS.",
+        "Perte de synchronisation : contrôler l'écart de tension de sortie entre unités (inférieur à 0,5 V), la source de synchro (bypass / entrée / base) et le signal externe éventuel.",
+        "Après correction, effacer les alarmes (Clear Alarms) sur une des UPS du système."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Parallèle 93T",
+            "tab": "parallel"
+          },
+          {
+            "label": "Configuration EEPROM du parallèle",
+            "family": "eeprom",
+            "tab": "eeprom"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Parallèle 93PM",
+            "tab": "parallel"
+          },
+          {
+            "label": "Configuration EEPROM du parallèle",
+            "family": "eeprom",
+            "tab": "eeprom"
+          }
+        ],
+        "9e": [
+          {
+            "label": "Dépannage du parallèle (9E)",
+            "tab": "procedures"
+          }
+        ]
+      },
+      "source": "93T §9.3.1.1 ; 93PM parallel ; 9E §9.4"
+    },
+    {
+      "id": "config",
+      "label": "Configuration / EEPROM / firmware",
+      "keywords": [
+        "configuration",
+        "eeprom",
+        "incompatible",
+        "invalid board",
+        "board id",
+        "software",
+        "firmware",
+        "parameter match",
+        "setup fail",
+        "setup failure",
+        "system type"
+      ],
+      "steps": [
+        "Vérifier la valeur CTO / kVA sur la CSB : elle doit correspondre à l'étiquette de l'unité.",
+        "Lire le code d'erreur : pour « Configuration Error », chaque bit désigne une cause (numéro d'UPS invalide, révision EEPROM, version PLD, configuration batterie requise…).",
+        "Vérifier que les versions firmware des UPM, de la MCU et de la CSB sont compatibles et identiques entre unités.",
+        "Si l'EEPROM est incohérente : sauvegarder le calibrage, réinitialiser l'EEPROM du bloc de puissance, puis restaurer (voir le guide EEPROM).",
+        "« Battery cell configuration required » : configurer les éléments batterie (EEPROM 5302 sur 93T)."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Guide EEPROM : réinitialisation et batterie",
+            "family": "eeprom",
+            "tab": "eeprom"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Programmation du firmware (93PM)",
+            "tab": "procedures"
+          },
+          {
+            "label": "Guide EEPROM",
+            "family": "eeprom",
+            "tab": "eeprom"
+          }
+        ],
+        "93e": [
+          {
+            "label": "Guide EEPROM",
+            "family": "eeprom",
+            "tab": "eeprom"
+          }
+        ]
+      },
+      "source": "93T tableau 34 (alarme 61) ; 93T §7.2.14 ; 93E annexe SOP ; 93PM §4.5"
+    },
+    {
+      "id": "epo_building",
+      "label": "Arrêt d'urgence / entrées bâtiment",
+      "keywords": [
+        "emergency power off",
+        "epo",
+        "building",
+        "build input",
+        "chimney",
+        "signal input",
+        "remote ups",
+        "remote load",
+        "remote go"
+      ],
+      "steps": [
+        "EPO : vérifier le circuit d'arrêt d'urgence (bouton, shunt) ; l'UPS coupe les convertisseurs et la charge immédiatement.",
+        "Entrées bâtiment : vérifier le câblage et la polarité NO / NC configurée, ainsi que la fonction associée à l'entrée.",
+        "Une entrée active mais non configurée ne donne qu'un avis générique : configurer ou débrancher l'entrée.",
+        "Après correction, remettre l'UPS en marche selon la procédure de démarrage."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Démarrage (93T)",
+            "tab": "modes"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Entrées bâtiment (93PM)",
+            "tab": "parallel"
+          }
+        ]
+      },
+      "source": "93T UPM 10, CSB 211-238 ; 93PM building inputs"
+    },
+    {
+      "id": "communication",
+      "label": "Communication CSB / UPM / MCU",
+      "keywords": [
+        "not responding",
+        "communicat",
+        "mcu not",
+        "upm not",
+        "csb"
+      ],
+      "steps": [
+        "Vérifier les nappes et câbles CAN entre CSB, MCU et UPM : « UPM Not Responding » apparaît quand aucun message n'est reçu depuis 4 secondes.",
+        "Contrôler les alimentations logiques et laisser l'unité démarrer (attendre 60 secondes à la mise sous tension).",
+        "Si le défaut persiste sur un seul UPM, le sortir et contrôler ses connecteurs ; remplacer la carte de commande ou d'interface si nécessaire."
+      ],
+      "source": "93E CSB 155 / MCU Not Responding ; 93PM CSB events"
+    },
+    {
+      "id": "transfers",
+      "label": "Transferts répétés / limitation ESS",
+      "keywords": [
+        "too many",
+        "ess",
+        "he not available",
+        "high efficiency",
+        "ect"
+      ],
+      "steps": [
+        "Trop de transferts onduleur / batterie : le système verrouille temporairement les transferts (ESS) ; attendre la fin du verrouillage (60 minutes par défaut) ou corriger la qualité du bypass.",
+        "Vérifier la qualité de la source bypass et la charge (courant de charge batterie supérieur au réglage, synchronisation).",
+        "Contrôler les réglages EEPROM associés (nombre de pannes, temps de réinitialisation, verrouillage ESS)."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Mode ESS (93T)",
+            "tab": "modes"
+          }
+        ]
+      },
+      "source": "93T §6.3 ; tableau 34 (alarme 131)"
+    },
+    {
+      "id": "power_stage",
+      "label": "Étage de puissance : redresseur, onduleur, bus DC",
+      "keywords": [
+        "inverter",
+        "rectifier",
+        "bus over",
+        "bus under",
+        "-bus",
+        "+bus",
+        "soft start",
+        "negative power",
+        "startup fail",
+        "start up fail",
+        "i2c",
+        "spi",
+        "hardware",
+        "ups fault",
+        "over charge",
+        "generic error"
+      ],
+      "steps": [
+        "Lire le code d'erreur de l'événement (phase concernée : 1 = A, 2 = B, 3 = C ; champ de bits pour les causes multiples) avec l'outil de décodage de l'application.",
+        "Vérifier les conditions externes avant le matériel : tension d'entrée et de bypass, charge (courant crête, charge non linéaire) et température.",
+        "Hors tension, après décharge des condensateurs : contrôler les semi-conducteurs du bloc concerné au multimètre : IGBT (chute de diode ≈ 0,38 V, côté CE infini), diodes ≈ 0,36 V, SCR 11 à 25 Ω (9E) ; sur les modules 93E, diode ≈ 0,3 V et résistance 100 à 110 kΩ.",
+        "Si des résistances de pied de gate sont hors valeur, le module driver IGBT correspondant est probablement endommagé : le remplacer avant de remettre sous tension.",
+        "Échec de démarrage (redresseur, onduleur, batterie) : vérifier la précharge, les relais, la pull chain en parallèle et les alarmes qui interdisent le démarrage ; consulter les écrans de documentation de la famille.",
+        "Défaut de bus de communication interne (I2C / SPI) : contrôler les connecteurs, les nappes et les cartes de commande / interface ; le code d'erreur indique le type d'erreur de bus.",
+        "Après remplacement d'un module ou d'une carte : vérifier les versions de firmware et calibrer si nécessaire."
+      ],
+      "links": {
+        "93t": [
+          {
+            "label": "Remplacement du bloc de puissance (93T)",
+            "tab": "procedures"
+          }
+        ],
+        "93pm": [
+          {
+            "label": "Remplacement des modules et cartes (93PM)",
+            "tab": "procedures"
+          }
+        ],
+        "93e": [
+          {
+            "label": "Modules de puissance et contrôles (93E)",
+            "tab": "procedures"
+          }
+        ],
+        "9e": [
+          {
+            "label": "Contrôles de composants par fonction (9E)",
+            "tab": "parameters"
+          }
+        ]
+      },
+      "source": "9E §8 ; 93E §9.3.2.1 ; 93PM §11.4 ; 93T §10.6.1"
+    },
+    {
+      "id": "site_wiring",
+      "label": "Câblage du site : terre / neutre",
+      "keywords": [
+        "site wiring",
+        "ground",
+        "neutral"
+      ],
+      "steps": [
+        "Contrôler les conducteurs de terre et de neutre : tension châssis / neutre excessive (seuil réglé en EEPROM) ou inversion phase / neutre, terre non raccordée (9E).",
+        "Vérifier que le neutre de sortie n'est pas relié à la terre au niveau du module de sortie.",
+        "Pendant ce défaut, le bypass est considéré indisponible et l'ESS est interdit ; corriger le câblage avant de remettre en service.",
+        "Une charge déséquilibrée peut masquer le défaut jusqu'au transfert sur bypass : contrôler le câblage même si l'alarme s'efface."
+      ],
+      "source": "93T tableau 34 (alarme 54) ; 93PM §4.3.15 ; 9E §6.1 (A107)"
+    },
+    {
+      "id": "service_reminder",
+      "label": "Rappel de maintenance / service",
+      "keywords": [
+        "service required",
+        "preventive",
+        "warranty",
+        "registration",
+        "call service",
+        "reminder",
+        "service reminders",
+        "dismissed"
+      ],
+      "steps": [
+        "Il s'agit d'un rappel et non d'un défaut : planifier la maintenance préventive (document séparé du constructeur) et l'inspection des batteries.",
+        "Après intervention, effacer le rappel depuis le HMI (Clear Call Service, Clear Warranty Reminder) ; l'enregistrement de l'unité peut être demandé environ 30 jours après la mise en service.",
+        "Consulter l'échéancier de remplacement (filtres, ventilateurs, condensateurs, cartes) de la famille concernée."
+      ],
+      "links": {
+        "93e": [
+          {
+            "label": "Échéancier de maintenance préventive (93E 300-400 kVA)",
+            "tab": "parameters"
+          }
+        ]
+      },
+      "source": "93PM §11.2 ; 93E §9.4"
+    },
+    {
+      "id": "imminent_shutdown",
+      "label": "Arrêt imminent",
+      "keywords": [
+        "imminent",
+        "shutdown imminent",
+        "shut down imminent"
+      ],
+      "steps": [
+        "La batterie a atteint le seuil bas : le compteur d'arrêt sur batterie basse a démarré et l'UPS va couper la charge.",
+        "Rétablir l'alimentation d'entrée ou réduire la charge immédiatement ; vérifier l'état du réseau et du groupe électrogène.",
+        "Si l'événement survient à répétition sans coupure réseau, contrôler l'autonomie et l'état de santé de la batterie (test batterie, éléments)."
+      ],
+      "source": "93T UPM 20 ; 9E A802"
+    },
+    {
+      "id": "upm_connection",
+      "label": "Module UPM / identification matérielle",
+      "keywords": [
+        "unlock",
+        "connection fail",
+        "not enough upm",
+        "hardware id",
+        "mismatch",
+        "pull out",
+        "invalid upm",
+        "invalid board"
+      ],
+      "steps": [
+        "Vérifier que le module de puissance est bien enfiché (les premiers centimètres demandent un effort ; pousser fermement) et que les connecteurs de signal sont raccordés.",
+        "Contrôler que l'identifiant matériel de la carte correspond au firmware installé et que les versions UPM / CSB sont compatibles.",
+        "En cas de module retiré ou de communication perdue, vérifier les câbles CAN et la présence d'alimentation logique avant de conclure à une carte défaillante."
+      ],
+      "source": "93E §7.4.2 ; 93T UPM 65 ; 93PM UPM events"
+    }
+  ]
+}

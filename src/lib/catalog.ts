@@ -1,4 +1,5 @@
 // Chargement des packs et recherche dans le catalogue d'événements.
+import type { RepairData } from './repair';
 import type { CatalogData, CatalogEvent, CatalogId, EventKind, Kit, Part, PartHint, Source, UserAlarm } from './types';
 
 export interface CatalogDef { id: CatalogId; label: string; pack: string; file: string; manual: string }
@@ -90,7 +91,13 @@ export async function loadAll(): Promise<CatalogData> {
   } catch (err) {
     console.warn('pack 93T : pièces ou alarmes utilisateur indisponibles', err);
   }
-  return { events, hints, parts, kits, userAlarms };
+  let repair: RepairData | null = null;
+  try {
+    repair = await getJson<RepairData>('repair/suggestions.json');
+  } catch (err) {
+    console.warn('pistes de réparation indisponibles', err);
+  }
+  return { events, hints, parts, kits, userAlarms, repair };
 }
 
 /* ---------- recherche ---------- */

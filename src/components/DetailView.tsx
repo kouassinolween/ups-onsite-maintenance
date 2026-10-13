@@ -1,6 +1,7 @@
 import { CATALOGS, KIND_LABEL, SOURCE_LABEL, TARGET_LABEL, kitsContaining } from '../lib/catalog';
 import type { CatalogData, CatalogEvent } from '../lib/types';
 import { DecoderPanel } from './DecoderPanel';
+import { suggestRepairs } from '../lib/repair';
 
 function Hints({ event, data }: { event: CatalogEvent; data: CatalogData }) {
   if (event.catalog === 'monoblock') return null;
@@ -41,6 +42,56 @@ function Hints({ event, data }: { event: CatalogEvent; data: CatalogData }) {
   );
 }
 
+function RepairSuggestions({ event, data }: { event: CatalogEvent; data: CatalogData }) {
+  if (!data.repair) return null;
+  const r = suggestRepairs(data.repair, event.name, event.kind, event.catalog);
+  const solution = data.userAlarms[event.key];
+
+  if (r.informational) {
+    return (
+      <section className="box">
+        <h3>Suggestions de réparation</h3>
+        <p><strong>{data.repair.informational.label} : </strong>{data.repair.informational.text}</p>
+      </section>
+    );
+  }
+  return (
+    <section className="box repair">
+      <h3>Suggestions de réparation</h3>
+      <p className="muted">{data.repair.disclaimer}</p>
+      {solution && (
+        <div className="repair-cat">
+          <h4>Solution indiquée par le constructeur</h4>
+          <p>{solution.solutionFr}</p>
+        </div>
+      )}
+      {r.categories.length === 0 && (
+        <div className="repair-cat">
+          <h4>{data.repair.general_process.label}</h4>
+          <ol className="doc-list">{data.repair.general_process.steps.map((s, i) => <li key={i}>{s}</li>)}</ol>
+        </div>
+      )}
+      {r.categories.map((c) => (
+        <div className="repair-cat" key={c.id}>
+          <h4>{c.label}</h4>
+          <ol className="doc-list">{c.steps.map((s, i) => <li key={i}>{s}</li>)}</ol>
+          {r.links[c.id] && (
+            <p className="repair-links">
+              <strong>Voir aussi : </strong>
+              {r.links[c.id].map((l) => <a key={l.href + l.label} href={l.href}>{l.label}</a>)}
+            </p>
+          )}
+          {c.source && <p className="muted">Sources : {c.source}</p>}
+        </div>
+      ))}
+      <details>
+        <summary>Consignes de sécurité avant intervention</summary>
+        <ul className="doc-list">{data.repair.safety.map((s, i) => <li key={i}>{s}</li>)}</ul>
+      </details>
+    </section>
+  );
+}
+
 export function DetailView({
   event: e, data, presetCode, onBack,
 }: { event: CatalogEvent; data: CatalogData; presetCode: string | null; onBack: () => void }) {
@@ -64,6 +115,8 @@ export function DetailView({
         <p>{e.descFr || 'Traduction non disponible.'}</p>
         {e.manualNote && <p className="muted">Remarque sur le manuel : {e.manualNote}</p>}
       </section>
+
+      <RepairSuggestions event={e} data={data} />
 
       {data.userAlarms[e.key] && (
         <section className="box">

@@ -1,0 +1,271 @@
+{
+  "_source": "Eaton 93T Service Manual HPO-1046599 rev 001 (§7.2.13 à §7.2.15, §7.3.3, §12.3) ; Eaton 93E 15-80 kVA Service Manual V1.0 (§4.2.12 à §4.2.14, §4.3, annexe SOP) ; Eaton 93E 300-400 kVA Service Manual A01 (§4.2.3) ; Eaton 93PM Service Manual P-164000219 Rev B02 et instructions parallèle (packs 93PM) ; Eaton 93PS HPO-1041857 (§5.1.2, tableau 90) ; Eaton 9E 6-20 kVA (ch. 5). Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Les mots de passe d'accès (HMI, outil de service) figurent dans les manuels et ne sont volontairement pas reproduits ici. Une écriture EEPROM incorrecte peut endommager l'UPS : contacter le représentant de service avant toute modification (avertissement des manuels).",
+
+  "principles": {
+    "summary": "L'EEPROM de l'UPS contient les paramètres (valeurs réglables : tensions, limites, options, nombre d'UPS, configuration batterie…) et des variables (valeurs de fonctionnement, en lecture seule avec le niveau « Service Tech »). Chaque processeur a son EEPROM : CSB, UPM (une plage par module de puissance) et, sur les gammes qui en ont, MCU. Une valeur écrite est enregistrée immédiatement ; l'outil de service permet de sauvegarder les valeurs en XML.",
+    "rules": [
+      "Avant toute écriture : sauvegarder (EEPROM Save, ou Backup / Meters and Calibration > Backup Data pour le calibrage) et noter l'ancienne valeur dans le rapport d'intervention.",
+      "Vérifier que la valeur CTO / kVA affichée sur la CSB correspond à l'étiquette de l'unité avant toute réinitialisation d'EEPROM.",
+      "Dans un système parallèle, certains paramètres doivent être identiques sur toutes les UPS (voir la section parallèle).",
+      "Après une mise à jour firmware, il est recommandé de réinitialiser l'EEPROM UPM et de remettre l'UPS sous tension, en suivant la procédure constructeur de mise à jour.",
+      "L'accès en écriture dépend du niveau d'accès (Service pour les paramètres usuels) ; certains panneaux exigent le niveau « Engineering » (93E)."
+    ],
+    "source": "93T §7.2.1, §7.2.14 ; 93E 15-80 kVA §4.2.12 à §4.2.14"
+  },
+
+  "tools": [
+    { "tool": "Eaton Service Tool : panneau EEPROM Functions / Read-Write", "ranges": "93T, 93E, 93PM", "use": "Lire et écrire une valeur par adresse (adresse + nombre de valeurs, « Read value », double-clic sur la valeur, « Write value »). Les valeurs affichées avec leur nom (EEPROM Config : nom, adresse, valeur par défaut, échelle, type d'option)." },
+    { "tool": "Eaton Service Tool : EEPROM Save / Compare", "ranges": "93T, 93E, 93PM", "use": "Sauvegarder la plage choisie en fichier XML (choix du processeur, du type de données et de la plage). « Compare » compare deux fichiers EEPROM (non implémenté sur le 93E)." },
+    { "tool": "Eaton Service Tool : panneaux Options, Battery Setup, Building Alarms", "ranges": "93T, 93E", "use": "Modifier les options et valeurs numériques courantes ; la valeur actuelle et la valeur par défaut sont affichées (vert = défaut, jaune = modifiée). Les valeurs sont écrites immédiatement dans l'EEPROM ; fonctions Backup / Restore en XML. Pour la batterie, « Commit Change » est nécessaire." },
+    { "tool": "Eaton Service Tool : Meters and Calibration > Backup / Restore Data", "ranges": "93T, 93E", "use": "Sauvegarder puis restaurer les valeurs de calibrage avant et après une réinitialisation d'EEPROM." },
+    { "tool": "HMI / LCD : menu Setting > « EEP Read/Write » (93T) ; menu Tool > Service > « Customize » (93E)", "ranges": "93T, 93E", "use": "Lire une adresse puis la modifier (« Change »). Le niveau d'accès requis est demandé à l'entrée du menu." },
+    { "tool": "HMI : Settings > Service > « R/W Parameters » (HMI 93PM, niveau 3)", "ranges": "93PM", "use": "Lecture / écriture de paramètres depuis l'afficheur (niveau Service)." },
+    { "tool": "Terminal série (HyperTerminal ou équivalent), 57600 bauds, 8 bits, pas de parité, 1 stop, pas de contrôle de flux", "ranges": "93T, 93E", "use": "ESC+H télécharge l'historique ; ESC+C imprime le journal des modifications EEPROM ; ESC+R l'efface (93T)." },
+    { "tool": "JOECOMM (SOP 93E)", "ranges": "93E (SOP application et ECT)", "use": "Écriture de séries de valeurs EEPROM depuis un fichier texte (écran « EEPs », « write RTB »). Le manuel 93E précise que, pour le test ECT, il ne faut en aucun cas lire ou écrire d'autres EEP avec cet outil." },
+    { "tool": "Outil de service seul, sans EEPROM", "ranges": "9E", "use": "Le 9E se règle par l'outil de service : nombre d'EBM, mode haut rendement (HE) et tension de sortie (220 / 230 / 240 V). Voir Paramètres 9E." }
+  ],
+
+  "address_ranges": {
+    "label": "Plages d'adresses EEPROM (93E)",
+    "note": "Une adresse se compose de la base de la plage + le numéro du paramètre : par exemple EEP 5073 = paramètre 73 de la plage « Tous les UPM » ; EEP 14096 = paramètre 4096 de la plage UPM 1.",
+    "ranges_15_200": [
+      { "start": 0, "end": 4999, "base": 0, "area": "CSB" },
+      { "start": 5000, "end": 9999, "base": 5000, "area": "Tous les UPM" },
+      { "start": 10000, "end": 14999, "base": 10000, "area": "UPM 1" },
+      { "start": 15000, "end": 19999, "base": 15000, "area": "UPM 2" },
+      { "start": 20000, "end": 24999, "base": 20000, "area": "UPM 3" },
+      { "start": 25000, "end": 29999, "base": 25000, "area": "UPM 4" },
+      { "start": 30000, "end": 34999, "base": 30000, "area": "UPM 5" },
+      { "start": 35000, "end": 39999, "base": 35000, "area": "UPM 6" },
+      { "start": 40000, "end": 44999, "base": 40000, "area": "UPM 7" },
+      { "start": 45000, "end": 49999, "base": 45000, "area": "UPM 8" }
+    ],
+    "ranges_300_400": [
+      { "start": 0, "end": 4999, "base": 0, "area": "CSB" },
+      { "start": 5000, "end": 9999, "base": 5000, "area": "Tous les UPM" },
+      { "start": 10000, "end": 14999, "base": 10000, "area": "UPM 1" },
+      { "start": 15000, "end": 19999, "base": 15000, "area": "UPM 2" },
+      { "start": 20000, "end": 24999, "base": 20000, "area": "UPM 3" },
+      { "start": 25000, "end": 29999, "base": 25000, "area": "UPM 4" },
+      { "start": 30000, "end": 34999, "base": 30000, "area": "UPM 5" },
+      { "start": 35000, "end": 39999, "base": 35000, "area": "UPM 6" },
+      { "start": 40000, "end": 44999, "base": 40000, "area": "UPM 7" },
+      { "start": 45000, "end": 49999, "base": 45000, "area": "UPM 8" },
+      { "start": 50000, "end": 54999, "base": 50000, "area": "MCU" }
+    ],
+    "warning": "Lecture du tableau d'origine : la colonne « description » du manuel est décalée par rapport aux lignes ; l'association plage / processeur ci-dessus est déduite de l'ordre CSB, tous UPM, UPM 1…, MCU et confirmée par les adresses utilisées dans les procédures (5073, 14096, 9096, 54101).",
+    "source": "93E 15-80 kVA, annexe SOP « EEP sectors »"
+  },
+
+  "procedures": [
+    {
+      "label": "Lire et écrire une valeur EEPROM (outil de service)",
+      "ranges": "93T, 93E, 93PM",
+      "steps": [
+        "Connecter l'outil de service à la CSB (USB type A/B ou RS-232) ; l'UPS doit être dans un état sûr pour la modification prévue.",
+        "Ouvrir EEPROM Functions (panneau Read/Write).",
+        "Saisir l'adresse et le nombre de valeurs, puis « Read value ».",
+        "Double-cliquer sur la valeur à modifier, saisir la nouvelle valeur, puis « Write value ».",
+        "Relire la valeur pour contrôler l'écriture et la consigner dans le rapport."
+      ],
+      "source": "93T §7.2.14 ; 93E §4.2.12"
+    },
+    {
+      "label": "Sauvegarder l'EEPROM (téléchargement)",
+      "ranges": "93T, 93E, 93PM",
+      "steps": [
+        "Outil de service > EEPROM Functions > EEPROM Save.",
+        "Choisir le processeur, le type de données (paramètres ou variables) et la plage à sauvegarder.",
+        "Sauvegarder en XML ou produire le rapport (« Output Report »).",
+        "En fin de mise en service (93PS), le manuel demande aussi de télécharger les EEPROM, l'historique et les paramètres du firmware, et de laisser les rapports avec l'unité."
+      ],
+      "source": "93T §7.2.14.1 ; 93E §4.2.13 ; 93PS §5.1.2"
+    },
+    {
+      "label": "Sauvegarder le calibrage avant une réinitialisation",
+      "ranges": "93T, 93E",
+      "steps": [
+        "Passer l'UPS en bypass puis sur le bypass de maintenance.",
+        "Outil de service > Meters and Calibration > Backup Data ; enregistrer le fichier XML sur l'ordinateur.",
+        "Vérifier que la valeur CTO / kVA de la CSB est correcte (93T : menu Info du HMI)."
+      ],
+      "source": "93T §7.2.14.2 ; 93E annexe SOP §3.1"
+    },
+    {
+      "label": "Réinitialiser l'EEPROM d'un bloc de puissance : 93T 15-80 kW",
+      "ranges": "93T",
+      "steps": [
+        "Sauvegarder le calibrage (procédure précédente) et vérifier le CTO / kVA.",
+        "HMI : Menu > Setting (saisir le mot de passe de la page de réglage) > EEP Read/Write.",
+        "Écrire EEPROM 14096 = 255, puis « Change ».",
+        "Écrire EEPROM 14101 = 42240, puis « Change ».",
+        "Attendre environ 20 secondes : l'alarme « Configuration Error » s'active (normal).",
+        "Écrire EEPROM 10069 = 0 pour effacer l'alarme « Configuration Error ».",
+        "Restaurer le calibrage : outil de service > Meters and Calibration > Restore Data, choisir le fichier XML sauvegardé, répondre Yes ; attendre la fin de l'écriture.",
+        "Configurer la tension (220, 230 ou 240 V) et la fréquence (50 ou 60 Hz) de sortie : HMI Menu > Setting > Output.",
+        "Démarrer l'unité et vérifier l'absence d'alarme, notamment « Configuration Error »."
+      ],
+      "source": "93T §7.2.14.2, §7.2.14.3"
+    },
+    {
+      "label": "Réinitialiser l'EEPROM UPM : 93E 15-80 kVA (et 15-200 kVA)",
+      "ranges": "93E 15-80 kVA",
+      "steps": [
+        "Passer l'UPS en bypass puis sur le bypass de maintenance.",
+        "Sauvegarder les données de calibrage (Meters and Calibration > Backup Data) et vérifier le CTO / kVA sur la CSB (doit correspondre à l'étiquette).",
+        "LCD : plate-forme « Tool » > Service (mot de passe si demandé) > Customize.",
+        "Lire puis écrire EEP 14096 = 255 ; lire puis écrire EEP 14101 = 42240.",
+        "Attendre environ 20 secondes : alarme « Configuration Error » (normal).",
+        "Écrire EEP 10069 = 0 pour effacer cette alarme.",
+        "Restaurer le calibrage (Restore Data, fichier XML, Yes).",
+        "Configurer les paramètres batterie, puis démarrer l'unité et la contrôler selon le manuel."
+      ],
+      "source": "93E 15-80 kVA, annexe SOP §3.1"
+    },
+    {
+      "label": "Réinitialiser les EEPROM UPM et MCU : 93E 300-400 kVA",
+      "ranges": "93E 300-400 kVA",
+      "steps": [
+        "Sauvegarder le calibrage UPM (Backup Data) et vérifier le CTO / kVA sur la CSB.",
+        "LCD : plate-forme « Tool » > Service > Customize.",
+        "UPM : écrire EEP 9096 = 255, puis EEP 9101 = 42240 ; attendre environ 20 secondes (alarme « Configuration Error »).",
+        "Effacer l'alarme : écrire EEP 5051 = 0 (EEP 5510 = 0 selon le manuel) ; remettre l'UPS sous tension après avoir modifié EEP 5051.",
+        "MCU : écrire EEP 54101 = 42240 ; écrire EEP 50150, 50510 et 50611 = 0 (valeur lue : 1).",
+        "Restaurer le calibrage UPM (Restore Data, fichier XML, Yes).",
+        "Configurer la tension et la fréquence de sortie, puis les paramètres batterie ; démarrer l'UPS."
+      ],
+      "warnings": ["Le manuel signale une incohérence : « seul EEP 5051 doit être mis à 0, il n'est pas nécessaire de modifier EEP 5510 ». Se référer à la SOP constructeur à jour."],
+      "source": "93E 15-80 kVA, annexe SOP §3.2 (SOP 93E 15-400 kVA)"
+    },
+    {
+      "label": "Configurer la batterie : 93T",
+      "ranges": "93T",
+      "steps": [
+        "Relever auprès du client ou de la fiche batterie le nombre de strings externes, le nombre d'éléments et le courant maximal.",
+        "Respecter les limites : 1 à 4 strings, 192 à 264 éléments, courant 0 à la puissance nominale en A (20, 30, 40, 60 ou 80).",
+        "Outil de service > Battery Setup : choisir batterie interne ou externe, saisir le nombre de strings (vérifier « Common Battery » si nécessaire), puis « Commit Change » (sans lui, rien n'est écrit en EEPROM).",
+        "Régler les puissances de décharge : EEPROM 5333 (WattsPerCell15Min) et 5334 (WattsPerCell60Min), calculées à partir de la fiche batterie : tension de coupure par élément (1,89 / 1,82 / 1,75 V selon 36 / 38 / 40 éléments), puissance de décharge à 15 et 60 min par bloc, divisée par 6 puis multipliée par 100.",
+        "Exemples du manuel : 36 ou 38 éléments : 5333 = 34650, 5334 = 12600 ; 40 éléments : 5333 = 35800, 5334 = 13000.",
+        "Outil de service > EEPROM Functions : lire 5333 puis écrire BatteryWattsPerCell15Min ; lire 5334 puis écrire BatteryWattsPerCell60Min.",
+        "Démarrer l'unité ; contrôler les réglages batterie et le temps restant (HMI Menu > Meters > Battery)."
+      ],
+      "source": "93T §7.2.13.1, tableaux 17 à 20"
+    },
+    {
+      "label": "Configurer le parallèle : 93T",
+      "ranges": "93T",
+      "steps": [
+        "Vérifier un écart de tension de sortie entre unités inférieur à 0,5 V, un CTO identique (caractères 4 à 8) et le même firmware.",
+        "Écrire le nombre d'UPS dans l'EEPROM 5009 de chaque UPS (1 à 4, 1 = unité seule).",
+        "Écrire l'identifiant de chaque UPS dans l'EEPROM 5003 (0 à 3). Exemple à deux UPS : 5009 = 2 sur chaque ; 5003 = 0 sur l'UPS 1 et 1 sur l'UPS 2.",
+        "Alarme « Parallel CAN Bus Fail » : vérifier le câble CAN et que le nombre total d'UPS est correct en 5009. Alarme « Parallel Setup Fail » : vérifier 5009 et 5003."
+      ],
+      "source": "93T §9.3.1"
+    },
+    {
+      "label": "Configurer le parallèle : 93PM",
+      "ranges": "93PM",
+      "steps": [
+        "Sur chaque UPS : régler « Number of UPS's in the System » (EEP 5008) et « My UPS Number » (EEP 5003, unique).",
+        "Valeurs communes à toutes les UPS : Enable Selective Trip (EEP 113) = 1 ; Selective Trip DQ (268) = 20 ; Selective Trip Vdiff (269) = 60 ; Ext Sync Enabled (5503) = 1 ; DCFeedForwardLoadShare (5505) = 1 ; AutoID Disabled (5653) = 1.",
+        "Système redondant : System Not Redundant Alarm Enable (5602) = 1 et Par Sys O/L Enable (5651) = 1 ; système non redondant : 0 pour les deux.",
+        "Min Required kVA (5610) et Par Sys O/L Level (5652, puissance du système) selon le site ; Output off when MOB is open (5109) : 1 en exploitation, 0 temporairement pour démarrer une UPS MOB ouvert."
+      ],
+      "source": "packs 93PM, parallel.json (instruction Eaton Tech Support 24.04.2015)"
+    }
+  ],
+
+  "suggested_values_93t": {
+    "label": "Valeurs EEPROM suggérées par application : 93T 15-80 kW",
+    "rows": [
+      { "eep": "UPM 5073", "meaning": "Activer la boucle ouverte de l'onduleur", "default": "0", "suggested": "1 (optionnel)", "use": "Charge capacitive à faible PF ou en avance de phase ; seulement si la tension de sortie est déformée" },
+      { "eep": "UPM 5074", "meaning": "Activer l'ATB", "default": "0", "suggested": "1", "use": "ATB" },
+      { "eep": "UPM 5076", "meaning": "Activer l'ATB avec commande bypass", "default": "0", "suggested": "1", "use": "ATB" },
+      { "eep": "UPM 5084", "meaning": "Retarder les transferts d'urgence sur bypass (désactiver l'ETB)", "default": "0", "suggested": "1", "use": "Ajout de charge non linéaire provoquant des alarmes de sous-tension de sortie et des transferts sur bypass ; réglage pour parallèle" },
+      { "eep": "UPM 5085", "meaning": "Délai de transfert sur bypass quand l'ETB est désactivé (ms)", "default": "3000", "suggested": "15", "use": "Idem" },
+      { "eep": "UPM 5158", "meaning": "Synchronisation sur la base en configuration en ligne", "default": "1", "suggested": "3", "use": "Réseau et groupe électrogène qui alternent fréquemment" },
+      { "eep": "UPM 5233", "meaning": "Limite SelectiveTripVdiff (parallèle externe uniquement)", "default": "3", "suggested": "25", "use": "Parallèle, charge légère et charge en avance de phase" },
+      { "eep": "UPM 5130", "meaning": "Délai de walk-in du redresseur (s)", "default": "0", "suggested": "UPS 1 : 22 ; UPS 2 : 25 ; UPS 3 : 28 ; UPS 4 : 30", "use": "Plusieurs unités en parallèle qui coordonnent le walk-in d'un groupe électrogène" }
+    ],
+    "power_conditioner": {
+      "label": "Mode Power Conditioner et redémarrage automatique",
+      "rows": [
+        { "eep": "UPM 5058", "meaning": "BatteryNotRequiredForOnline", "default": "0", "suggested": "1" },
+        { "eep": "UPM 5060", "meaning": "EnableAutoRestart", "default": "0", "suggested": "1" },
+        { "eep": "UPM 5077", "meaning": "Enable power conditioner model", "default": "0", "suggested": "1" }
+      ],
+      "notes": [
+        "En mode Power Conditioner, l'écran batterie n'est plus affiché sur le HMI.",
+        "Sans redémarrage automatique, l'UPS redémarre quand le réseau devient indisponible et que l'UPS s'arrête sur batterie basse en Online. Avec redémarrage automatique et Power Conditioner, il redémarre quand le réseau devient indisponible en Online, sauf : arrêt manuel ou transfert manuel sur bypass, entrée bâtiment « remote go to bypass », REPO, signal de retour MBS actif."
+      ]
+    },
+    "source": "93T §7.2.15, tableaux 22 et 23, p. 93-94"
+  },
+
+  "parallel_shared_parameters_93t": {
+    "label": "Paramètres UPM à régler à l'identique sur toutes les UPS d'un parallèle : 93T",
+    "rows": [
+      { "eep": 8, "name": "PARAM_ParallelForRedundancy", "default": "1" },
+      { "eep": 51, "name": "Param_GotoBypassWithNormalCommand", "default": "1" },
+      { "eep": 53, "name": "Param_OutputVoltage", "default": "2300" },
+      { "eep": 54, "name": "Param_OutputFrequency", "default": "50" },
+      { "eep": 55, "name": "Param_MaxBypassVoltage", "default": "10" },
+      { "eep": 56, "name": "Param_MinBypassVoltage", "default": "10" },
+      { "eep": 57, "name": "Param_BypassFrequencyWindow", "default": "4" },
+      { "eep": 58, "name": "Param_BatteryNotRequiredForOnline", "default": "0" },
+      { "eep": 60, "name": "Param_EnableAutoStart", "default": "0" },
+      { "eep": 62, "name": "Param_ESSInstalled", "default": "0" },
+      { "eep": 63, "name": "Param_EssMaxNumOutages", "default": "3" },
+      { "eep": 64, "name": "Param_EssOutageResetTime", "default": "60" },
+      { "eep": 65, "name": "Param_EssLockoutTime", "default": "60" },
+      { "eep": 80, "name": "Param_OutputPowerFactorRating", "default": "9000" },
+      { "eep": 84, "name": "Param_DisableImmBypassTransfer", "default": "0" },
+      { "eep": 85, "name": "Param_ImmBypassTransferDelay", "default": "3000" }
+    ],
+    "source": "93T §12.3.1, tableau 30, p. 122"
+  },
+
+  "suggested_values_93e": {
+    "label": "Valeurs EEPROM suggérées par application : 93E",
+    "reference": "Le détail (firmware minimal, notes, valeurs) est dans l'onglet Paramètres de la famille 93E (configuration EEPROM suggérée par application).",
+    "rows": [
+      { "application": "Mode convertisseur (APAC) 15-200 kVA", "eep": "UPM 5074 = 1 ; 5076 = 1 ; 5158 = 3 ; 5130 (walk-in)", "note": "Avec 5158 = 3 la sortie ne se synchronise plus sur le bypass" },
+      { "application": "Power conditioner et redémarrage auto 15-200 kVA", "eep": "UPM 5058 = 1 ; 5060 = 1 ; 5077 = 1", "note": "Identique au 93T" },
+      { "application": "Power conditioner et redémarrage auto 300-400 kVA", "eep": "MCU 50511 = 1 ; 50103 = 1 ; 50518 = 1", "note": "Plage MCU (base 50000)" },
+      { "application": "Charge inductive ou capacitive (APAC)", "eep": "UPM 5073 = 1 ; 5124 = 5 ; 5055 = 15 (si 5073 = 1 et désactivation vers bypass par commande normale)", "note": "Firmware 15-80 kVA ≥ V2.02.0002" },
+      { "application": "Désactiver l'ETB", "eep": "UPM 5084 = 1 ; 5085 = 80 (ms)", "note": "Vérifier que 80 ms est acceptable pour la charge" }
+    ]
+  },
+
+  "calibration_load_share": {
+    "label": "Calibrage du partage de charge (parallèle)",
+    "rows": [
+      { "range": "93T", "condition": "Erreur de partage supérieure à 5 % avec plus de 50 % de charge système", "action": "Système en Online, charge 50 à 90 % ; écrire 13 dans l'EEPROM UPM 4096 et 42240 dans l'EEPROM 4103 (ou utiliser l'auto-calibrage de l'outil de service) ; attendre la fin du calibrage." },
+      { "range": "93E 100-200 kVA", "condition": "Auto-calibrage par fichier JOECOMM", "action": "Écrire EEP 9096 = 13 (auto balance) puis EEP 9103 = 42240 (exécution)." }
+    ],
+    "formula": "Puissance moyenne = puissance totale / nombre d'UPS ; écart de partage (%) = (puissance de l'UPS x - puissance moyenne) / puissance moyenne x 100.",
+    "source": "93T §12.3 ; 93E annexe SOP"
+  },
+
+  "other_ranges": [
+    {
+      "range": "93PS 8-40 kW",
+      "text": "Les paramètres batterie ABM sont définis en grande partie en EEPROM (tableau 90 du manuel, liste non exhaustive : NumberOfBatteryCells, NumberOfBatteryStrings, BattChrgCurrentMax, BattABMFloatVoltage, BattConstFloatVoltage, BattRestMinVoltage, BattChrgTimeMax, BattFloatTime, BattMaxRestTime, seuils d'échec de test). Les valeurs du tableau sont des exemples (192 éléments, 2 + 4 strings…). L'EEPROM UPM et l'EEPROM MCU sont des puces séparées. Le manuel demande de télécharger les EEPROM en fin de mise en service.",
+      "source": "93PS §12.2.4, §12.5.4, §13.3.11, tableau 90"
+    },
+    {
+      "range": "9E 6-20 kVA",
+      "text": "Pas de procédure EEPROM dans le manuel : trois réglages seulement par l'outil de service (nombre d'EBM, mode haut rendement, tension de sortie).",
+      "source": "9E §5.2 à §5.4"
+    }
+  ],
+
+  "pitfalls": [
+    "Une réinitialisation d'EEPROM sans sauvegarde préalable du calibrage oblige à recalibrer l'unité.",
+    "L'alarme « Configuration Error » après réinitialisation est normale : elle s'efface par l'écriture indiquée (EEP 10069, ou EEP 5051 sur 93E 300-400 kVA).",
+    "Un CTO / kVA erroné sur la CSB avant réinitialisation donne une mauvaise configuration du bloc de puissance.",
+    "Sur le 93T, les modifications d'EEPROM sont tracées : ESC+C imprime le journal des changements, ESC+R l'efface (terminal série).",
+    "Un réglage de parallèle différent d'une UPS à l'autre provoque « Parallel Setup Fail » ou « Parameter Match Failed »."
+  ]
+}
