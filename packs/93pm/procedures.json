@@ -1,0 +1,807 @@
+{
+  "_source": "Service manual Eaton 93PM 50-200 kW P-164000219 Rev B02 (février 2014) : chapitre 8 « Removal and Replacement, 480V Units » (§8.1-8.4) et chapitre 9 « Removal and Replacement, 400V Units » (§9.1-9.5). Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Les figures du manuel (position des vis et des connecteurs) ne sont pas reprises : se référer aux sections indiquées. Les numéros de page du tableau 8.1 du manuel sont incohérents : seules les sections sont citées. Manuel de 2014 : vérifier la compatibilité avec le matériel et le firmware installés.",
+  "tools": [
+    {
+      "tool": "Tournevis cruciforme Phillips n° 2 et n° 3 (magnétiques)",
+      "sizes": null
+    },
+    {
+      "tool": "Tournevis plat",
+      "sizes": null
+    },
+    {
+      "tool": "Cliquet et rallonges",
+      "sizes": null
+    },
+    {
+      "tool": "Douilles",
+      "sizes": "7, 8 et 10 mm"
+    },
+    {
+      "tool": "Pince coupante",
+      "sizes": null
+    },
+    {
+      "tool": "Colliers de serrage de rechange (tie wraps)",
+      "sizes": null
+    },
+    {
+      "tool": "Matériel d'étiquetage des fils",
+      "sizes": null
+    },
+    {
+      "tool": "Unités 400 V (EMEA) : tournevis Pozidriv n° 1 et n° 2 (magnétiques) en plus des Phillips",
+      "sizes": null
+    }
+  ],
+  "torque_values": [
+    {
+      "component": "Raccordements de puissance des SCR",
+      "nm": 14,
+      "lb_in": 120
+    },
+    {
+      "component": "Raccordements de puissance et fixation des fusibles d'entrée",
+      "nm": 14,
+      "lb_in": 120
+    },
+    {
+      "component": "Fusibles DC",
+      "nm": 6,
+      "lb_in": 50
+    },
+    {
+      "component": "Raccordements de puissance des barres des fusibles DC",
+      "nm": 9,
+      "lb_in": 80
+    },
+    {
+      "component": "Raccordements de puissance des disjoncteurs",
+      "nm": 20,
+      "lb_in": 180
+    },
+    {
+      "component": "Raccordements de puissance aux bornes client",
+      "nm": 14,
+      "lb_in": 120
+    },
+    {
+      "component": "Raccordements de puissance aux cartes IO",
+      "nm": 10,
+      "lb_in": 90
+    }
+  ],
+  "torque_note": "Valeurs de base pour la gamme 93PM ; une valeur différente est précisée dans la procédure concernée. Le tableau du manuel est identique pour les unités 480 V (tableau 8.2) et 400 V (tableau 9.2).",
+  "torque_source": "SM §8.1.2 tableau 8.2 ; §9.1.2 tableau 9.2",
+  "safety": {
+    "before_any_work": [
+      "Le 93PM doit être sur le bypass de maintenance interne ou externe pour intervenir sur ses composants (SM §8.1.3, §9.1.3).",
+      "Porter des EPI de niveau 2 (norme américaine) pour tout travail sur un équipement sous tension ou à proximité de circuits sous tension ; EPI de niveau 2 également pour déconnecter les batteries.",
+      "Si la charge est sur le bypass de maintenance, une tension de neutre peut subsister et présenter un risque d'électrocution : des relais de neutre sont présents sur la carte IO du redresseur de chaque UPM.",
+      "Les tiroirs batterie des armoires IBC ne sont pas haubanés quand ils sont sortis : ne jamais en sortir un chargé de toutes ses batteries ; utiliser un lève-batterie et les bonnes techniques de levage.",
+      "Vérifier l'absence de tension et d'énergie stockée avec un multimètre en bon état sur les entrées/sorties, la batterie, le bus DC et tout autre point accessible avant intervention.",
+      "Pour le bloc redresseur/onduleur, utiliser les bonnes techniques de levage (risque de blessure)."
+    ],
+    "source": "SM §8.1.3, §8.2, §8.4.3, §9.1.3, §9.2"
+  },
+  "procedures": [
+    {
+      "id": "secure_load",
+      "label": "Sécuriser ou transférer la charge critique (préparation)",
+      "variant": "480 V et 400 V",
+      "steps": [
+        "Prévenir le client que la charge doit être sécurisée (arrêtée) ou transférée sur le bypass de maintenance interne ou externe (wraparound).",
+        "Relire les schémas et procédures du site avant toute modification d'état du système.",
+        "Selon la procédure du site : passer l'UPS en mode Bypass ; transférer la charge sur le bypass de maintenance interne ou externe ; arrêter l'UPS ; consigner les disjoncteurs pour isoler l'UPS.",
+        "Libérer le verrou de la porte et ouvrir la porte.",
+        "Déconnecter les batteries ou ouvrir les disjoncteurs batterie.",
+        "Contrôler l'absence de tension et d'énergie stockée avec un multimètre en bon état (entrées, sorties, batterie, bus DC, bornes accessibles)."
+      ],
+      "warnings": [
+        "Porter les EPI de niveau 2 pour déconnecter les batteries."
+      ],
+      "notes": [
+        "N'exécuter que la partie de cette préparation nécessaire pour accéder au composant concerné."
+      ],
+      "source": "SM §8.2, §9.2"
+    },
+    {
+      "id": "return_to_service",
+      "label": "Remise en service après intervention",
+      "variant": "480 V et 400 V",
+      "steps": [
+        "Contrôler les connexions desserrées, les outils ou pièces oubliés sur une étagère et tout autre problème mécanique.",
+        "Reconnecter les batteries ou fermer les disjoncteurs batterie.",
+        "Tester le fonctionnement et vérifier chaque mode de fonctionnement.",
+        "Contrôler le calibrage, le firmware et les autres paramètres.",
+        "En cas de problème, arrêter l'unité, corriger, puis tester de nouveau chaque mode.",
+        "Prévenir le client que l'unité est prête à supporter la charge.",
+        "Coordonner avec le client les transferts vers Online, selon les schémas et procédures du site."
+      ],
+      "source": "SM §8.3, §9.3"
+    },
+    {
+      "id": "front_door",
+      "label": "Porte avant : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Ouvrir la porte avant pour accéder à l'arrière de l'afficheur HMI.",
+        "Débrancher les trois connecteurs de l'afficheur HMI.",
+        "Couper les colliers qui fixent les câbles à la porte.",
+        "La porte repose sur deux axes de charnière, retenue par un support de verrouillage sur la charnière du haut : retirer les deux vis et le support au tournevis cruciforme.",
+        "Tenir la porte presque fermée et la soulever pour la dégager des axes.",
+        "Reposer dans l'ordre inverse ; router et fixer les câbles comme à l'origine (protection EMI)."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.1"
+    },
+    {
+      "id": "upm_fan_assembly",
+      "label": "Panneau de ventilateurs UPM : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Identifier le type de panneau : ancien modèle à panneau d'une pièce, ou modèle plus récent (200 kW) avec panneaux séparateurs entre les ensembles ventilateurs.",
+        "Ancien modèle : retirer, à la douille de 8 mm, les 3 ou 4 vis des bords gauche et droit du panneau à déposer, les 3 vis du bord inférieur, puis les 3 vis du bord inférieur du panneau situé au-dessus.",
+        "Modèle récent : retirer les vis des panneaux séparateurs au-dessus et au-dessous et déposer ces panneaux ; puis retirer les 3 ou 4 vis des bords gauche et droit.",
+        "Incliner le bas du panneau vers l'extérieur et le faire glisser doucement vers le bas ; l'incliner vers l'avant.",
+        "Ne pas sortir complètement le panneau avant d'avoir déconnecté tous les raccordements (risque d'endommager le câblage).",
+        "Débrancher les cinq connecteurs de ventilateurs de la carte interface UPM (CN10 et CN16 à CN19).",
+        "Sur l'arrière du bouton DC Start, tourner le verrou marron en bas du connecteur pour le libérer du bouton.",
+        "Débrancher le connecteur CN1 de la carte condensateurs, puis sortir le panneau de l'unité.",
+        "Remplacement d'un ventilateur : repérer le ventilateur, retirer les colliers du câblage, retirer les 4 vis et écrous à portée (keps), poser le nouveau ventilateur avec les mêmes vis et écrous, remettre des colliers.",
+        "Repose : incliner le panneau vers l'avant, rebrancher les 5 connecteurs de ventilateurs (CN10, CN16-CN19) et CN1 sur la carte condensateurs, remonter le bouton DC Start, puis suivre la dépose dans l'ordre inverse."
+      ],
+      "notes": [
+        "Sur l'ancien modèle, il peut être nécessaire de desserrer les vis ou de déposer la protection ou le panneau voisin du dessus et du dessous, voire la porte avant (§8.4.1).",
+        "Router et fixer les câbles comme à l'origine (protection EMI)."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.2"
+    },
+    {
+      "id": "rectifier_inverter_pm",
+      "label": "Ensemble module redresseur / onduleur (PM) : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Déposer le panneau de ventilateurs UPM (procédure « Panneau de ventilateurs UPM »).",
+        "Libérer les deux colliers du côté gauche.",
+        "Côté droit avant de l'UPM, débrancher : le câble 3 broches (2 fils) vers CN1 de la carte interface UPM ; le connecteur 12 broches vers CN5 ; le connecteur 8 broches vers CN11 ; la nappe vers CN8 ; le câble 3 broches vers PM-CN1 de la carte driver onduleur (situé derrière la carte condensateurs).",
+        "Côté gauche avant, débrancher : le câble 4 broches de commande du disjoncteur batterie interne (si présent) vers CN7 ; la nappe vers CN9 (la plus externe des deux nappes ; l'autre, vers CN15, reste branchée).",
+        "Retirer, de chaque côté, les deux vis de 8 mm et les deux vis de 7 mm qui retiennent l'ensemble (8 vis au total).",
+        "L'ensemble repose sur deux rails latéraux : le faire glisser doucement vers l'avant, puis le soulever hors de l'unité (technique de levage correcte)."
+      ],
+      "replacement_steps": [
+        "Soulever l'ensemble sur les rails latéraux et le faire glisser en place en s'assurant que ses connecteurs arrière sont bien enfichés dans le coffret d'inductances (les 4 ergots d'alignement doivent s'engager dans les encoches ; pousser fermement).",
+        "Rebrancher CN8, CN11, CN5 et CN1 à l'avant droit de la carte interface UPM.",
+        "Rebrancher PM-CN1 sur la carte driver onduleur, JAMAIS sur CN1 de la carte condensateurs.",
+        "Rebrancher CN9 et CN7 à l'avant gauche.",
+        "Reposer le panneau de ventilateurs UPM."
+      ],
+      "warnings": [
+        "Le connecteur PM-CN1 va sur la carte driver onduleur, pas sur CN1 de la carte condensateurs."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.3"
+    },
+    {
+      "id": "capacitor_board",
+      "label": "Carte condensateurs : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Chaque UPM contient deux cartes condensateurs (une dans le PM redresseur, une dans le PM onduleur) qui filtrent le bus DC.",
+        "Déposer le panneau de ventilateurs UPM (procédure « Panneau de ventilateurs UPM »).",
+        "Retirer les six vis de 7 mm qui relient la carte condensateurs aux barres DC+, DC- et neutre (N).",
+        "La carte est fixée à son support par trois vis cruciformes : les retirer, puis sortir la carte du module.",
+        "Reposer dans l'ordre inverse ; router et fixer les câbles comme à l'origine."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.4"
+    },
+    {
+      "id": "control_interface_board",
+      "label": "Carte de commande et / ou carte interface UPM : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Déposer le panneau de ventilateurs UPM, puis l'ensemble redresseur/onduleur (procédures « Panneau de ventilateurs UPM » et « Ensemble module redresseur / onduleur (PM) »). Poser l'ensemble sur un plan de travail, PM redresseur dessous.",
+        "Retirer au tournevis cruciforme les six vis qui fixent les cartes de commande et interface UPM sur leurs entretoises.",
+        "Retirer les six vis de 7 mm reliant la carte condensateurs aux barres DC+, DC-, N. Ne pas séparer la carte de son support : l'ensemble carte + support se dépose d'un bloc.",
+        "Retirer les deux vis cruciformes (une de chaque côté du PM) qui maintiennent l'ensemble carte condensateurs / support, puis le déposer.",
+        "Débrancher les fils des bornes DC+, neutre et DC- de la carte driver du redresseur.",
+        "Séparer le PM redresseur du PM onduleur en retirant les trois vis de chaque côté du module.",
+        "Poser le PM redresseur sur le plan de travail et retirer les cinq vis de chaque côté (dix au total) qui fixent le boîtier.",
+        "Retirer le boîtier pour accéder aux cartes de commande et interface UPM (elles s'accouplent par deux connecteurs 96 broches à trois rangées).",
+        "Retirer les deux vis qui fixent les cartes sur l'ensemble PM redresseur, puis les cartes."
+      ],
+      "replacement_steps": [
+        "Remonter dans l'ordre inverse.",
+        "Pour l'ensemble carte condensateurs / support : les encoches du support reposent sur deux ergots à l'intérieur du module de puissance ; incliner les condensateurs vers le haut en soulevant l'ensemble pour engager les encoches sur les ergots, puis rabattre l'ensemble et poser les six vis de 7 mm."
+      ],
+      "after": [
+        "return_to_service",
+        "Après remplacement : vérifier les révisions firmware et recharger le firmware si nécessaire (procédures « Firmware »)."
+      ],
+      "source": "SM §8.4.5"
+    },
+    {
+      "id": "io_boards",
+      "label": "Cartes IO redresseur et / ou onduleur : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Déposer le panneau de ventilateurs UPM, puis l'ensemble redresseur/onduleur (procédures « Panneau de ventilateurs UPM » et « Ensemble module redresseur / onduleur (PM) »). Les cartes IO redresseur et onduleur sont alors accessibles.",
+        "Aux douilles de 7 et 10 mm, débrancher tous les fils entre le coffret d'inductances et la carte IO à remplacer. Étiqueter chaque fil. Conseil : déposer la carte IO onduleur avant la carte IO redresseur.",
+        "Desserrer les vis imperdables des connecteurs à l'avant de la carte et débrancher les connecteurs.",
+        "Débrancher tous les autres câbles de la carte (il peut être plus efficace de laisser certaines nappes sur la carte et de les déposer avec elle en coupant les colliers).",
+        "Retirer la vis de fixation de la carte.",
+        "Faire glisser la carte et sa plaque de montage vers l'avant et la sortir de l'unité."
+      ],
+      "replacement_steps": [
+        "Remonter dans l'ordre inverse. Si les deux cartes IO sont remplacées, il peut être plus efficace de déposer d'abord le coffret d'inductances (procédure « Coffret d'inductances »)."
+      ],
+      "torque_refs": [
+        "Raccordements de puissance aux cartes IO : 10 Nm (90 in-lb)"
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.6"
+    },
+    {
+      "id": "inductor_box",
+      "label": "Coffret d'inductances : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Déposer le panneau de ventilateurs UPM, puis l'ensemble redresseur/onduleur.",
+        "Aux douilles de 7 et 10 mm, débrancher tous les fils entre le coffret d'inductances et les cartes IO redresseur et onduleur.",
+        "Retirer les quatre vis de fixation du coffret (deux de chaque côté de l'unité).",
+        "Faire glisser le coffret vers l'avant et le sortir de l'unité.",
+        "Reposer dans l'ordre inverse ; router et fixer les câbles comme à l'origine."
+      ],
+      "torque_refs": [
+        "Raccordements de puissance aux cartes IO : 10 Nm (90 in-lb)"
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.7"
+    },
+    {
+      "id": "csb",
+      "label": "Carte CSB (Communications Server Board) : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "À la douille de 8 mm, retirer les cinq vis avant du panneau d'accès en haut de l'unité ; desserrer les trois vis arrière.",
+        "Faire glisser le panneau vers l'avant et le retirer pour accéder à la CSB.",
+        "Débrancher tous les fils et câbles de la CSB.",
+        "Retirer la vis de fixation de la CSB à l'avant de l'unité.",
+        "Retirer les deux vis qui maintiennent la CSB, puis la CSB.",
+        "Reposer dans l'ordre inverse."
+      ],
+      "after": [
+        "return_to_service",
+        "Après remplacement : vérifier les révisions firmware et recharger le firmware si nécessaire (procédures « Firmware »)."
+      ],
+      "source": "SM §8.4.8"
+    },
+    {
+      "id": "stsw",
+      "label": "Ensemble interrupteur statique (STSW) : dépose et repose",
+      "variant": "480 V (100 kW et 200 kW)",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Accès : 100 kW, retirer à la douille de 8 mm les vis des bords haut, bas, gauche et droit du cache inférieur (dead front). 200 kW, retirer au tournevis cruciforme les vis du panneau séparateur au-dessus du cache STSW, puis, à la douille de 8 mm, les vis des bords gauche, droit et inférieur du cache STSW.",
+        "À la douille de 10 mm, débrancher les fils du côté entrée des fusibles STSW (à gauche des fusibles en 100 kW ; à l'avant des fusibles en 200 kW).",
+        "À la douille de 8 mm, retirer les deux vis de fixation de chaque côté du plateau STSW.",
+        "Faire glisser lentement et avec précaution l'ensemble vers l'avant ; couper les colliers si nécessaire (colliers possibles sous le plateau).",
+        "En 200 kW : après avoir sorti l'ensemble en partie, repérer et débrancher les connecteurs P1 et P2 près du coin arrière droit pour pouvoir l'étendre complètement.",
+        "Les SCR de bypass sont montés sur le bord intérieur de l'ensemble : débrancher les trois fils des bornes centrales des SCR ; pour sortir l'ensemble du plateau, débrancher aussi les trois fils du contacteur bypass vers les bornes avant des SCR.",
+        "Les connecteurs des cartes MCU interface et STS-SPS peuvent ne pas être repérés : étiqueter tous les fils, photographier les raccordements et noter la position de chaque fil.",
+        "Débrancher toutes les connexions des cartes MCU interface et STS-SPS.",
+        "À la douille de 8 mm, retirer les deux vis du support de fixation de l'ensemble, puis le support.",
+        "Faire glisser l'ensemble vers l'avant et le sortir du plateau."
+      ],
+      "replacement_steps": [
+        "Remonter dans l'ordre inverse (emplacement des connecteurs de la carte STS-SPS : fig. 8.34 du manuel).",
+        "Vérifier toutes les connexions de l'ensemble STSW ; ne couper ni pincer aucun câble en glissant le plateau en place."
+      ],
+      "torque_refs": [
+        "Raccordements de puissance des SCR : 14 Nm (120 in-lb)",
+        "Raccordements de puissance et fixation des fusibles d'entrée : 14 Nm (120 in-lb)"
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.9"
+    },
+    {
+      "id": "fan_power_board_100",
+      "label": "Carte d'alimentation des ventilateurs (fan power board) : 100 kW",
+      "variant": "480 V, 100 kW",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "La carte est dans le module ventilateurs, monté sous l'ensemble STSW. Retirer les vis du cache inférieur à la douille de 8 mm (conseil : faire glisser l'ensemble STSW vers l'avant, §8.4.9.1 étapes 2 à 4).",
+        "Retirer les colliers et débrancher les câbles du module ventilateurs.",
+        "À la douille de 7 mm, retirer les deux écrous du côté gauche du module.",
+        "Le côté droit repose sur trois ergots : faire glisser le module vers la gauche, le sortir et le poser à l'envers sur un plan de travail.",
+        "À la pince à bec fin, retirer les 15 rivets nylon du capot inférieur, puis le capot (ne pas encore débrancher les connecteurs de la carte).",
+        "Retirer les cinq vis cruciformes qui fixent la carte.",
+        "Relever la position de chaque interrupteur DIP du commutateur SW1 de la carte à remplacer."
+      ],
+      "replacement_steps": [
+        "Poser la carte de remplacement avec les cinq vis.",
+        "Positionner les interrupteurs DIP de SW1 de la nouvelle carte comme ceux de l'ancienne.",
+        "Un par un, déplacer chaque connecteur de l'ancienne carte vers la nouvelle.",
+        "Reposer le capot inférieur avec les 15 rivets nylon.",
+        "Engager le module sur les trois ergots et le fixer avec les deux écrous.",
+        "Rebrancher tous les câbles, reposer le cache inférieur."
+      ],
+      "warnings": [
+        "Un mauvais réglage des interrupteurs DIP SW1 empêche l'UPS de fonctionner correctement et peut endommager la carte."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.10.1"
+    },
+    {
+      "id": "fan_power_board_200",
+      "label": "Carte d'alimentation des ventilateurs (fan power board) : 200 kW",
+      "variant": "480 V, 200 kW",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "La carte est dans un boîtier à l'avant droit de l'ensemble STSW. Accéder à l'ensemble STSW (procédure « Ensemble interrupteur statique (STSW) », étapes d'accès, fusibles et fixation du plateau).",
+        "Faire glisser lentement l'ensemble STSW vers l'avant ; couper les colliers si nécessaire.",
+        "À la douille de 7 mm, retirer les deux écrous qui fixent le boîtier au plateau.",
+        "Soulever l'avant du boîtier et le faire glisser vers l'avant pour dégager les ergots arrière des fentes du plateau ; incliner l'avant vers le haut pour accéder à la carte.",
+        "Débrancher tous les câbles de la carte.",
+        "Retirer les cinq vis (une par coin et une au centre) qui fixent la carte.",
+        "Relever la position de chaque interrupteur DIP du commutateur SW1."
+      ],
+      "replacement_steps": [
+        "Poser la carte de remplacement avec les cinq vis.",
+        "Positionner les interrupteurs DIP de SW1 comme sur l'ancienne carte.",
+        "Rebrancher tous les connecteurs.",
+        "Engager les ergots arrière du boîtier dans les fentes du plateau, le glisser en place et abaisser l'avant sur les deux vis ; fixer avec les deux écrous de 7 mm.",
+        "Faire glisser lentement le plateau STSW en place (ne pas couper ni pincer de câble), reposer les deux vis de chaque côté du plateau, rebrancher les fils côté entrée des fusibles STSW, reposer le cache."
+      ],
+      "warnings": [
+        "Un mauvais réglage des interrupteurs DIP SW1 empêche l'UPS de fonctionner correctement et peut endommager la carte."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.10.2"
+    },
+    {
+      "id": "fan_module_fan_100",
+      "label": "Ventilateur du module ventilateurs : 100 kW",
+      "variant": "480 V, 100 kW",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Retirer les vis du cache inférieur à la douille de 8 mm (conseil : faire glisser l'ensemble STSW vers l'avant pour faciliter l'accès).",
+        "Débrancher le câble entre la carte d'alimentation des ventilateurs et le ventilateur ; retirer les colliers si nécessaire.",
+        "Retirer au tournevis cruciforme les deux vis qui fixent le ventilateur, puis le ventilateur (les vis se vissent dans des trous taraudés du boîtier : il n'y a pas d'écrou ni de rondelle à l'intérieur).",
+        "Poser le nouveau ventilateur avec les deux vis, rebrancher, reposer le cache inférieur."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.11"
+    },
+    {
+      "id": "top_exhaust_fan",
+      "label": "Ventilateurs d'extraction supérieurs : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "À la douille de 8 mm, desserrer sans les retirer les quatre vis du bord arrière du panneau ventilateurs.",
+        "Retirer les six autres vis des bords avant, gauche et droit.",
+        "Faire glisser le panneau vers l'avant et le soulever hors de l'unité.",
+        "Débrancher le connecteur de chaque ventilateur et sortir le panneau.",
+        "Remplacement d'un ventilateur : repérer le ventilateur, retirer les 4 vis et écrous à portée (keps), poser le nouveau ventilateur avec les mêmes vis et écrous.",
+        "Rebrancher chaque ventilateur, remettre le panneau en place et le fixer avec les vis desserrées ou retirées."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.12"
+    },
+    {
+      "id": "hmi_display",
+      "label": "Afficheur HMI : dépose et repose",
+      "variant": "480 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Ouvrir la porte avant pour accéder à l'arrière de l'afficheur.",
+        "Débrancher les trois connecteurs de l'afficheur.",
+        "En maintenant l'afficheur par l'avant, retirer les vis des quatre coins du panneau arrière de l'afficheur.",
+        "Retirer l'afficheur de l'unité.",
+        "Poser le nouvel afficheur dans l'ordre inverse."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §8.4.14"
+    },
+    {
+      "id": "fuse_locations",
+      "label": "Emplacement des fusibles STSW et batterie (information)",
+      "variant": "480 V",
+      "steps": [
+        "100 kW : les fusibles STSW et batterie sont derrière le cache inférieur. Les fusibles STSW sont sous un capot sur l'ensemble STSW ; les fusibles batterie sont fixés à l'intérieur du bord droit de l'unité.",
+        "200 kW : les fusibles STSW sont derrière le cache STSW, montés sur l'ensemble STSW ; les fusibles batterie sont fixés à l'intérieur du bord droit de l'armoire latérale (sidecar)."
+      ],
+      "torque_refs": [
+        "Fusibles DC : 6 Nm (50 in-lb)",
+        "Raccordements de puissance des barres des fusibles DC : 9 Nm (80 in-lb)"
+      ],
+      "source": "SM §8.4.13"
+    },
+    {
+      "id": "upm_fan_assembly_400",
+      "label": "Panneau de ventilateurs UPM : dépose",
+      "variant": "400 V (EMEA)",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Écarter ou débrancher les faisceaux 3 broches et 6 broches et le câble série raccordés à l'afficheur.",
+        "Retirer les trois vis de chaque côté (gauche et droit) et les trois vis du bord inférieur.",
+        "Tirer le panneau de ventilateurs et le tourner avec précaution vers la gauche.",
+        "Débrancher avec précaution les connecteurs de ventilateurs CN10, CN16, CN17, CN18 et CN19 de la carte interface du module redresseur."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §9.4.1"
+    },
+    {
+      "id": "upm_400",
+      "label": "Module de puissance UPM : dépose et démontage",
+      "variant": "400 V (EMEA)",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Déposer le panneau de ventilateurs UPM (procédure « Panneau de ventilateurs UPM »).",
+        "Retirer les quatre vis de chaque côté de l'UPM.",
+        "Retirer les deux colliers du côté gauche.",
+        "Débrancher le faisceau P1 (12 broches) du connecteur CN5 de la carte.",
+        "Débrancher le connecteur 3 broches (2 fils) CN1 à l'avant droit.",
+        "Débrancher le faisceau 8 broches P3 du connecteur CN11 à l'avant droit.",
+        "Débrancher le faisceau de commande du disjoncteur batterie interne CN7.",
+        "Débrancher les nappes : deux à gauche (respecter le positionnement sérigraphié sur la carte) et une à droite.",
+        "Débrancher le faisceau DC 3 broches et retirer les colliers.",
+        "Tirer l'UPM en la saisissant par les rebords latéraux ; les premiers centimètres demandent plus d'effort (plusieurs connecteurs à l'arrière)."
+      ],
+      "disassembly_steps": [
+        "Désolidariser une des cartes condensateurs DC link en retirant les neuf vis (tournevis à embout magnétique).",
+        "Débrancher les fils DC+, DC- et neutre : les fils DC+ et DC- sont croisés.",
+        "Séparer les deux ensembles module de puissance en retirant les trois vis de chaque côté, puis les soulever pour les écarter.",
+        "Si un seul module de puissance est remplacé, vérifier que le module de remplacement est du bon type : les modules redresseur et onduleur sont différents."
+      ],
+      "warnings": [
+        "Après remplacement de l'UPM : mettre sous tension logique et vérifier les révisions firmware ; recharger le firmware à la révision courante si nécessaire."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §9.4.2"
+    },
+    {
+      "id": "csb_400",
+      "label": "Carte CSB : dépose",
+      "variant": "400 V (EMEA)",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Retirer les 12 vis du capot supérieur, puis le capot.",
+        "Retirer les deux vis qui fixent l'extrémité avant du chemin de câbles. Conseil : soutenir le chemin de câbles par une vis contre le panneau de connexion pour qu'il ne retombe pas sur la CSB.",
+        "Débrancher les trois nappes du coin arrière gauche.",
+        "Débrancher le faisceau P1 du connecteur CN11 de la carte, puis le faisceau P3 du connecteur CN9.",
+        "Débrancher le câble série du connecteur à l'angle arrière de la CSB.",
+        "À l'aide d'un tournevis, retirer le faisceau du connecteur à l'angle arrière de la CSB.",
+        "Retirer les trois vis sur le dessus de la carte.",
+        "Retirer la vis du panneau de connexion avant.",
+        "Libérer les deux supports nylon de la carte et sortir la CSB de l'unité."
+      ],
+      "warnings": [
+        "Après remplacement de la CSB : mettre sous tension logique et vérifier les révisions firmware ; recharger le firmware si nécessaire."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §9.4.3"
+    },
+    {
+      "id": "stsw_400",
+      "label": "Ensemble interrupteur statique (STSW) : dépose",
+      "variant": "400 V (EMEA)",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Vider l'étagère batterie la plus basse.",
+        "Retirer les boulons de fixation de l'étagère des deux côtés et la tirer vers l'avant pour la retirer (soutenir le côté gauche pour qu'elle ne bascule pas sur l'interrupteur statique).",
+        "Retirer la vis et le support du côté avant de l'ensemble STSW et le tirer légèrement.",
+        "Débrancher les trois connecteurs les plus en avant des transformateurs de courant d'entrée.",
+        "Retirer les trois vis Phillips n° 2 des câbles de puissance.",
+        "Débrancher les trois connecteurs suivants, des transformateurs de courant bypass.",
+        "Soulever légèrement l'avant de l'ensemble STSW et le tirer à moitié hors de l'unité.",
+        "Débrancher les connecteurs logiques 8 broches et 12 broches de la carte MCU et le connecteur 4 broches à l'avant gauche de la carte d'interrupteur statique.",
+        "Débrancher les conducteurs de mesure de tension et les trois câbles de puissance restants à l'arrière droit.",
+        "Débrancher les quatre derniers connecteurs du transformateur de courant de sortie.",
+        "Soulever l'ensemble STSW hors de l'unité."
+      ],
+      "warnings": [
+        "Après remplacement de l'ensemble STSW : mettre sous tension logique et vérifier les révisions firmware ; recharger le firmware si nécessaire."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §9.4.4"
+    },
+    {
+      "id": "display_panel_400",
+      "label": "Panneau d'affichage : dépose",
+      "variant": "400 V (EMEA)",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Débrancher les faisceaux 3 broches et 6 broches et le câble série raccordés au panneau d'affichage.",
+        "En soutenant le panneau par l'avant, retirer les quatre boulons à l'arrière.",
+        "Retirer le cadre qui retient l'afficheur et pousser doucement le panneau hors de son logement vers l'avant de la porte."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §9.4.5"
+    },
+    {
+      "id": "rfi_filter_400",
+      "label": "Carte filtre RFI : dépose",
+      "variant": "400 V (EMEA)",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Débrancher les câbles d'entrée et de sortie.",
+        "Retirer les trois vis du bord avant de l'ensemble.",
+        "Desserrer la vis située derrière l'ensemble (coin arrière droit).",
+        "Libérer les embases de colliers ou couper les colliers du côté droit de l'ensemble.",
+        "Soulever l'avant de l'ensemble et le faire glisser doucement vers l'extérieur au-dessus du bornier.",
+        "Retourner l'ensemble.",
+        "Débrancher les fils des connecteurs de la carte, puis sortir l'ensemble du châssis.",
+        "Retirer les cinq vis qui fixent la carte filtre RFI."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §9.4.6"
+    },
+    {
+      "id": "dc_link_capacitors_400",
+      "label": "Ensembles condensateurs DC link : dépose",
+      "variant": "400 V (EMEA)",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Déposer le panneau de ventilateurs UPM (procédure « Panneau de ventilateurs UPM ») : les ensembles condensateurs DC link sont alors visibles.",
+        "Vérifier l'absence de tension sur les condensateurs DC link avec un multimètre en bon état. La tension du bus DC se mesure sur le connecteur au centre de l'ensemble condensateurs (cerclé fig. 9.17 du manuel).",
+        "Retirer les neuf vis de chaque ensemble condensateurs, puis les ensembles."
+      ],
+      "warnings": [
+        "Contrôler impérativement l'absence de tension sur le bus DC avant de déposer les condensateurs."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §9.4.7"
+    },
+    {
+      "id": "firmware_notes",
+      "label": "Firmware : précautions avant programmation",
+      "variant": "480 V et 400 V",
+      "steps": [
+        "Commander l'unité en bypass ou arrêter le système avant de programmer le firmware de l'UPS ou de l'afficheur HMI.",
+        "Le bootloader ne se programme qu'en cas de stricte nécessité : en cas d'échec, la carte devient inutilisable et doit être reprogrammée en centre de service.",
+        "Un fichier PLD remplace le programme principal de l'UPM ou de la MCU : une fois le PLD programmé, reprogrammer ensuite le programme principal correspondant.",
+        "Le PLD de la MCU ne peut pas être programmé quand la charge est sur bypass : arrêter la charge avant de programmer le PLD MCU.",
+        "L'UPS programme tous les UPM internes de l'unité : s'assurer que tous les UPM ont leur alimentation d'entrée pendant la programmation.",
+        "Récupérer les derniers fichiers sur le site Eaton UPS Technical Services ; programmer les fichiers dans l'ordre du tableau (procédure « Firmware : ordre des fichiers ») ; un fichier inchangé peut être ignoré."
+      ],
+      "warnings": [
+        "Ne jamais programmer un bootloader sans nécessité : un échec rend la carte inutilisable."
+      ],
+      "source": "SM §4.5, §4.5.1, §4.5.2"
+    },
+    {
+      "id": "firmware_sequence",
+      "label": "Firmware : ordre des fichiers à programmer",
+      "variant": "480 V et 400 V",
+      "steps": [
+        "1. MCU, bootloader : 93PM_MCU_BLD_xxxx.ROM",
+        "2. MCU, PLD : 93PM_MCU_PLD_xxxx.ROM",
+        "3. MCU, programme principal : 93PM_MCU_xxxx.ROM",
+        "4. UPM, bootloader : 93PM_UPM_BLD_xxxx.ROM",
+        "5. UPM, PLD : 93PM_UPM_PLD_xxxx.ROM",
+        "6. UPM, programme principal : 93PM_UPM_xxxx.ROM",
+        "7. CSB, bootloader : 93PM_CSB_BLD_xxxx.ROM",
+        "8. CSB, programme principal : 93PM_CSB_xxxx.ROM",
+        "9. HMI, programme principal : 93PM_HMI_xxxx.ZIP"
+      ],
+      "notes": [
+        "xxxx = numéro de version. Les fichiers inchangés peuvent être ignorés (SM §4.5.2).",
+        "Le dossier « Firmware » du projet contient des fichiers 93PM_MCU, MCU_BLD, UPM, UPM_BLD, CSB, CSB_BLD et des fichiers « _SCI_ » (MCU et UPM) qui ne figurent pas dans le tableau du manuel ; aucun fichier PLD ni HMI n'y est présent. À clarifier avant toute mise à jour.",
+        "Ne pas embarquer les fichiers Eaton dans l'application : les référencer seulement (nom, version, emplacement)."
+      ],
+      "source": "SM §4.5.2 tableau 4.36"
+    },
+    {
+      "id": "firmware_service_tool",
+      "label": "Firmware : programmer l'UPS avec l'outil Eaton Service Software Tool",
+      "variant": "480 V et 400 V",
+      "prerequisites": [
+        "firmware_notes"
+      ],
+      "steps": [
+        "Obtenir, installer et autoriser la dernière version publiée de l'Eaton Service Software Tool.",
+        "Raccorder l'ordinateur portable à l'UPS par un câble USB type A / type B (longueur maximale 5 m) : type A côté ordinateur, type B sur le connecteur USB Device de la carte CSB. Alternative : adaptateur USB vers RS-232 sur le port RS-232 de la CSB.",
+        "Lancer l'outil, ouvrir le panneau Firmware Flash et suivre l'aide intégrée (bouton Help en bas à gauche de la fenêtre)."
+      ],
+      "warnings": [
+        "Les ports USB et RS-232 ne sont pas isolés : le portable doit être complètement chargé et débranché de son alimentation pendant la connexion à l'UPS."
+      ],
+      "notes": [
+        "Méthode recommandée par le manuel pour de meilleurs résultats."
+      ],
+      "source": "SM §4.5.3"
+    },
+    {
+      "id": "firmware_usb",
+      "label": "Firmware : programmer l'UPS depuis une clé USB",
+      "variant": "480 V et 400 V",
+      "prerequisites": [
+        "firmware_notes"
+      ],
+      "steps": [
+        "Insérer la clé USB dans l'ordinateur (au moins 64 Mo libres ; formats FAT, FAT16 ou FAT32, NTFS non pris en charge ; certaines clés ne sont pas compatibles : essayer un autre modèle en cas de problème).",
+        "Copier les fichiers firmware (ROM) dans le dossier ROM de la clé.",
+        "Brancher la clé sur le connecteur USB Host de la carte CSB.",
+        "Sur l'afficheur HMI : Settings > Service (accès de niveau 3 requis), puis « USB Host Programming ». Cela coupe l'accès au connecteur USB Device de la CSB.",
+        "Choisir les fichiers à programmer ou « Update All ».",
+        "La programmation d'un PLD se fait en deux temps : d'abord le fichier PLD, puis le programme principal."
+      ],
+      "notes": [
+        "Le mot de passe du niveau 3 figure dans le manuel : il n'est volontairement pas reproduit dans ce pack."
+      ],
+      "source": "SM §4.5.4"
+    },
+    {
+      "id": "firmware_hmi_usb",
+      "label": "Firmware : programmer l'afficheur HMI depuis une clé USB",
+      "variant": "480 V et 400 V",
+      "prerequisites": [
+        "firmware_notes"
+      ],
+      "steps": [
+        "Insérer la clé USB dans l'ordinateur (au moins 64 Mo libres).",
+        "Télécharger le paquet « 93PM HMI Installation » sur le site Eaton UPS Technical Services.",
+        "Lancer l'assistant InstallShield de HMIFirmwareLoader et cliquer sur Next.",
+        "À l'étape de destination, cliquer sur Change et choisir la clé USB (lecteur « E: » dans l'exemple du manuel), puis OK et Next.",
+        "Cliquer sur Install : l'assistant copie HMIFirmwareLoader dans le dossier Project de la clé. Les fichiers firmware HMI doivent être dans Project : l'afficheur ne les installe depuis aucun autre emplacement.",
+        "Retirer la clé de l'ordinateur.",
+        "Ouvrir la porte avant de l'UPS et brancher la clé sur le port USB Host de l'afficheur HMI (vu de l'arrière de l'afficheur, il est sur le côté droit).",
+        "Réinitialiser l'afficheur en coupant puis en rétablissant l'alimentation auxiliaire de l'UPS.",
+        "Au redémarrage, l'afficheur demande une confirmation. À la question « sauvegarde (backup) ? », répondre NON : si on répond OUI, la programmation ne démarre pas.",
+        "La programmation prend plusieurs minutes, selon la vitesse de la clé."
+      ],
+      "notes": [
+        "Si la programmation ne démarre pas, comparer la version du firmware de la clé avec celle déjà chargée : si elles sont identiques, le processus ne démarre pas."
+      ],
+      "source": "SM §4.5.5"
+    },
+    {
+      "id": "calibration_ups",
+      "label": "Calibrage de l'UPS (Eaton Service Software Tool)",
+      "variant": "480 V et 400 V",
+      "steps": [
+        "Le calibrage de l'UPS se fait avec l'Eaton Service Software Tool ; suivre la procédure du fichier d'aide de l'outil (le manuel ne la détaille pas).",
+        "Prévoir le harnais de calibrage de service P-152000284, nécessaire pour se raccorder au bus DC (DC link) de l'UPM pendant le calibrage."
+      ],
+      "notes": [
+        "Après remplacement de cartes, contrôler aussi les révisions firmware (procédures « Firmware »)."
+      ],
+      "source": "SM §10.1, §10.2"
+    },
+    {
+      "id": "calibration_hmi_touch",
+      "label": "Calibrage tactile de l'afficheur HMI",
+      "variant": "480 V et 400 V",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Prévenir le client que la charge doit être sécurisée (arrêtée) ou transférée sur le bypass de maintenance interne ou externe (wraparound).",
+        "Selon les procédures du site : passer l'UPS en mode bypass, puis transférer la charge sur le bypass de maintenance interne ou externe.",
+        "Couper puis rétablir l'alimentation logique de l'unité : l'afficheur redémarre.",
+        "Pendant le redémarrage, l'afficheur montre un sablier. Quand il disparaît, toucher et maintenir l'écran n'importe où jusqu'au message « Tap anywhere on screen or touch calibrate will start in 10 seconds ».",
+        "Relâcher, puis toucher de nouveau l'écran pour afficher le Service Menu.",
+        "Appuyer sur le bouton « Touch Calibrate » et suivre les instructions à l'écran.",
+        "À la fin, l'afficheur revient au Service Menu.",
+        "Réinitialiser l'afficheur en coupant puis rétablissant l'alimentation logique ; attendre le démarrage sur le système d'exploitation de l'UPS.",
+        "Vérifier le bon fonctionnement de l'afficheur.",
+        "Remettre l'unité en service (procédure « Remise en service après intervention »)."
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §10.3"
+    },
+    {
+      "id": "troubleshooting_six_steps",
+      "label": "Dépannage : processus en six étapes",
+      "variant": "480 V et 400 V",
+      "steps": [
+        "Reconnaissance du symptôme : interroger les opérateurs sur les conditions et les événements ayant mené à l'appel de service et sur la séquence ayant fait remarquer le problème ; confirmer le défaut par des contrôles de fonctionnement ; noter les observations.",
+        "Précision du symptôme : avec les outils de test et de diagnostic intégrés, les appareils de mesure, les commandes, l'historique d'alarmes, les voyants et les écrans, comprendre exactement ce que les symptômes indiquent ; noter les observations.",
+        "Liste des modules / fonctions suspects : d'après la documentation et les données des étapes 1 et 2, lister tous les modules ou fonctions pouvant causer le défaut.",
+        "Localisation du module ou de la fonction en défaut : avec le matériel de test externe adapté, trouver le module ou la fonction défaillante ; noter les données de test utilisées.",
+        "Localisation du circuit ou de l'ensemble en défaut : avec le matériel de test adapté, effectuer les contrôles pour isoler le circuit défectueux à l'intérieur du module ou de la fonction ; noter les données recueillies.",
+        "Analyse de la défaillance : avec le matériel de test adapté, trouver le composant ou la carte défectueuse ; noter les données de test utilisées."
+      ],
+      "notes": [
+        "Les procédures de maintenance préventive sont dans un document séparé, téléchargeable sur le site de support technique Eaton ; la maintenance batterie a son propre manuel (Battery Preventive Maintenance Manual).",
+        "Les événements sont décrits dans le catalogue d'alarmes de l'application ; les niveaux, caractéristiques et modes de journalisation sont rappelés dans la section « Événements : types, niveaux et journalisation »."
+      ],
+      "source": "SM §11.2, §11.3, §11.3.1"
+    }
+  ]
+}

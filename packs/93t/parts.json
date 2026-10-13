@@ -1,0 +1,347 @@
+{
+  "_source": "Eaton 93T Service Manual HPO-1046599 rev 001 (avril 2024, non final), tableau 46 p. 162-163. Les numéros de pièce peuvent changer : se référer au représentant Eaton.",
+  "_status": "Quantités par puissance d'UPS reprises telles quelles (N/A = null). ref = référence 744 (ou seconde référence si la ligne n'a pas de 744) ; alt_ref = seconde référence de la même ligne. Les lignes 'Carte fusibles bypass 15-20 kW' (1 pour 15/20 et 30 kW) et '30-40 kW' (1 pour 40 kW seulement) sont reprises telles qu'au manuel : incohérence apparente à confirmer.",
+  "rating_columns": [
+    "15/20 kW",
+    "30 kW",
+    "40 kW",
+    "60 kW",
+    "80 kW"
+  ],
+  "parts": [
+    {
+      "ref": "744-01196",
+      "alt_ref": "712-01196",
+      "label": "CSB (carte de commande et d'affichage)",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": 1,
+        "40 kW": 1,
+        "60 kW": 1,
+        "80 kW": 1
+      }
+    },
+    {
+      "ref": "744-0A598",
+      "alt_ref": "710-0A598",
+      "label": "Carte EMI",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": 1,
+        "40 kW": 1,
+        "60 kW": 1,
+        "80 kW": 1
+      }
+    },
+    {
+      "ref": "744-A5162",
+      "alt_ref": "733-A3137",
+      "label": "Module de puissance 20 kW",
+      "category": "module_puissance",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-A5163",
+      "alt_ref": "733-A3138",
+      "label": "Module de puissance 30 kW",
+      "category": "module_puissance",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": 1,
+        "40 kW": null,
+        "60 kW": 2,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-A5164",
+      "alt_ref": "733-A3139",
+      "label": "Module de puissance 40 kW",
+      "category": "module_puissance",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": null,
+        "40 kW": 1,
+        "60 kW": null,
+        "80 kW": 2
+      }
+    },
+    {
+      "ref": "744-A5171",
+      "alt_ref": "126-00368",
+      "label": "HMI (afficheur) 15-40 kW",
+      "category": "hmi",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": 1,
+        "40 kW": 1,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-A5172",
+      "alt_ref": "126-00370",
+      "label": "HMI (afficheur) 60-80 kW",
+      "category": "hmi",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": 1,
+        "80 kW": 1
+      }
+    },
+    {
+      "ref": "744-A4855",
+      "alt_ref": "733-G2082",
+      "label": "Ventilateur STS 20-40 kW",
+      "category": "ventilateur",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": 1,
+        "40 kW": 1,
+        "60 kW": 1,
+        "80 kW": 1
+      }
+    },
+    {
+      "ref": "744-A5233",
+      "alt_ref": "733-G2154",
+      "label": "Ventilateur STS 60-80 kW",
+      "category": "ventilateur",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": 2,
+        "80 kW": 2
+      }
+    },
+    {
+      "ref": "744-A5234",
+      "alt_ref": "733-G2136",
+      "label": "Ventilateur backfeed 20-40 kW",
+      "category": "ventilateur",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": 1,
+        "40 kW": 1,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-A4860",
+      "alt_ref": "733-G2096",
+      "label": "Ventilateur bloc de puissance 30-40 kW",
+      "category": "ventilateur",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": 3,
+        "40 kW": 3,
+        "60 kW": 6,
+        "80 kW": 6
+      }
+    },
+    {
+      "ref": "744-A4859",
+      "alt_ref": "733-G2098",
+      "label": "Ventilateur bloc de puissance 20 kW",
+      "category": "ventilateur",
+      "qty": {
+        "15/20 kW": 3,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "098-0A179",
+      "label": "Carte REC IO 20 kW",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "098-0A180",
+      "label": "Carte INV IO 20 kW",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-0A415",
+      "alt_ref": "710-0A415",
+      "label": "Carte relais backfeed 15-40 kW",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": 1,
+        "40 kW": 1,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-0A416",
+      "alt_ref": "710-0A416",
+      "label": "Carte relais backfeed 60 kW",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": 1,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-0A417",
+      "alt_ref": "710-0A417",
+      "label": "Carte relais backfeed 80 kW",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": null,
+        "80 kW": 1
+      }
+    },
+    {
+      "ref": "744-0A405",
+      "alt_ref": "710-0A405",
+      "label": "Carte fusibles bypass 15-20 kW",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": 1,
+        "30 kW": 1,
+        "40 kW": null,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-0A402",
+      "alt_ref": "710-0A402",
+      "label": "Carte fusibles bypass 30-40 kW",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": null,
+        "40 kW": 1,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-0A403",
+      "alt_ref": "710-0A403",
+      "label": "Carte fusibles bypass 60-80 kW",
+      "category": "carte",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": 1,
+        "80 kW": 1
+      }
+    },
+    {
+      "ref": "744-A5256",
+      "alt_ref": "102-00482",
+      "label": "Fusible bypass 15-40 kW (80 A / 240 VAC)",
+      "category": "fusible",
+      "qty": {
+        "15/20 kW": 3,
+        "30 kW": 6,
+        "40 kW": 6,
+        "60 kW": null,
+        "80 kW": null
+      }
+    },
+    {
+      "ref": "744-A5257",
+      "alt_ref": "102-00677",
+      "label": "Fusible bypass 60-80 kW (250 A / 690 VAC)",
+      "category": "fusible",
+      "qty": {
+        "15/20 kW": null,
+        "30 kW": null,
+        "40 kW": null,
+        "60 kW": 3,
+        "80 kW": 3
+      }
+    }
+  ],
+  "alarm_to_part_hints": {
+    "UPM:53": {
+      "candidate_parts": [
+        "744-A4855",
+        "744-A5233",
+        "744-A5234",
+        "744-A4860",
+        "744-A4859"
+      ],
+      "behaviour_note": "Le manuel liste trois familles de ventilateurs : bloc de puissance, STS, backfeed. Le code d'erreur (0x01 à 0x08) indique le ou les ventilateurs bloqués.",
+      "verify_first": [
+        "Rotor bloqué ou encrassé",
+        "Connecteur du ventilateur"
+      ],
+      "procedure_ref": [
+        "SM §10.6.3 Fans",
+        "SM §13.4.3 Fans"
+      ],
+      "confidence": "moyenne"
+    },
+    "UPM:55": {
+      "candidate_parts": [
+        "744-0A415",
+        "744-0A416",
+        "744-0A417"
+      ],
+      "behaviour_note": "Relais anti-retour collé ou qui ne ferme pas ; le code donne la phase.",
+      "verify_first": [
+        "Mesurer la tension de part et d'autre du relais (désactivation sous 20 V)"
+      ],
+      "procedure_ref": [
+        "SM §5.7 Backfeed relay board",
+        "SM §10.6.5"
+      ],
+      "confidence": "faible"
+    },
+    "CSB:227": {
+      "candidate_parts": [
+        "744-01196"
+      ],
+      "behaviour_note": "Défaut EEPROM de la CSB.",
+      "verify_first": [
+        "Relire / sauvegarder l'EEPROM avant remplacement (SM §7.2.14)"
+      ],
+      "procedure_ref": [
+        "SM §10.6.4 CSB board"
+      ],
+      "confidence": "faible"
+    }
+  }
+}

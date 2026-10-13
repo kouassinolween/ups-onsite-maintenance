@@ -1,0 +1,202 @@
+{
+  "_source": "Service manual Eaton 93PM 50-200 kW P-164000219 Rev B02 (février 2014), chapitre 5 « Options » (§5.1 à §5.4) et tableau 6.1 (§6.1). Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER. Manuel de 2014 : les options décrites comme « disponibles ou à venir » et leurs références doivent être confrontées au catalogue actuel. Les guides d'installation et d'utilisation des armoires accessoires ne sont pas dans le dossier ; les schémas sont au chapitre 12 du manuel (Prints).",
+  "connectivity": {
+    "slots": "Quatre baies MiniSlot en haut et à l'avant de l'unité.",
+    "cards": [
+      {
+        "catalog_number": "MODBUS-MS",
+        "enovia_pn": "744-98065",
+        "label": "Carte réseau et MODBUS (Network and MODBUS Card-MS)"
+      },
+      {
+        "catalog_number": "Network-MS",
+        "enovia_pn": "744-98066",
+        "label": "Carte réseau (Network Card-MS)"
+      },
+      {
+        "catalog_number": "Relay-MS",
+        "enovia_pn": "744-98067",
+        "label": "Carte relais (Relay Card-MS)"
+      },
+      {
+        "catalog_number": "EMP",
+        "enovia_pn": "116750224-001",
+        "label": "Sonde de surveillance de l'environnement (Environmental Monitoring Probe)"
+      },
+      {
+        "catalog_number": "PXGMS",
+        "enovia_pn": "P-116000035",
+        "label": "Carte de communication Power Xpert (PXGMS)"
+      }
+    ],
+    "note": "Les manuels d'installation et d'utilisation des cartes sont téléchargeables sur le site powerquality.eaton.com (site du constructeur).",
+    "source": "SM §5.2, tableau 5.1"
+  },
+  "cabinets": [
+    {
+      "id": "ibc",
+      "label": "Armoire batterie intégrée (IBC)",
+      "variants": [
+        {
+          "label": "IBC-L (grande)",
+          "text": "Pour les durées d'autonomie longues ; proche de l'armoire batterie externe 9390 ; plusieurs configurations de batteries. La plus grande configuration donne 15 à 20 minutes pour l'UPS 100 kW. Se raccorde à tous les modèles 93PM ; peut être mise en parallèle avec des IBC-L identiques : jusqu'à 90 minutes pour les 50 et 100 kW, 60 minutes pour les 150 et 200 kW.",
+          "schematic": "figure 12.6 du manuel"
+        },
+        {
+          "label": "IBC-S (petite)",
+          "text": "Version courte autonomie : 3 à 5 minutes pour l'UPS 100 kW. Peut être mise en parallèle avec des IBC-S identiques. Se raccorde aux UPS 50 kW (avec batteries internes) et 100 kW, mais pas aux 150 et 200 kW.",
+          "schematic": "figure 12.11 du manuel"
+        }
+      ],
+      "features": [
+        "Un disjoncteur de déconnexion batterie par IBC, avec contact auxiliaire et déclencheur à émission ; pas de sectionneur séparé pour la protection contre les surintensités de chaque string.",
+        "Seules les batteries qualifiées Eaton sont prises en charge.",
+        "Température ambiante recommandée pour les batteries : 15 à 25 °C.",
+        "Longueur maximale des câbles batterie : 20 mètres.",
+        "Compatible avec des solutions de supervision de batterie telles que Cellwatch.",
+        "Une IBC peut être entretenue seule sans retirer tout le système DC de l'entrée de l'UPS.",
+        "Installations « line and match » : pas d'entrée haut et bas ; installations distantes : entrée haut et bas nécessaire (un sidecar peut être utilisé).",
+        "Un disjoncteur DC externe fourni par le client peut être nécessaire pour réduire le nombre de câbles arrivant à l'UPS.",
+        "Emballage conforme à l'instruction ICAO/IATA 806 (batteries) pour le transport aérien."
+      ],
+      "warnings": [
+        "Les tiroirs batterie des IBC ne sont pas haubanés quand ils sont sortis et ne supportent pas le poids total des batteries : ne pas en sortir un chargé de toutes ses batteries ; utiliser un lève-batterie, des EPI et les bonnes techniques de levage.",
+        "La batterie ne doit pas être référencée à la terre (aucun pôle relié à la terre)."
+      ],
+      "source": "SM §5.3.1, §5.3.1.1, §5.3.1.2"
+    },
+    {
+      "id": "iac_d",
+      "label": "Armoire de distribution (IAC-D)",
+      "applies_to": "UPS 50 à 200 kW",
+      "features": [
+        "Tableaux de distribution avec disjoncteurs de départ à vis (bolt-on) ; roulettes ou roues ; arrivée du câblage possible des deux côtés ; kits pour ajouter des départs sur site.",
+        "Pouvoirs de coupure : disjoncteur principal du tableau 65 et 100 KAIC ; départs 85 et 100 KAIC ; disjoncteur d'entrée principal (MIB) 35 et 65 KAIC.",
+        "Tension et courant de sortie du transformateur surveillés et visibles sur le HMI.",
+        "Disjoncteurs de départ 100 % disponibles."
+      ],
+      "arrangements": [
+        "Deux tableaux 42 pôles : deux tableaux ≤ 225 A pour tous les modèles ; un tableau ≤ 400 A et un ≤ 225 A pour les 150 et 200 kW ; surveillance des départs en option (courant seulement).",
+        "Un tableau 42 pôles et jusqu'à cinq disjoncteurs de distribution réglables ≤ 250 A ; disjoncteur principal du tableau ≤ 225 A.",
+        "Un à au moins cinq disjoncteurs de distribution réglables ≤ 250 A.",
+        "Un disjoncteur de sortie conforme à UL 1778 4e édition (remplace l'option cosses de sortie du 9390).",
+        "Option : un disjoncteur unique ≤ 225 A pour extension future sur les 150 et 200 kW."
+      ],
+      "transformer": "Transformateur de sortie 480 triangle : 208 étoile alimentant les tableaux ou les départs ; facteur K de 1 (tout rendement), K de 13 (tout rendement) ou K de 13 avec rendement TP1.",
+      "schematic": "figure 12.5 du manuel",
+      "source": "SM §5.3.2"
+    },
+    {
+      "id": "siac_b",
+      "label": "Sidecar bypass de maintenance (SIAC-B)",
+      "applies_to": "UPS 50 à 200 kW",
+      "features": [
+        "Faible largeur ; peut être fixé à l'UPS ou à un autre accessoire ; entrée en bas et en haut.",
+        "Pouvoir de coupure : tous les disjoncteurs 35 et 65 KAIC.",
+        "Trois arrangements de bypass de maintenance : isolement de maintenance (MIS) + bypass de maintenance (MBP) ; disjoncteur d'entrée bypass (BIB) + MIS + MBP ; disjoncteur d'entrée redresseur (RIB) + BIB + MIS + MBP."
+      ],
+      "schematic": "figure 12.8 du manuel",
+      "source": "SM §5.3.3.1"
+    },
+    {
+      "id": "siac_t",
+      "label": "Sidecar de couplage parallèle (SIAC-T)",
+      "applies_to": "UPS 50 à 200 kW",
+      "features": [
+        "Relie deux UPS et assure la fonction de disjoncteur de sortie de module (MOB).",
+        "Configurations : système redondant 1+1 ou système en capacité 2+0.",
+        "Faible largeur ; fixation à l'UPS ou à un accessoire ; entrée en bas et en haut.",
+        "Deux arrangements de bypass de maintenance : disjoncteur de charge système (SLB) ; ou MIS + MBP."
+      ],
+      "schematic": "figure 12.12 du manuel (SIAC-T 50/100 kW)",
+      "source": "SM §5.3.3.2"
+    },
+    {
+      "id": "iac_t",
+      "label": "Armoire de couplage intégrée (IAC-T)",
+      "applies_to": "UPS 50 à 200 kW",
+      "features": [
+        "Relie jusqu'à quatre UPS et assure la fonction MOB.",
+        "Configurations : système redondant N+1 ou système en capacité N+0.",
+        "Roulettes ou roues ; entrée en bas et en haut.",
+        "Deux arrangements de bypass de maintenance : SLB ; ou MIS + MBP."
+      ],
+      "schematic": "figure 12.13 du manuel",
+      "source": "SM §5.3.4"
+    },
+    {
+      "id": "iac_it",
+      "label": "Armoire transformateur d'entrée (IAC-IT)",
+      "applies_to": "UPS 50 à 200 kW",
+      "features": [
+        "Transformateur d'entrée 600/480 V.",
+        "Peut supporter des arrangements UPS interne redondants X+1 (une armoire UPS), y compris les alimentations supplémentaires nécessaires à la charge."
+      ],
+      "schematic": "figure 12.7 du manuel",
+      "source": "SM §5.3.5"
+    },
+    {
+      "id": "ch_bypass",
+      "label": "Panneaux de bypass de maintenance Cutler-Hammer",
+      "features": [
+        "Offres de 50 à 200 kW ; pas d'exigence « line and match ».",
+        "Trois arrangements : MIS + MBP ; BIB + MIS + MBP ; RIB + BIB + MIS + MBP.",
+        "Versions murales et sur pied ; options 10, 35, 65 et 100 KAIC selon disponibilité."
+      ],
+      "source": "SM §5.3.6"
+    },
+    {
+      "id": "ch_tie",
+      "label": "Panneaux de couplage Cutler-Hammer",
+      "features": [
+        "Offres de 50 à 200 kW avec jusqu'à quatre UPS ; redondance N+1 ou capacité ; pas d'exigence « line and match ».",
+        "Disjoncteurs d'entrée bypass (BIB) et d'entrée redresseur (RIB) optionnels pour chaque UPS.",
+        "Deux arrangements de bypass de maintenance : SLB ; ou MIS + MBP.",
+        "Options 35, 65 et 100 KAIC selon disponibilité."
+      ],
+      "source": "SM §5.3.7"
+    }
+  ],
+  "accessories": [
+    {
+      "label": "Panneau de bypass de maintenance mural",
+      "text": "Utilisable avec le 93PM.",
+      "source": "SM §5.4.1"
+    },
+    {
+      "label": "Arrêt d'urgence à distance (REPO)",
+      "text": "Un interrupteur REPO peut être câblé sur le 93PM ; voir le guide d'installation et d'utilisation.",
+      "source": "SM §5.4.2"
+    }
+  ],
+  "installation_manuals": {
+    "manuals": [
+      {
+        "part_number": "P-164000227",
+        "title": "Eaton 93PM UPS 20-100 kW (480 V) : guide d'installation et d'utilisation"
+      },
+      {
+        "part_number": "P-164000228",
+        "title": "Armoire batterie intégrée grande (IBC-L) : manuel d'installation"
+      },
+      {
+        "part_number": "P-164000229",
+        "title": "Armoire accessoire intégrée de distribution (IAC-D 50 kW et 100 kW) : installation et utilisation"
+      },
+      {
+        "part_number": "P-164000230",
+        "title": "Sidecar accessoire bypass (SIAC-B 100 kW) : installation et utilisation"
+      },
+      {
+        "part_number": "P-164000305",
+        "title": "Armoire batterie intégrée petite (IBC-S) : manuel d'installation"
+      },
+      {
+        "part_number": "P-164000370",
+        "title": "Sidecar accessoire de couplage et couplage-bypass (SIAC-T et SIAC-TB 100 kW) : installation et utilisation"
+      }
+    ],
+    "source": "SM §6.1, tableau 6.1"
+  }
+}

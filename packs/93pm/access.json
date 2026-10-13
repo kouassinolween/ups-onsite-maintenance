@@ -1,0 +1,65 @@
+{
+  "_source": "Service manual Eaton 93PM 50-200 kW P-164000219 Rev B02 (février 2014), §4.4 « Access Levels and Passwords » et figures 4.39 à 4.42 ; renvois §4.5.4 et §10.3. Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. AUCUN mot de passe, par défaut ou autre, n'est stocké dans ce pack (règle du projet) : les valeurs par défaut figurent dans le manuel (SM §4.4, tableau 4.35) ; elles doivent être changées sur site. Le tableau 4.35 du manuel présente un ordre des valeurs incohérent avec son texte : se référer au texte du manuel d'origine et au guide d'installation et d'utilisation.",
+
+  "summary": "Le menu du HMI offre trois niveaux d'accès, chacun protégé par un mot de passe : Contrôle (niveau 1), Configuration (niveau 2) et Service (niveau 3). Le mot de passe du niveau Contrôle peut être activé ou désactivé par un utilisateur de niveau supérieur. La saisie du mot de passe est décrite dans le guide d'installation et d'utilisation (Installation and Operation Manual).",
+
+  "levels": [
+    {
+      "level": 1,
+      "label": "Contrôle (niveau 1)",
+      "gives": "Commande et exploitation de l'unité depuis l'onglet Controls (hors mode Service).",
+      "menu_path": "Home > Controls",
+      "screens": [
+        "System Controls : Go to Bypass, Go Online, Load Off",
+        "UPS Controls",
+        "Module Controls",
+        "EAA Controls"
+      ],
+      "password_policy": "Mot de passe modifiable par un utilisateur de niveau 2 ou 3 ; son exigence peut être activée ou désactivée par un niveau supérieur (écran « Control P/W Level 1 »).",
+      "source": "SM §4.4, fig. 4.39"
+    },
+    {
+      "level": 2,
+      "label": "Configuration (niveau 2)",
+      "gives": "Contrôle et réglages de configuration, sur les deux écrans de l'onglet Configuration.",
+      "menu_path": "Home > Settings > Configuration",
+      "screens": [
+        "Écran 1 : Language, Unit Name, Clock, Signal Inputs, Relay Outputs, Call Service, Battery Test, Bypass Limits, Meters",
+        "Écran 2 : Screen Saver Timeout, HMI Backlight, Lamp Test, Reset Statistics, Minimum Required kVA, Control P/W Level 1, Config P/W Level 2"
+      ],
+      "password_policy": "Mot de passe modifiable par un utilisateur de niveau 2 ou 3 (écran « Config P/W Level 2 »).",
+      "note": "Le niveau 2 ou 3 est nécessaire pour afficher l'onglet Configuration (note du manuel, SM §4.4 et chapitre de configuration).",
+      "source": "SM §4.4, fig. 4.40 et 4.41"
+    },
+    {
+      "level": 3,
+      "label": "Service (niveau 3)",
+      "gives": "Contrôle, configuration, réglages de service et mode Service.",
+      "menu_path": "Home > Settings > Service",
+      "screens": [
+        "Battery, Output, Site Wiring Fault",
+        "Service Reminder, R/W Parameters, Calibration",
+        "Auto Restart, Walk In, Parallel Settings",
+        "Reset Settings, USB Host Programming, Web Control",
+        "Service P/W Level 3"
+      ],
+      "password_policy": "Mot de passe modifiable uniquement par un utilisateur de niveau 3 (écran « Service P/W Level 3 »).",
+      "note": "Le niveau 3 est requis pour afficher l'onglet Settings/Service, donc pour « USB Host Programming » (programmation du firmware depuis clé USB, SM §4.5.4).",
+      "source": "SM §4.4, fig. 4.42"
+    }
+  ],
+
+  "usage_by_task": [
+    { "task": "Passer en bypass, passer en ligne, arrêter la charge", "level": 1 },
+    { "task": "Réglages de configuration (langue, horloge, entrées de signal, sorties relais, limites bypass...)", "level": 2 },
+    { "task": "Programmer le firmware depuis une clé USB (USB Host Programming)", "level": 3 },
+    { "task": "Réglages batterie, sortie, site wiring fault, paramètres R/W, calibrage, paramètres parallèle", "level": 3 }
+  ],
+
+  "good_practice": [
+    "Changer les mots de passe par défaut à la mise en service et les consigner dans le dossier du site, pas dans l'application.",
+    "Les connexions réussies sont journalisées (événement CSB 481 « User Log-in Successful », niveau 1, 2 ou 3)."
+  ],
+  "related_events": ["CSB:481 User Log-in Successful"]
+}

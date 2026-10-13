@@ -1,0 +1,135 @@
+{
+  "_source": "Eaton 93T Service Manual HPO-1046599 rev 001 (avril 2024, non final), §3.6 (p. 30-32) et §9.3 (p. 103-105). Reformulé, texte non recopié. Pour les spécifications complètes, le manuel renvoie au User's and Installation Guide (non présent dans le dossier).",
+  "_status": "BROUILLON À VALIDER par un technicien certifié.",
+
+  "topology": {
+    "id": "external_parallel",
+    "label": "Parallèle externe",
+    "max_units": 4,
+    "redundancy": "Jusqu'à 3+1 (redondance)",
+    "rules": [
+      "Redondant et capacité fonctionnent de la même façon ; une perte de redondance ne lève qu'un avis, pas une alarme.",
+      "Le numéro de chaque bloc de puissance est attribué par le matériel et au démarrage par le DSP.",
+      "L'entrée bypass de tous les blocs de puissance (et du MBP) doit venir de la même source.",
+      "Le fonctionnement en batterie commune n'est pas pris en charge.",
+      "Bus CAN externe (ECAN) obligatoire entre les UPS en parallèle.",
+      "Pull-chain : relaie l'état du bypass, actif seulement quand l'ECAN est coupé.",
+      "Tous les blocs de puissance doivent avoir le même firmware.",
+      "Tous les blocs de puissance doivent avoir la même configuration batterie."
+    ],
+    "source": "SM §3.6.1, p. 30"
+  },
+
+  "sync": {
+    "sources": ["Signal de synchronisation externe", "Synchronisation individuelle sur le bypass", "Synchronisation individuelle sur l'entrée", "Synchronisation individuelle sur la base"],
+    "rules": [
+      "Le parallèle externe se synchronise sur le bypass s'il est disponible dans toutes les unités ; sinon sur la base.",
+      "Pour revenir à la synchronisation bypass : ouvrir le MOB ou retirer l'alimentation logique de l'UPS sans synchro bypass, puis Clear Alarms sur une des UPS du système."
+    ],
+    "startup_scenarios": [
+      "Bypass disponible : tous les blocs se synchronisent sur le bypass et les UPS transfèrent sur bypass ; après précharge et démarrage des blocs, le système passe en mode normal.",
+      "Bypass disponible mais hors fenêtre de synchro : les blocs tentent de se synchroniser sur le bypass mais démarrent sur l'onduleur.",
+      "Bypass hors limites et entrée redresseur dans les limites : synchro sur l'entrée, démarrage en Online, puis synchro sur la base (synchro entrée non autorisée après démarrage).",
+      "Bypass indisponible et entrée hors limites : le parallèle externe ne peut pas démarrer ; le parallèle interne démarre en Online, synchro sur le signal maître."
+    ],
+    "source": "SM §3.6.2.1, p. 31"
+  },
+
+  "behaviours": [
+    {
+      "id": "load_off",
+      "label": "Load off",
+      "text": "Système externe en bypass : le bouton Load Off arrête toutes les UPS. Système en Online : il n'arrête que l'UPS locale si elle est redondante.",
+      "source": "SM §3.6.2.2, p. 31"
+    },
+    {
+      "id": "remove_ups",
+      "label": "Retirer une UPS du système",
+      "text": "Si une UPS est arrêtée, les autres affichent une alarme de défaut CAN ; l'effacer avec Clear Alarms.",
+      "related_events": ["UPM:85 Parallel Can Bus Failed"],
+      "source": "SM §3.6.2.3, p. 31"
+    },
+    {
+      "id": "battery_shutdown",
+      "label": "Arrêt sur batterie",
+      "text": "En mode Batterie, les UPS redondantes s'arrêtent à la limite de sous-tension DC (DCUV). En configuration capacité, tous les blocs s'arrêtent dès que l'un atteint la limite DCUV.",
+      "source": "SM §3.6.2.4, p. 31"
+    },
+    {
+      "id": "bypass_operation",
+      "label": "Fonctionnement en bypass",
+      "text": "Configuration capacité : si une unité doit passer en bypass, tous les blocs passent en bypass. Configuration redondante : seule cette unité passe en bypass, les autres supportent la charge sur onduleur.",
+      "source": "SM §3.6.2.5, p. 31-32"
+    },
+    {
+      "id": "load_share",
+      "label": "Partage de charge",
+      "text": "Technologie Eaton Powerware Hot Sync : le partage fonctionne même si le réseau CAN est inactif. Il est recommandé que les câbles d'entrée et de sortie aient la même longueur, sinon les spécifications peuvent dévier.",
+      "specification": {
+        "unit": "%",
+        "rows": [
+          { "mode": "Online", "can": true, "internal_share": 2, "external_share": 5 },
+          { "mode": "Online", "can": false, "internal_share": 2, "external_share": 5 },
+          { "mode": "Batterie", "can": true, "internal_share": 2, "external_share": 5 },
+          { "mode": "Batterie", "can": false, "internal_share": 2, "external_share": 5 }
+        ]
+      },
+      "related_events": ["UPM:130 Parallel Load Share Error"],
+      "source": "SM §3.6.2.6, p. 32, tableau 4"
+    },
+    {
+      "id": "parallel_abm",
+      "label": "ABM en parallèle",
+      "text": "Les UPS ne testent pas leurs batteries en même temps : elles se coordonnent par le réseau pour qu'un seul bloc teste à la fois. Le système affiche le temps batterie restant le plus court de tous les blocs.",
+      "source": "SM §3.6.2.7, p. 32"
+    }
+  ],
+
+  "transfers": [
+    { "id": "to_bypass", "label": "Transfert vers Bypass", "text": "Le système passe en Bypass si assez de bypass sont disponibles pour supporter la charge. Chaque circuit bypass supporte 115 % de la charge nominale.", "source": "SM §3.6.3.1, p. 32" },
+    { "id": "to_online", "label": "Transfert vers Online", "text": "Le système passe en Online si assez d'onduleurs sont disponibles pour supporter la charge. Chaque onduleur supporte 102 % de la charge nominale.", "source": "SM §3.6.3.2, p. 32" },
+    { "id": "emergency_bypass", "label": "Transfert d'urgence vers Bypass", "text": "En urgence, le système passe en Bypass quelle que soit la capacité bypass au niveau système ; la commande est envoyée aux autres UPS par le CAN.", "source": "SM §3.6.3.3, p. 32" }
+  ],
+
+  "setup": {
+    "id": "configure_parallel",
+    "label": "Configurer un système parallèle",
+    "intro": "Toutes les unités sont des unités seules par défaut ; le parallèle doit être configuré sur site. Câbles nécessaires : starter et ender (fournis), câble pull-chain pour chaque paire d'unités (non fourni). Pour les raccordements pull-chain et CAN, voir le User's and Installation Guide ; avec MOB externe, voir la figure 65 du manuel.",
+    "checks_before": [
+      "Écart de tension de sortie entre chaque unité inférieur à 0,5 V.",
+      "CTO identique entre les unités pour les caractères 4 à 8 (lire le CTO dans l'Eaton Service Tool).",
+      "Même version de firmware dans toutes les unités."
+    ],
+    "steps": [
+      "Configurer l'identifiant UPS (adresse parallèle, 0 à 3) et le nombre d'UPS (1 à 4 ; 1 = unité seule).",
+      "Alternative : dans l'Eaton Service Tool, écrire le nombre d'UPS dans l'EEPROM 5009 de chaque UPS et l'identifiant dans l'EEPROM 5003."
+    ],
+    "example": "Deux UPS : EEPROM 5009 = 2 sur chaque UPS ; EEPROM 5003 = 0 sur l'UPS 1 et 1 sur l'UPS 2.",
+    "eeprom": [
+      { "id": 5003, "meaning": "Identifiant de l'UPS (adresse parallèle, 0 à 3)" },
+      { "id": 5009, "meaning": "Nombre total d'UPS (1 à 4)" }
+    ],
+    "source": "SM §9.3.1, p. 103-105"
+  },
+
+  "troubleshooting": [
+    {
+      "alarm": "Parallel Can Bus Failed",
+      "event": "UPM:85",
+      "checks": ["Câble CAN correctement raccordé.", "Nombre total d'UPS correctement configuré dans l'EEPROM UPM 5009."],
+      "source": "SM §9.3.1.1, p. 105 ; tableau 34, p. 132"
+    },
+    {
+      "alarm": "Parallel Setup Failed",
+      "event": "UPM:115",
+      "checks": ["EEPROM 5009 et EEPROM 5003 correctement configurées.", "Si le réglage est correct et que l'alarme persiste : contacter le représentant de service local."],
+      "source": "SM §9.3.1.1, p. 105 ; tableau 34, p. 132"
+    },
+    {
+      "alarm": "Configuration Error",
+      "event": "UPM:61",
+      "checks": ["Bit 0x01 : numéro d'UPS parallèle invalide.", "Bit 0x10 : paquets PCAN observés en configuration non parallèle."],
+      "source": "alarms.json, SM tableau 35 (§13.5.6.5)"
+    }
+  ]
+}

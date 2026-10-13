@@ -1,0 +1,156 @@
+{
+  "_source": "Eaton 93T Service Manual HPO-1046599 rev 001, tableau 34 « UPS alarms and faults », p. 131-132. Cause et solution reformulées en français ; texte anglais conservé pour le repérage.",
+  "_status": "Les numéros du tableau correspondent aux événements UPM du même numéro (131 s'appelle « HE Not Available » dans la table des événements, « ESS Not Available » dans ce tableau).",
+  "alarms": [
+    {
+      "source": "UPM",
+      "id": 2,
+      "table_name": "Bypass AC Under Voltage",
+      "cause_en": "The bypass switch is not on.",
+      "solution_en": "Close the bypass switch.",
+      "cause_fr": "Le commutateur bypass n'est pas fermé.",
+      "solution_fr": "Fermer le commutateur bypass.",
+      "page": 131
+    },
+    {
+      "source": "UPM",
+      "id": 5,
+      "table_name": "Input AC Under Voltage",
+      "cause_en": "The input switch is not on.",
+      "solution_en": "Close the input switch.",
+      "cause_fr": "Le commutateur d'entrée n'est pas fermé.",
+      "solution_fr": "Fermer le commutateur d'entrée.",
+      "page": 131
+    },
+    {
+      "source": "UPM",
+      "id": 14,
+      "table_name": "Inverter Output Over Current",
+      "cause_en": "The load is a nonlinear load and has a large capacity.",
+      "solution_en": "Contact your local service representative.",
+      "cause_fr": "La charge est non linéaire et de forte puissance.",
+      "solution_fr": "Contacter le représentant de service local.",
+      "page": 131
+    },
+    {
+      "source": "UPM",
+      "id": 24,
+      "table_name": "Battery DC Over Voltage",
+      "cause_en": "The battery voltage sensors have detected a battery voltage greater than 2.45 VPC.",
+      "solution_en": "Contact your local service representative.",
+      "cause_fr": "Les capteurs de tension batterie ont détecté une tension supérieure à 2,45 VPC.",
+      "solution_fr": "Contacter le représentant de service local.",
+      "page": 131
+    },
+    {
+      "source": "UPM",
+      "id": 29,
+      "table_name": "Bypass Phase Rotation Failed",
+      "cause_en": "Incorrect bypass wiring.",
+      "solution_en": "Examine the bypass wiring.",
+      "cause_fr": "Câblage bypass incorrect (rotation des phases).",
+      "solution_fr": "Vérifier le câblage bypass.",
+      "page": 131
+    },
+    {
+      "source": "UPM",
+      "id": 53,
+      "table_name": "Fan Failed",
+      "cause_en": "The fan is not operating correctly.",
+      "solution_en": "Contact your local service representative.",
+      "cause_fr": "Un ventilateur ne fonctionne pas correctement.",
+      "solution_fr": "Contacter le représentant de service local.",
+      "page": 131
+    },
+    {
+      "source": "UPM",
+      "id": 54,
+      "table_name": "Site Wiring Fault",
+      "cause_en": "Incorrect ground zero wiring.",
+      "solution_en": "Examine the ground wire and the neutral wire.",
+      "cause_fr": "Câblage masse / neutre incorrect.",
+      "solution_fr": "Vérifier le conducteur de terre et le neutre.",
+      "page": 131
+    },
+    {
+      "source": "UPM",
+      "id": 59,
+      "table_name": "Output Voltage Abnormal",
+      "cause_en": "The maintenance bypass switch is closed or the output sample voltage has been detected abnormal.",
+      "solution_en": "If the maintenance bypass switch is closed, open it. If the output sample voltage has been detected abnormal, contact your local service representative.",
+      "cause_fr": "Le commutateur de bypass de maintenance est fermé, ou la tension d'échantillon de sortie est détectée anormale.",
+      "solution_fr": "Si le bypass de maintenance est fermé, l'ouvrir. Si la tension d'échantillon de sortie est anormale, contacter le représentant de service local.",
+      "page": 131
+    },
+    {
+      "source": "UPM",
+      "id": 61,
+      "table_name": "Configuration Error",
+      "cause_en": "Battery cell configuration required.",
+      "solution_en": "Configure battery cells (EEP 5302). Contact your local service representative, if necessary.",
+      "cause_fr": "Configuration des cellules batterie requise.",
+      "solution_fr": "Configurer les cellules batterie (EEP 5302). Contacter le représentant de service si nécessaire.",
+      "page": 132
+    },
+    {
+      "source": "UPM",
+      "id": 66,
+      "table_name": "PreCharge Failed",
+      "cause_en": "Input voltage collapse.",
+      "solution_en": "Contact your local service representative.",
+      "cause_fr": "Effondrement de la tension d'entrée.",
+      "solution_fr": "Contacter le représentant de service local.",
+      "page": 132
+    },
+    {
+      "source": "UPM",
+      "id": 85,
+      "table_name": "Parallel Can Bus Failed",
+      "cause_en": "The parallel connection is not operating correctly.",
+      "solution_en": "Examine the parallel connection.",
+      "cause_fr": "La liaison parallèle ne fonctionne pas correctement.",
+      "solution_fr": "Vérifier la liaison parallèle.",
+      "page": 132
+    },
+    {
+      "source": "UPM",
+      "id": 106,
+      "table_name": "5 V Power Supply Failed",
+      "cause_en": "Power supply failure.",
+      "solution_en": "Contact your local service representative.",
+      "cause_fr": "Défaut d'alimentation.",
+      "solution_fr": "Contacter le représentant de service local.",
+      "page": 132
+    },
+    {
+      "source": "UPM",
+      "id": 107,
+      "table_name": "15 V Power Supply Failed",
+      "cause_en": "Power supply failure.",
+      "solution_en": "Contact your local service representative.",
+      "cause_fr": "Défaut d'alimentation.",
+      "solution_fr": "Contacter le représentant de service local.",
+      "page": 132
+    },
+    {
+      "source": "UPM",
+      "id": 115,
+      "table_name": "Parallel Setup Failed",
+      "cause_en": "The parallel setting is incorrect.",
+      "solution_en": "Examine the parallel setting. If the parallel setting is correct but the UPS still alarms, contact your local service representative.",
+      "cause_fr": "Le réglage parallèle est incorrect.",
+      "solution_fr": "Vérifier le réglage parallèle ; s'il est correct et que l'alarme persiste, contacter le représentant de service local.",
+      "page": 132
+    },
+    {
+      "source": "UPM",
+      "id": 131,
+      "table_name": "ESS Not Available",
+      "cause_en": "Bypass quality is not good or the charging current is greater than the setup limit.",
+      "solution_en": "Contact your local service representative.",
+      "cause_fr": "La qualité du bypass est insuffisante ou le courant de charge dépasse la limite de réglage.",
+      "solution_fr": "Contacter le représentant de service local.",
+      "page": 132
+    }
+  ]
+}

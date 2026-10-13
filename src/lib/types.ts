@@ -9,7 +9,7 @@ export interface ErrorCode {
 
 export type EventKind = 'alarm' | 'sticky_alarm' | 'notice' | 'sticky_notice' | 'status' | 'command';
 export type Source = 'UPM' | 'MCU' | 'CSB';
-export type CatalogId = 'modular' | 'monoblock';
+export type CatalogId = 'modular' | 'monoblock' | 'ups93t';
 
 /** Une ligne du catalogue, un identifiant par objet (les groupes sont dépliés). */
 export interface CatalogEvent {
@@ -43,7 +43,15 @@ export interface PartHint {
   confidence?: string;
 }
 
-export interface Part { ref: string; label: string; category?: string; generation?: string }
+export interface Part {
+  ref: string; label: string; category?: string; generation?: string;
+  alt_ref?: string; qty?: Record<string, number | null>;
+}
+
+/** Alarme utilisateur : cause probable et solution du tableau « UPS alarms and faults ». */
+export interface UserAlarm {
+  causeFr: string; solutionFr: string; causeEn: string; solutionEn: string; tableName: string; page: number;
+}
 export interface Kit { kit: string; model: string; variant: string; items: [string, number][] }
 
 export interface CatalogData {
@@ -51,6 +59,8 @@ export interface CatalogData {
   hints: Record<string, PartHint>;
   parts: Record<string, Part>;
   kits: Kit[];
+  /** Clé : même clé que l'événement (famille|source|id). */
+  userAlarms: Record<string, UserAlarm>;
 }
 
 export interface DecodeMatch { key: string; label: string }

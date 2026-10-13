@@ -1,0 +1,23 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# PWA : le service worker et le manifeste ne doivent pas rester en cache navigateur,
+# sinon une mise à jour du site n'est pas vue par les techniciens.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/packs/*"
+  [headers.values]
+    Cache-Control = "no-cache"

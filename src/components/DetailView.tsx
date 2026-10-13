@@ -3,8 +3,9 @@ import type { CatalogData, CatalogEvent } from '../lib/types';
 import { DecoderPanel } from './DecoderPanel';
 
 function Hints({ event, data }: { event: CatalogEvent; data: CatalogData }) {
-  if (event.catalog !== 'modular') return null;
-  const hintKey = [event.id, ...event.groupIds].map((i) => `${event.source}:${i}`).find((k) => data.hints[k]);
+  if (event.catalog === 'monoblock') return null;
+  const prefix = event.catalog === 'modular' ? '' : `${event.catalog}|`;
+  const hintKey = [event.id, ...event.groupIds].map((i) => `${prefix}${event.source}:${i}`).find((k) => data.hints[k]);
   if (!hintKey) return null;
   const hint = data.hints[hintKey];
   const parts = hint.candidate_parts ?? [];
@@ -16,6 +17,10 @@ function Hints({ event, data }: { event: CatalogEvent; data: CatalogData }) {
         return (
           <div className="part" key={ref}>
             <code>{ref}</code> {data.parts[ref]?.label ?? ''}
+            {data.parts[ref]?.alt_ref && <span className="muted"> (réf. {data.parts[ref]?.alt_ref})</span>}
+            {data.parts[ref]?.qty && (
+              <span className="muted"> — par UPS : {Object.entries(data.parts[ref]!.qty!).filter(([, n]) => n != null).map(([r, n]) => `${r} ×${n}`).join(', ')}</span>
+            )}
             {inKits.length > 0 && <span className="muted">(dans : {inKits.join(', ')})</span>}
           </div>
         );
@@ -39,7 +44,8 @@ function Hints({ event, data }: { event: CatalogEvent; data: CatalogData }) {
 export function DetailView({
   event: e, data, presetCode, onBack,
 }: { event: CatalogEvent; data: CatalogData; presetCode: string | null; onBack: () => void }) {
-  const family = CATALOGS.find((c) => c.id === e.catalog)?.label ?? e.catalog;
+  const def = CATALOGS.find((c) => c.id === e.catalog);
+  const family = def?.label ?? e.catalog;
   const group = e.groupIds.length > 1 ? `(groupe : ${e.groupIds.join(', ')})` : '';
   return (
     <article className="detail">
@@ -59,6 +65,15 @@ export function DetailView({
         {e.manualNote && <p className="muted">Remarque sur le manuel : {e.manualNote}</p>}
       </section>
 
+      {data.userAlarms[e.key] && (
+        <section className="box">
+          <h3>Alarme utilisateur : cause et solution</h3>
+          <p><strong>Cause probable : </strong>{data.userAlarms[e.key].causeFr}</p>
+          <p><strong>Solution : </strong>{data.userAlarms[e.key].solutionFr}</p>
+          <p className="muted">Tableau « UPS alarms and faults » du service manual 93T, p. {data.userAlarms[e.key].page}.</p>
+        </section>
+      )}
+
       <DecoderPanel key={`${e.key}|${presetCode ?? ''}`} errorCode={e.errorCode} presetCode={presetCode} />
       <Hints event={e} data={data} />
 
@@ -68,7 +83,7 @@ export function DetailView({
           <tbody>
             <tr><th>Source</th><td>{SOURCE_LABEL[e.source] ?? e.source}</td></tr>
             <tr><th>Numéro d'événement</th><td>{e.id} {group}</td></tr>
-            {e.page != null && <tr><th>Manuel d'alarmes</th><td>Rev 003, p. {e.page}</td></tr>}
+            {e.page != null && <tr><th>Manuel</th><td>{def?.manual ?? 'Manuel Eaton'}, p. {e.page}</td></tr>}
             {e.defaults && (
               <tr><th>Valeurs par défaut</th><td>{Object.entries(e.defaults).map(([k, v]) => `${k} : ${v}`).join(' ; ')}</td></tr>
             )}

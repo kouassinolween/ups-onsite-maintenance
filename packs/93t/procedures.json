@@ -1,0 +1,390 @@
+{
+  "_source": "Eaton 93T Service Manual HPO-1046599 rev 001 (avril 2024, non final), chapitre 10 « Removal and replacement », p. 106-118 ; renvois §7.2.14.3 et §10.5.1.1. Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Les figures du manuel (position des vis) ne sont pas reprises : se référer aux pages indiquées. Le manuel est « not final ».",
+  "tools": [
+    {
+      "tool": "Clé à tube (nut driver)",
+      "sizes": "6, 7, 8, 10, 13 et 16 mm"
+    },
+    {
+      "tool": "Tournevis cruciforme (Phillips)",
+      "sizes": "n° 2 et n° 3"
+    },
+    {
+      "tool": "Douille",
+      "sizes": "7, 8 et 10 mm"
+    },
+    {
+      "tool": "Clé hexagonale (Allen)",
+      "sizes": "6, 8, 13 et 16 mm"
+    },
+    {
+      "tool": "Pince coupante",
+      "sizes": null
+    },
+    {
+      "tool": "Colliers de serrage (tie wraps)",
+      "sizes": null
+    }
+  ],
+  "torque_values": [
+    {
+      "component": "Raccordement de puissance EMI et bloc de puissance",
+      "nm": 3,
+      "lb_in": 27,
+      "kgf_cm": 30
+    },
+    {
+      "component": "Raccordements de puissance des SCR",
+      "nm": 9,
+      "lb_in": 80,
+      "kgf_cm": 90
+    },
+    {
+      "component": "Ventilateur UPS",
+      "nm": 1.5,
+      "lb_in": 13,
+      "kgf_cm": 15
+    },
+    {
+      "component": "Vis d'entretoise des cartes (standoff)",
+      "nm": 1.6,
+      "lb_in": 14,
+      "kgf_cm": 16
+    },
+    {
+      "component": "Raccordement de puissance des gros interrupteurs (« big switch »)",
+      "nm": 14,
+      "lb_in": 124,
+      "kgf_cm": 140
+    },
+    {
+      "component": "Raccordements de puissance de l'interrupteur neutre (N)",
+      "nm": 3.5,
+      "lb_in": 31,
+      "kgf_cm": 35
+    },
+    {
+      "component": "Raccordements de puissance des interrupteurs",
+      "nm": 30,
+      "lb_in": 266,
+      "kgf_cm": 300
+    }
+  ],
+  "torque_note": "Valeurs de base pour le 93T ; une valeur différente est précisée dans la procédure concernée. Le manuel ne précise pas quel interrupteur relève de « big switch » ou de « interrupteurs » à 30 Nm : à confirmer sur l'unité.",
+  "torque_source": "SM §10.3 tableau 27, p. 106",
+  "access": [
+    {
+      "component": "Bloc de puissance (power block)",
+      "panels": [
+        "avant",
+        "arrière"
+      ]
+    },
+    {
+      "component": "Ventilateur UPM (power block)",
+      "panels": [
+        "avant"
+      ]
+    },
+    {
+      "component": "CSB",
+      "panels": [
+        "avant",
+        "dessus"
+      ]
+    },
+    {
+      "component": "Ventilateur interrupteur statique (switch fan / STS)",
+      "panels": [
+        "latéral"
+      ]
+    },
+    {
+      "component": "Fusibles bypass",
+      "panels": [
+        "latéral"
+      ]
+    },
+    {
+      "component": "Relais backfeed",
+      "panels": [
+        "latéral"
+      ]
+    },
+    {
+      "component": "Interrupteurs",
+      "panels": [
+        "avant",
+        "arrière"
+      ]
+    },
+    {
+      "component": "Afficheur HMI",
+      "panels": [
+        "avant"
+      ]
+    },
+    {
+      "component": "Carte EMI",
+      "panels": [
+        "latéral",
+        "arrière"
+      ]
+    }
+  ],
+  "access_source": "SM §10.4 tableau 28, p. 107",
+  "safety": {
+    "before_any_work": [
+      "Arrêter le 93T et sécuriser la charge ou la transférer sur le bypass de maintenance avant de déposer un composant (SM §10.4).",
+      "Porter les EPI : chaussures de sécurité, lunettes, gants isolants, avant tout travail sur un équipement sous tension ou à proximité de circuits sous tension (SM §10.4).",
+      "Passer l'interrupteur neutre sur OFF après le transfert sur le bypass de maintenance : une tension de neutre peut subsister sur la barre neutre (charge déséquilibrée de la source). La mesurer avec un multimètre en bon état avant d'intervenir (SM §10.5, DANGER).",
+      "Avant de débrancher un connecteur, vérifier les repères des câbles ; ne pas tirer sur les câbles (SM §10.6).",
+      "Vérifier l'absence de tension et d'énergie stockée au multimètre avant d'intervenir (SM §10.5.1)."
+    ],
+    "source": "SM §10.4, §10.5, §10.6, p. 107-109"
+  },
+  "procedures": [
+    {
+      "id": "secure_load",
+      "label": "Sécuriser ou transférer la charge critique",
+      "steps": [
+        "Prévenir le client que la charge doit être sécurisée et transférée sur bypass, ou arrêtée.",
+        "Relire les schémas et procédures du site avant toute modification d'état du système ; suivre les consignes propres au site si elles existent.",
+        "Séquence générale : depuis le HMI, passer l'UPS en mode Bypass puis sur le bypass de maintenance ; arrêter l'UPS ; consigner les disjoncteurs qui alimentent l'UPS.",
+        "Contrôler au multimètre que l'unité est hors tension et sans énergie stockée avant intervention."
+      ],
+      "source": "SM §10.5.1, p. 107-108"
+    },
+    {
+      "id": "to_maintenance_bypass",
+      "label": "Transférer l'UPS sur le bypass de maintenance (MBS)",
+      "switches": [
+        "Entrée",
+        "Bypass",
+        "Bypass de maintenance (MBS)",
+        "Sortie",
+        "Neutre"
+      ],
+      "switches_note": "L'emplacement des interrupteurs est identique sur toutes les unités 93T (SM fig. 66).",
+      "steps": [
+        "Depuis le HMI, passer le système en mode Bypass : Menu > Control > System > Go To Bypass, puis OK.",
+        "Retirer le capot du bypass de maintenance (MBS).",
+        "Mettre le MBS sur ON.",
+        "Mettre les interrupteurs d'entrée, de bypass et de sortie sur OFF.",
+        "Mettre l'interrupteur neutre sur OFF."
+      ],
+      "source": "SM §10.5.1.1, p. 108"
+    },
+    {
+      "id": "back_to_online",
+      "label": "Revenir du bypass de maintenance au mode Online",
+      "steps": [
+        "Fermer l'interrupteur neutre.",
+        "Mettre les interrupteurs d'entrée et de bypass sur ON.",
+        "Depuis le HMI, passer en mode Bypass : Menu > Control > System > Go To Bypass, puis OK.",
+        "Contrôler la tension de sortie sur le HMI.",
+        "Mettre l'interrupteur de sortie sur ON.",
+        "Mettre le MBS sur OFF.",
+        "Remettre le capot du MBS.",
+        "Depuis le HMI, passer en Online : Menu > Control > System > Go Online, puis OK."
+      ],
+      "source": "SM §10.5.1.2, p. 108-109"
+    },
+    {
+      "id": "replace_power_block",
+      "label": "Remplacer le bloc de puissance (power block)",
+      "access": "panneaux avant et arrière",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Retirer les 8 vis du panneau arrière.",
+        "Retirer les 4 vis et les câbles raccordés au bloc de puissance.",
+        "Côté gauche et haut du panneau avant : retirer la vis à tête ronde (A) et les vis plates (B). Ne pas retirer la deuxième vis en partant du haut sur le côté gauche.",
+        "Côté droit du panneau avant : retirer les vis à tête ronde (A) et les vis plates (B). Ne pas retirer la troisième vis en partant du haut sur le côté droit.",
+        "Soulever et tirer ensemble le panneau avant et l'afficheur HMI.",
+        "Débrancher les câbles de l'afficheur HMI.",
+        "Retirer les 4 vis du bloc de puissance.",
+        "Sortir le bloc de puissance de l'unité et le remplacer."
+      ],
+      "torque_refs": [
+        "Raccordement de puissance EMI et bloc de puissance : 3,0 Nm"
+      ],
+      "after": [
+        "return_to_service",
+        "Si le bloc est remplacé, vérifier configuration, firmware et calibrage (SM ch. 11 et 12)."
+      ],
+      "source": "SM §10.6.1, p. 109-111"
+    },
+    {
+      "id": "replace_hmi",
+      "label": "Remplacer l'afficheur HMI",
+      "access": "panneau avant",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Côté gauche et haut du panneau avant : retirer la vis à tête ronde (A) et les vis plates (B). Ne pas retirer la deuxième vis en partant du haut sur le côté gauche.",
+        "Côté droit du panneau avant : retirer les vis à tête ronde (A) et les vis plates (B). Ne pas retirer la troisième vis en partant du haut sur le côté droit.",
+        "Soulever et tirer le panneau avant pour le sortir.",
+        "Débrancher les câbles de l'afficheur HMI.",
+        "Retirer les 4 vis à l'arrière du panneau avant.",
+        "Retirer et remplacer l'afficheur."
+      ],
+      "parts_hint": [
+        "744-A5171 (15-40 kW)",
+        "744-A5172 (60-80 kW)"
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §10.6.2, p. 112-113"
+    },
+    {
+      "id": "replace_fan",
+      "label": "Remplacer un ventilateur",
+      "access": "panneau avant (ventilateurs du bloc de puissance) ; panneau latéral (ventilateur de l'interrupteur statique)",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Retirer les 4 vis et le câble raccordés au ventilateur, puis retirer et remplacer le ventilateur.",
+        "Pour le ventilateur du haut : retirer les 4 vis, débrancher le câble endommagé, retirer le ventilateur endommagé, puis remplacer le câble et le ventilateur."
+      ],
+      "torque_refs": [
+        "Ventilateur UPS : 1,5 Nm"
+      ],
+      "parts_hint": [
+        "744-A4859",
+        "744-A4860",
+        "744-A4855",
+        "744-A5233",
+        "744-A5234"
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §10.6.3, p. 113-114"
+    },
+    {
+      "id": "replace_csb",
+      "label": "Remplacer la carte CSB",
+      "access": "capot supérieur",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Retirer les vis du capot supérieur, puis le capot.",
+        "Retirer les 6 vis de la carte CSB.",
+        "Débrancher les câbles de la carte CSB.",
+        "Retirer et remplacer la carte CSB."
+      ],
+      "torque_refs": [
+        "Vis d'entretoise des cartes : 1,6 Nm"
+      ],
+      "after": [
+        "Configurer le CTO (SM §10.6.4.1) : le manuel annonce des étapes mais le texte n'est pas fourni dans cette version non finale ; voir l'annexe C (CTO chart) et le panneau Setup de l'Eaton Service Tool.",
+        "return_to_service"
+      ],
+      "parts_hint": [
+        "744-01196"
+      ],
+      "source": "SM §10.6.4, p. 114-115"
+    },
+    {
+      "id": "replace_backfeed_bypass_fuse_board",
+      "label": "Remplacer la carte relais backfeed et la carte fusibles bypass",
+      "access": "panneau latéral droit",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Retirer les vis du panneau latéral droit, puis le panneau.",
+        "Débrancher les câbles de la carte backfeed et de la carte fusibles bypass.",
+        "Retirer les vis des deux cartes.",
+        "Retirer et remplacer la carte concernée."
+      ],
+      "torque_refs": [
+        "Vis d'entretoise des cartes : 1,6 Nm"
+      ],
+      "parts_hint": [
+        "744-0A415",
+        "744-0A416",
+        "744-0A417",
+        "744-0A405",
+        "744-0A402",
+        "744-0A403"
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §10.6.5, p. 115-116"
+    },
+    {
+      "id": "replace_emi",
+      "label": "Remplacer la carte EMI",
+      "access": "panneau latéral droit",
+      "prerequisites": [
+        "secure_load"
+      ],
+      "steps": [
+        "Retirer les vis du panneau latéral droit de l'armoire, puis le panneau.",
+        "Débrancher les câbles de la carte EMI.",
+        "Retirer les vis de la carte EMI, puis la retirer et la remplacer."
+      ],
+      "torque_refs": [
+        "Raccordement de puissance EMI et bloc de puissance : 3,0 Nm",
+        "Vis d'entretoise des cartes : 1,6 Nm"
+      ],
+      "parts_hint": [
+        "744-0A598"
+      ],
+      "after": [
+        "return_to_service"
+      ],
+      "source": "SM §10.6.6, p. 116-117"
+    },
+    {
+      "id": "replace_interface_board",
+      "label": "Remplacer la carte interface",
+      "prerequisites": [],
+      "steps": [
+        "Transférer l'UPS sur le bypass de maintenance (procédure « Transférer l'UPS sur le bypass de maintenance (MBS) »).",
+        "Dans l'Eaton Service Tool : Meters and Calibration > Backup Data.",
+        "Enregistrer le fichier XML de sauvegarde sur l'ordinateur.",
+        "Décharger les condensateurs du bus.",
+        "Remplacer la carte interface.",
+        "Réinitialiser l'EEPROM du bloc de puissance (SM §7.2.14.3).",
+        "Dans l'Eaton Service Tool : Meters and Calibration > Restore Data.",
+        "Sélectionner le fichier XML enregistré à l'étape 3, puis Open.",
+        "Confirmer par Yes dans la fenêtre qui s'affiche.",
+        "Une fois l'écriture terminée, démarrer l'unité."
+      ],
+      "warnings": [
+        "Ne pas oublier la sauvegarde XML avant de remplacer la carte : elle contient les données de calibrage à restaurer."
+      ],
+      "source": "SM §10.6.7, p. 117"
+    },
+    {
+      "id": "return_to_service",
+      "label": "Remise en service après intervention",
+      "warnings": [
+        "Vérifier qu'aucun outil, vis, écrou ou autre pièce n'est resté dans l'unité."
+      ],
+      "steps": [
+        "Contrôler l'absence de connexion desserrée ou de problème mécanique.",
+        "Si des câbles d'entrée ont été déposés, vérifier que l'ordre des phases n'a pas changé.",
+        "Démarrer l'UPS et contrôler l'état de fonctionnement.",
+        "Contrôler le calibrage, le firmware et les autres paramètres.",
+        "En cas de problème, arrêter l'unité et corriger.",
+        "Passer l'unité en Load off.",
+        "Remettre les panneaux et les protections (dead fronts).",
+        "Tester chaque mode de fonctionnement.",
+        "Informer le client que l'unité est prête à supporter la charge.",
+        "Coordonner avec le client les transferts vers Online, selon les schémas et procédures du site."
+      ],
+      "source": "SM §10.7, p. 118"
+    }
+  ]
+}

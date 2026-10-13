@@ -48,7 +48,7 @@ export default defineConfig({
       manifest: {
         name: 'Entretien UPS - Alarmes Eaton',
         short_name: 'UPS Alarmes',
-        description: 'Recherche et décodage des alarmes Eaton 93PM / 93PS, hors ligne.',
+        description: 'Recherche et décodage des alarmes Eaton 93PM / 93PS / 93T, hors ligne.',
         lang: 'fr',
         theme_color: '#0b5cab',
         background_color: '#f5f7fa',

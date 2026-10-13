@@ -1,0 +1,52 @@
+{
+  "_source": "Eaton 93T Service Manual HPO-1046599 rev 001 (avril 2024, non final), chapitre 8 « Options » (§8.1 à §8.4, p. 98) et §3.3.1. Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER. Le manuel renvoie au User's and Installation Guide 93T pour le détail des cartes MiniSlot ; ce guide n'est pas dans le dossier.",
+  "connectivity": {
+    "slots": "Deux MiniSlots à l'arrière de l'unité.",
+    "cards": [
+      {
+        "catalog_number": null,
+        "enovia_pn": null,
+        "label": "Carte réseau Gigabit (Gigabit Network Card)"
+      },
+      {
+        "catalog_number": "EMPG2",
+        "enovia_pn": null,
+        "label": "Sonde de surveillance de l'environnement de deuxième génération (EMPG2)"
+      },
+      {
+        "catalog_number": null,
+        "enovia_pn": null,
+        "label": "Carte passerelle industrielle (Industrial Gateway Card)"
+      },
+      {
+        "catalog_number": "INDRELAY-MS",
+        "enovia_pn": null,
+        "label": "Carte relais industrielle (Industrial Relay Card)"
+      }
+    ],
+    "note": "Les manuels d'installation et d'utilisation des cartes se téléchargent sur www.eaton.com ; voir aussi le User's and Installation Guide 93T (réf. 614-40270).",
+    "source": "SM §8.2, §3.3.1"
+  },
+  "software": [
+    {
+      "label": "Intelligent Power Protector (IPP)",
+      "text": "Logiciel d'arrêt : communique avec la carte réseau, ou par les ports USB et RS232, pour s'enregistrer et recevoir les alertes qui déclenchent l'arrêt progressif (soft shutdown) des systèmes informatiques.",
+      "source": "SM §8.3"
+    },
+    {
+      "label": "Intelligent Power Manager (IPM)",
+      "text": "Intègre l'alimentation aux plateformes de virtualisation. L'agent d'arrêt IPM permet l'arrêt sûr de serveurs virtualisés et de serveurs en cluster (vCenter, XenCenter) ; des migrations à chaud peuvent être lancées pour déplacer les machines virtuelles vers un serveur disponible, sans interruption.",
+      "source": "SM §8.4"
+    }
+  ],
+  "installation_manuals": {
+    "manuals": [
+      {
+        "part_number": "614-40270",
+        "title": "Eaton 93T 15-80 kVA UPS : User's and Installation Guide"
+      }
+    ],
+    "source": "SM §9.1"
+  }
+}

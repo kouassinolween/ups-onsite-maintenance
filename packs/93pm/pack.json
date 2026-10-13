@@ -36,7 +36,7 @@
     { "file": "Alarms_Manual_For_Eaton_Rev03.pdf", "ref": "P-164000681 rev 003 (2023)", "used_for": "alarms.json" },
     { "file": "SPART_PART 93PM/Spare_Part_Kits_93PM_Rev05.pdf", "ref": "Rev 05, 4.9.2014", "used_for": "parts.json (kits)" },
     { "file": "SPART_PART 93PM/93PM__30-50_kVA_SPARE_PART_KITS.pdf", "ref": "20.8.2013", "used_for": "parts.json (kits_legacy_2013)" },
-    { "file": "Service Manual/93PM Service Manual Rev B02/Eaton 93PM Rev B02.pdf", "ref": "P-164000219 Rev B02 (fév. 2014), 384 p.", "used_for": "procedure_ref, consignes (§1.8, §8.2, §8.3), comportement ventilateurs (§4.3.19), modes, ABM, parallèle" },
+    { "file": "Service Manual/93PM Service Manual Rev B02/Eaton 93PM Rev B02.pdf", "ref": "P-164000219 Rev B02 (fév. 2014), 384 p.", "used_for": "procedure_ref, consignes (§1.8, §8.2, §8.3), comportement ventilateurs (§4.3.19), modes, ABM, parallèle ; procedures.json (ch. 8 unités 480 V, ch. 9 unités 400 V, §4.5 programmation du firmware, ch. 10 calibrage, §11.3 dépannage) ; troubleshooting.json (§11.4 types et niveaux d'événements) ; access.json (§4.4 niveaux d'accès, sans mots de passe) ; options.json (ch. 5 options, tableau 6.1)" },
     { "file": "Parallel Systems 93PM/93PM_Adding_and_Removing_units_to_set_up_parallel_system.pdf", "ref": "Eaton Tech Support EMEA, 24.04.2015", "used_for": "parallel.json (add_remove_unit, eeprom_parameters)" },
     { "file": "Parallel Systems 93PM/Procedure for installing the parallel harness for 93PM_draft.pdf", "ref": "Eaton Field Service Instruction, 14/12/2015 (brouillon)", "used_for": "parallel.json (harness_retrofit)" },
     { "file": "Parallel Systems 93PM/TEST_SYSTEM_WIRING_HPO_XParSys.pdf", "ref": "Schéma de test 4 UPS", "used_for": "parallel.json (test_wiring_reference)" }
@@ -50,7 +50,7 @@
   "roadmap_packs": ["eaton-9e", "eaton-93e", "eaton-93t", "eaton-93ps"],
   "roadmap_note": "93PS apparaît déjà dans le manuel d'alarmes (section 3 : 91PS/93PS monobloc 8-10 kVA, UPM 0-138, CSB 192-280) : son catalogue d'alarmes peut être extrait du même document.",
   "deployment_context": "Puissances exploitées : 30 à 200 kW, unitaires et en parallèle.",
-  "contents": ["alarms.json", "parts.json", "checklists.draft.json", "modes.json", "abm.json", "parallel.json"]
+  "contents": ["alarms.json", "parts.json", "checklists.draft.json", "modes.json", "abm.json", "parallel.json", "procedures.json", "troubleshooting.json", "access.json", "options.json"]
 }
 
 

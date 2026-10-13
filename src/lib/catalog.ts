@@ -1,12 +1,13 @@
 // Chargement des packs et recherche dans le catalogue d'événements.
-import type { CatalogData, CatalogEvent, CatalogId, EventKind, Kit, Part, PartHint, Source } from './types';
+import type { CatalogData, CatalogEvent, CatalogId, EventKind, Kit, Part, PartHint, Source, UserAlarm } from './types';
 
-export interface CatalogDef { id: CatalogId; label: string; pack: string; file: string }
+export interface CatalogDef { id: CatalogId; label: string; pack: string; file: string; manual: string }
 
 /** Catalogues disponibles. Ajouter un pack = ajouter une ligne. */
 export const CATALOGS: CatalogDef[] = [
-  { id: 'modular', label: '93PM / 93PS modulaire', pack: '93pm', file: 'alarms.json' },
-  { id: 'monoblock', label: '91PS / 93PS monobloc 8-10 kVA', pack: '93ps', file: 'alarms.monoblock.json' },
+  { id: 'modular', label: '93PM / 93PS modulaire', pack: '93pm', file: 'alarms.json', manual: "Manuel d'alarmes Rev 003" },
+  { id: 'monoblock', label: '91PS / 93PS monobloc 8-10 kVA', pack: '93ps', file: 'alarms.monoblock.json', manual: "Manuel d'alarmes Rev 003" },
+  { id: 'ups93t', label: '93T 15-80 kW', pack: '93t', file: 'alarms.json', manual: 'Service Manual 93T HPO-1046599 rev 001 (non final)' },
 ];
 
 export const KIND_LABEL: Record<string, string> = {
@@ -71,7 +72,22 @@ export async function loadAll(): Promise<CatalogData> {
   } catch (err) {
     console.warn('parts.json indisponible', err);
   }
-  return { events, hints, parts, kits };
+  // 93T : pièces (tableau 46) et alarmes utilisateur (tableau 34). Les indices sont préfixés par la famille.
+  const userAlarms: Record<string, UserAlarm> = {};
+  try {
+    const p = await getJson<{ alarm_to_part_hints?: Record<string, PartHint>; parts: Part[] }>('93t/parts.json');
+    for (const x of p.parts) parts[x.ref] = x;
+    for (const [k, v] of Object.entries(p.alarm_to_part_hints ?? {})) hints[`ups93t|${k}`] = v;
+    const u = await getJson<{ alarms: { source: Source; id: number; table_name: string; cause_en: string; solution_en: string; cause_fr: string; solution_fr: string; page: number }[] }>('93t/user-alarms.json');
+    for (const a of u.alarms) {
+      userAlarms[`ups93t|${a.source}|${a.id}`] = {
+        causeFr: a.cause_fr, solutionFr: a.solution_fr, causeEn: a.cause_en, solutionEn: a.solution_en, tableName: a.table_name, page: a.page,
+      };
+    }
+  } catch (err) {
+    console.warn('pack 93T : pièces ou alarmes utilisateur indisponibles', err);
+  }
+  return { events, hints, parts, kits, userAlarms };
 }
 
 /* ---------- recherche ---------- */

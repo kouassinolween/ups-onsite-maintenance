@@ -1,0 +1,60 @@
+{
+  "pack_format": "1.0",
+  "pack_id": "eaton-93t",
+  "pack_version": "0.1.0-phase0",
+  "status": "draft",
+  "vendor": "Eaton",
+  "family": "93T",
+  "label": "Eaton 93T (15-80 kW)",
+  "ratings": [
+    { "range": "15-80 kW", "notes": "Service Manual HPO-1046599 rev 001, avril 2024 (« not final »)" }
+  ],
+  "architecture": {
+    "description": "Un 93T = un UPS tour (une ou plusieurs unités en parallèle) avec un bloc de puissance (redresseur + chargeur + onduleur), un bypass statique à SCR, un relais anti-retour (backfeed), une carte de commande et un afficheur tactile (CSB/HMI). Pas de MCU séparée : les événements se répartissent entre UPM et CSB.",
+    "component_types": [
+      { "type": "UPM", "label": "Module de puissance (redresseur, chargeur, onduleur, bypass statique)", "event_range": "0-133" },
+      { "type": "CSB", "label": "Carte de commande et d'affichage (HMI, entrées bâtiment, mini-slots)", "event_range": "192-238" }
+    ],
+    "boards": [
+      "Carte de commande (control board)",
+      "Carte REC IO (redresseur, précharge, ventilateurs)",
+      "Carte INV IO (bypass, SCR, relais backfeed)",
+      "Bloc de puissance (cartes redresseur/batterie et onduleur)",
+      "Carte fusibles bypass",
+      "Carte relais backfeed",
+      "Carte CSB",
+      "Carte EMI"
+    ],
+    "event_key": ["source", "id"],
+    "event_key_note": "Un événement s'identifie par (famille, source, id). Les numéros UPM et CSB du 93T ne se recouvrent pas avec ceux du catalogue 93PM : ne pas fusionner les deux catalogues."
+  },
+  "operating_modes": ["Online", "ESS (Energy Saver System)", "Load off", "Batterie", "Test batterie", "Power share", "Bypass"],
+  "sources": [
+    {
+      "file": "Eaton 93T Service Manual - not final (1).pdf",
+      "ref": "HPO-1046599 rev 001, avril 2024 (non final), 172 p.",
+      "used_for": "alarms.json (13.5.6 événements UPM 0-133, 13.5.7 événements CSB 192-238) ; user-alarms.json (13.5.5, tableau 34, p. 131-132) ; parts.json (14.1, tableau 46, p. 162-163) ; procedures.json (ch. 10, p. 106-118) ; modes.json (3.4-3.5, 9.2.5-9.2.7, 9.3.2) ; parallel.json (3.6, 9.3, p. 30-32 et 103-105) ; options.json (ch. 8, p. 98)"
+    }
+  ],
+  "service_manual_scope": {
+    "covers": "93T 15-80 kW : installation et mise en service (ch. 9), remplacement de composants (ch. 10), firmware (ch. 11), calibrage (ch. 12), maintenance et dépannage (ch. 13), pièces (ch. 14).",
+    "not_yet_extracted": [
+      "Machine à états du firmware (6.3, p. 59-74)",
+      "Installation mécanique et électrique (9.1-9.2.4), firmware (ch. 11), calibrage (ch. 12), maintenance préventive (13.2-13.3)",
+      "Eaton Service Tool (ch. 7)",
+      "CTO (annexe C), checklists d'installation (annexes A et B)"
+    ],
+    "confidentiality": "Document propriétaire Eaton. L'application ne recopie pas son texte intégral : références de section et reformulations françaises ; le texte anglais des événements est conservé pour le repérage.",
+    "secrets_policy": "Aucun mot de passe constructeur n'est stocké."
+  },
+  "gaps": [
+    "Manuel marqué « not final » : numéros d'événements et textes à confirmer sur la version finale.",
+    "Ce manuel ne donne ni niveau ni cible (utilisateur / service) par événement : champs vides dans le catalogue.",
+    "Numéros 195-210 (CSB) et 71 (UPM) absents du manuel.",
+    "Les entrées marquées « extraction automatique » sont à relire par un technicien ; 97 descriptions françaises sont reprises du catalogue 93PM par nom d'événement (même plateforme logicielle) et doivent être confrontées au 93T.",
+    "Les UPM 36 et 37 sont décrits dans le manuel avec des phases inversées (B/C) : le catalogue suit le nom de l'événement.",
+    "Procédures : pas de figures reprises ; §10.6.4.1 (configuration du CTO après remplacement de la CSB) est vide dans cette version non finale. Parallèle : le User's and Installation Guide 93T (câblage CAN et pull-chain) n'est pas dans le dossier.",
+    "Alarmes utilisateur : 15 entrées seulement (tableau 34). Pièces : indices alarme → pièce limités à UPM 53, UPM 55 et CSB 227, à confirmer par mesure ; pas de checklist ni procédure de maintenance 93T dans le pack pour l'instant."
+  ],
+  "contents": ["alarms.json", "user-alarms.json", "parts.json", "procedures.json", "modes.json", "parallel.json", "options.json"]
+}

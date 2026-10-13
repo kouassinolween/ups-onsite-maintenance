@@ -20,9 +20,13 @@ npm run build      # production : dist/ (PWA, packs inclus)
 |---|---|
 | `src/lib/decoder.ts` | Décodage pur : énumérations avec jokers, champs de bits, phases |
 | `src/lib/catalog.ts` | Chargement des packs, recherche (synonymes FR → EN, accents ignorés) |
-| `src/components/` | Écrans : recherche, détail, décodeur de code |
+| `src/components/` | Écrans : recherche, détail, décodeur de code ; documentation 93T (procédures, modes, parallèle : `#/v/procedures`, `#/v/modes`, `#/v/parallel`) |
 | `packs/93pm/` | Pack Eaton 93PM : alarmes, pièces, modes, ABM, parallèle, checklist (brouillon) |
 | `packs/93ps/` | Pack 91PS/93PS : catalogue monobloc, hérite du catalogue modulaire du 93PM |
+| `packs/93pm/options.json` | Options 93PM : cartes MiniSlot, armoires batterie, distribution, sidecars, panneaux |
+| `packs/93pm/access.json` | Niveaux d'accès HMI 93PM et menus par niveau (sans mots de passe) |
+| `packs/93pm/procedures.json` | Procédures 93PM : remplacement (480 V et 400 V), couples, sécurité, firmware, calibrage, dépannage |
+| `packs/93t/` | Pack Eaton 93T 15-80 kW : catalogue d'événements UPM 0-133 et CSB 192-238 + alarmes utilisateur + pièces + procédures de remplacement + modes + parallèle (service manual HPO-1046599, non final) |
 | `tools/` | Import du manuel d'alarmes, fusion, validation des packs (PowerShell) |
 | `docs/` | Plan, phases 0 et 1, module parallèle |
 

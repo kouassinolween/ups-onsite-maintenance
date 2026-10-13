@@ -1,0 +1,157 @@
+{
+  "_source": "Eaton 93T Service Manual HPO-1046599 rev 001 (avril 2024, non final), §3.4 et §3.5 (p. 23-30) ; §9.2.5-9.2.7 (démarrage, p. 102-103). Reformulé, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Les états machine détaillés (§6.3, p. 59-74) ne sont pas encore repris.",
+
+  "components": [
+    { "section": "Entrée / sortie", "items": ["Raccordements entrée, sortie, bypass, batterie, terre", "Interrupteurs entrée, bypass, sortie, bypass de maintenance (MBS) et neutre", "Carte EMI"] },
+    { "section": "Bloc de puissance", "items": ["Carte module de puissance redresseur et carte module onduleur", "Carte REC IO et carte INV IO", "Carte de commande", "Inductances des convertisseurs redresseur, batterie et onduleur", "3 ventilateurs"] },
+    { "section": "Bypass statique", "items": ["Carte STS", "3 SCR", "Carte d'alimentation système (SPS)", "Ventilateur STS"] },
+    { "section": "Commande et communication", "items": ["Carte de commande", "CSB avec écran LCD", "2 MiniSlots (cartes réseau Gigabit, sonde EMPG2, passerelle industrielle, carte relais INDRELAY-MS)"] }
+  ],
+
+  "operating_modes": [
+    {
+      "id": "online",
+      "label": "Online (double conversion)",
+      "category": "normal",
+      "summary": "La charge est alimentée par le réseau via le redresseur et l'onduleur (PWM). Le chargeur fonctionne si nécessaire ; le convertisseur batterie ajuste le potentiel du bus DC aux chaînes de batteries. Si la batterie est défaillante ou déconnectée, le convertisseur batterie est arrêté et le relais batterie ouvert.",
+      "indicators": { "status_bar": "Unit normal", "lamps": "voyant vert" },
+      "relays": "Relais redresseur et relais de sortie fermés ; contacteur d'équilibrage ouvert.",
+      "events": ["UPM:64 UPS System Normal", "UPM:31 Inverter On/Off"],
+      "source": "SM §3.5.1, p. 25"
+    },
+    {
+      "id": "ess",
+      "label": "Energy Saver System (ESS)",
+      "category": "normal",
+      "summary": "La charge est alimentée par le chemin bypass, comme en Bypass, mais l'onduleur est prêt : transfert vers l'onduleur en moins de 2 ms en cas d'anomalie réseau (moins de 4 ms vers batterie si le bypass est défaillant). Rendement jusqu'à 99 %. Le module de protection contre les surtensions protège la charge.",
+      "indicators": { "status_bar": "Unit normal", "lamps": "voyant vert" },
+      "relays": "Relais onduleur et batterie fermés ; relais redresseur de la phase A ouvert, phases B et C fermées (le bus DC se charge par les diodes des IGBT).",
+      "events": ["UPM:63 In High Efficiency Mode", "UPM:88 ESS Installed", "UPM:89 ESS Enable", "UPM:131 HE Not Available"],
+      "notes": ["Mode non disponible en Power Conditioner (SM Tableau 3)."],
+      "source": "SM §3.5.2, p. 25-26 ; tableau 3, p. 24"
+    },
+    {
+      "id": "load_off",
+      "label": "Load off (arrêt de la charge)",
+      "category": "other",
+      "summary": "L'onduleur et le bypass statique sont arrêtés et le relais de sortie est ouvert : la charge n'est pas alimentée, mais l'alimentation logique est présente et des tensions dangereuses subsistent. Redresseur et chargeur peuvent être en marche ou arrêtés. Tension présente sur les entrées redresseur et bypass ; en parallèle, tension possible sur le bus de sortie. Le relais backfeed reste fermé tant que l'entrée bypass est connectée.",
+      "indicators": { "status_bar": "Load Off", "lamps": null },
+      "safety": [
+        "Confirmer avec le client que la charge est transférée ou protégée avant d'arrêter l'unité.",
+        "Pour couper aussi redresseur et chargeur : passer le bloc de puissance de Standby à Shutdown depuis le panneau de commande."
+      ],
+      "typical_use": "Mise à jour firmware ou modification de paramètres de configuration.",
+      "events": ["UPM:46 Load Power Off", "UPM:48 Ups Off Command"],
+      "source": "SM §3.5.3, p. 26-27"
+    },
+    {
+      "id": "battery",
+      "label": "Batterie (stored energy)",
+      "category": "other",
+      "summary": "Sur coupure ou réseau hors tolérance, transfert automatique sans interruption de la sortie : redresseur arrêté, relais redresseur ouvert (relais backfeed aussi ouvert si l'unité n'a qu'une source). La batterie alimente le bus DC via le convertisseur batterie. À batterie basse, alarme ; si le bypass est disponible, transfert sur Bypass, sinon arrêt de la charge quand l'onduleur ne peut plus tirer d'énergie.",
+      "indicators": { "status_bar": "On Battery", "lamps": "voyants vert et jaune (batterie)" },
+      "notes": ["Au retour du réseau : relais backfeed fermé, retour en Online. Fonction « walk-in » : le courant de décharge diminue et le courant d'entrée augmente progressivement (charge > 10 %) pour limiter l'appel de courant."],
+      "events": ["UPM:44 Ups On Battery", "UPM:21 Low Battery Warning", "UPM:49 Low Battery Shutdown", "UPM:23 Utility Not Available"],
+      "source": "SM §3.5.4, p. 27-28"
+    },
+    {
+      "id": "battery_test",
+      "label": "Test batterie",
+      "category": "other",
+      "summary": "La charge du client sert à tester les batteries.",
+      "safety": ["Un test peut faire chuter la charge si la batterie est déchargée jusqu'à l'arrêt et que l'entrée et le bypass ne sont pas revenus : informer le client du risque et obtenir son accord avant le test."],
+      "events": ["UPM:69 Battery Test In Progress", "UPM:51 Battery Test Failed"],
+      "source": "SM §3.5.5, p. 28"
+    },
+    {
+      "id": "power_share",
+      "label": "Power share (partage de puissance)",
+      "category": "other",
+      "summary": "Le redresseur et le convertisseur batterie soutiennent ensemble l'onduleur (relais redresseur et batterie fermés, le convertisseur batterie se décharge). Dépend du courant d'entrée : charge élevée et réseau faible, le courant d'entrée atteint son maximum, le courant de charge batterie diminue puis la batterie complète. Passage en Power share quand la tension réseau passe de 85 % à 50 % de la nominale ; en dessous de 50 %, passage en Batterie.",
+      "indicators": { "status_bar": "Unit normal", "lamps": "voyants vert et jaune (batterie)" },
+      "source": "SM §3.5.6, p. 28-29"
+    },
+    {
+      "id": "bypass",
+      "label": "Bypass",
+      "category": "other",
+      "summary": "Le réseau alimente la charge via la carte relais backfeed/bypass et les SCR, avec un filtrage minimal. Transfert demandé par l'utilisateur, une unité parallèle, une alarme bâtiment ou une sortie onduleur hors limites. Transfert « make-before-break » en moins de 4 ms (un quart de période) si les formes d'onde sont synchronisées. En cas de transfert automatique sans opérateur, l'UPS tente de relancer l'onduleur 3 fois en 10 minutes ; en cas d'échec il lève une alarme et reste en Bypass.",
+      "indicators": { "status_bar": "On Bypass", "lamps": "voyant jaune" },
+      "safety": ["En Bypass, la charge n'est pas protégée en cas de coupure ou d'anomalie du bypass."],
+      "events": ["UPM:45 Ups On Bypass", "UPM:26 To Bypass Command", "UPM:27 Bypass Not Available"],
+      "source": "SM §3.5.7, p. 29-30 ; §9.2.6, p. 103"
+    },
+    {
+      "id": "power_conditioner",
+      "label": "Power Conditioner",
+      "category": "other",
+      "summary": "L'UPS fonctionne sans source DC connectée et les alarmes batterie sont désactivées. Il fournit une tension et une fréquence de sortie conditionnées et supporte les charges fortement non linéaires sans ITHD à l'entrée. Si le redresseur est arrêté, l'UPS tente un transfert sur Bypass. L'ESS n'est pas disponible.",
+      "related_procedure": "Activation via EEPROM (Eaton Service Tool, SM §7.2.15.1).",
+      "source": "SM tableau 3, p. 24"
+    },
+    {
+      "id": "frequency_converter",
+      "label": "Convertisseur de fréquence",
+      "category": "other",
+      "summary": "L'UPS fonctionne sans bypass disponible et les alarmes bypass sont désactivées. La fréquence de sortie peut différer de la fréquence d'entrée (par exemple sortie 60 Hz, entrée 50 Hz). Supporte aussi les charges fortement non linéaires sans ITHD à l'entrée.",
+      "source": "SM tableau 3, p. 24"
+    }
+  ],
+
+  "startup": [
+    {
+      "id": "start_online",
+      "label": "Démarrer en Online",
+      "steps": [
+        "Vérifier : interrupteurs d'entrée, de sortie et de bypass fermés ; MBS ouvert (si présent).",
+        "Fermer les disjoncteurs de distribution externes d'entrée et de bypass.",
+        "Contrôler l'alimentation logique sur le panneau de commande ; répéter pour chaque UPS du système.",
+        "Menu > Control, saisir le mot de passe, puis System.",
+        "Appuyer sur Go Online (page System), OK ; puis Go Online (page Control)."
+      ],
+      "notes": [
+        "Bypass automatique activé : la charge est d'abord alimentée par le bypass, puis transfert en Online dès que l'onduleur est démarré.",
+        "Bypass automatique désactivé : le redresseur démarre d'abord, puis l'onduleur quand le redresseur est normal ; le relais batterie s'ouvre automatiquement.",
+        "Transfert en Online : environ 20 secondes."
+      ],
+      "source": "SM §9.2.5, p. 102-103"
+    },
+    {
+      "id": "start_bypass",
+      "label": "Démarrer en Bypass",
+      "steps": [
+        "Vérifier : interrupteurs d'entrée, de sortie et de bypass fermés ; MBS ouvert (si présent).",
+        "Fermer les disjoncteurs de distribution externes d'entrée et de bypass.",
+        "Contrôler l'alimentation logique ; répéter pour chaque UPS.",
+        "Menu > Control, mot de passe, System, Go To Bypass, OK."
+      ],
+      "warnings": ["En Bypass, la charge critique n'est pas protégée en cas d'interruption ou d'anomalie du bypass."],
+      "source": "SM §9.2.6, p. 103"
+    },
+    {
+      "id": "battery_start",
+      "label": "Démarrer sur batterie",
+      "steps": [
+        "Appuyer sur le bouton de démarrage batterie / passage sur bypass (emplacement : SM fig. 7.1, interfaces de communication).",
+        "Sur l'écran tactile : Menu > Control > System, puis Go Online."
+      ],
+      "source": "SM §9.2.7, p. 103"
+    },
+    {
+      "id": "start_single",
+      "label": "Démarrer une UPS seule (ou un système)",
+      "steps": [
+        "Vérifier : interrupteurs d'entrée, de sortie et de bypass fermés ; MBS ouvert (si présent).",
+        "Fermer les disjoncteurs de distribution externes d'entrée et de bypass.",
+        "Contrôler l'alimentation logique sur le panneau de commande.",
+        "S'assurer qu'aucune alarme n'est active.",
+        "Menu > Control, mot de passe, System.",
+        "Appuyer sur Single UPS Go Online, puis OK."
+      ],
+      "warnings": ["Vérifier que la charge ne dépasse pas la capacité d'une seule UPS."],
+      "notes": ["Quand redresseur et onduleur sont démarrés et que la tension onduleur atteint la consigne, l'état Online s'affiche et le voyant vert s'allume."],
+      "source": "SM §9.3.2, p. 105"
+    }
+  ]
+}

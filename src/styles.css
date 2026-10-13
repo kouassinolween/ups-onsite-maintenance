@@ -79,3 +79,24 @@ table.kv td { padding: .2rem 0; }
 .part code { font-weight: 700; }
 .foot { max-width: 860px; margin: 1rem auto 2rem; padding: 0 1rem; color: var(--muted); font-size: .8rem; }
 .empty { text-align: center; padding: 2rem 1rem; color: var(--muted); }
+
+.tabs { display: flex; gap: .25rem; max-width: 860px; margin: 0 auto; padding: .5rem 1rem 0; overflow-x: auto; }
+.tabs button { flex: 0 0 auto; padding: .45rem .8rem; border: 1px solid var(--line); border-radius: 99px; background: var(--panel); color: var(--text); font: inherit; font-size: .9rem; cursor: pointer; }
+.tabs button[aria-current=page] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.doc-h { font-size: 1.1rem; margin: 1.2rem 0 .3rem; }
+.doc-list { margin: .3rem 0 .6rem 1.2rem; padding: 0; }
+.doc-list li { margin: .2rem 0; }
+.proc summary { cursor: pointer; display: flex; flex-wrap: wrap; gap: .4rem; align-items: baseline; }
+.proc[open] summary { margin-bottom: .5rem; }
+code.ref { display: inline-block; margin: 0 .35rem .2rem 0; padding: 0 .35rem; border: 1px solid var(--line); border-radius: 6px; font-size: .85rem; }
+table.grid { margin-top: .5rem; }
+table.grid th, table.grid td { padding: .3rem .5rem .3rem 0; border-bottom: 1px solid var(--line); width: auto; text-align: left; }
+.tabs .fam { flex: 0 0 auto; width: auto; margin-left: auto; padding: .4rem .6rem; border-radius: 99px; font-size: .9rem; }
+.box.sub { margin: .4rem 0; background: transparent; }
+.doc-dl { margin: .3rem 0; }
+.doc-row { display: grid; grid-template-columns: minmax(7rem, 30%) 1fr; gap: .1rem .75rem; padding: .25rem 0; border-bottom: 1px solid var(--line); }
+.doc-row:last-child { border-bottom: 0; }
+.doc-row dt { font-weight: 600; color: var(--muted); font-size: .9rem; }
+.doc-row dd { margin: 0; }
+@media (max-width: 520px) { .doc-row { grid-template-columns: 1fr; } }
+.doc-row.stack { grid-template-columns: 1fr; }

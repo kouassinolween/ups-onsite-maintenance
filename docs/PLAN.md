@@ -44,7 +44,7 @@ Ajouter un type d'onduleur = ajouter un pack, sans modifier le code.
 | 1 (suite) | Parc, formulaire d'intervention, rapport PDF, protocole HSE, assistants parallèles | à faire |
 | 2. Diagnostic et pièces | Checklists préventives validées, arbre de diagnostic, stock | à faire |
 | 3. Pilotage | Tableau de bord, KPI du contrat, planning, accès client | à faire |
-| 4. Packs suivants | 9E, 93E, 93T, 93PS modulaire | à faire |
+| 4. Packs suivants | 9E, 93E, 93T, 93PS modulaire | 93T : événements, alarmes utilisateur, pièces, procédures de remplacement, modes et parallèle faits en données (2026-10-13), écrans à faire ; autres à faire |
 
 ## 5. Ce qui bloque ou reste à obtenir
 

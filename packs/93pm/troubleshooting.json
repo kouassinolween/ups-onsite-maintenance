@@ -1,0 +1,164 @@
+{
+  "_source": "Service manual Eaton 93PM 50-200 kW P-164000219 Rev B02 (février 2014), §11.4.1 à §11.4.5, tableaux 11.1 et 11.2. Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Les tableaux 11.3 à 11.6 du manuel (liste des événements UPM, MCU, CSB) sont déjà repris dans le catalogue d'alarmes de l'application (alarms.json).",
+  "event_types": [
+    {
+      "type": "Alarme",
+      "definition": "Condition qui exige une attention immédiate."
+    },
+    {
+      "type": "Alarme mémorisée (sticky)",
+      "definition": "Alarme qui ne se réinitialise pas tant que l'utilisateur ne choisit pas « Reset Alarms » ou n'envoie pas une commande depuis le HMI."
+    },
+    {
+      "type": "Avis (notice)",
+      "definition": "Condition d'alarme mineure qui n'exige pas d'attention immédiate ; beaucoup d'avis apparaissent en fonctionnement normal."
+    },
+    {
+      "type": "Statut",
+      "definition": "État de l'UPS et de ses composants (disjoncteurs...). Une condition active signifie « ON » ou « fermé » ; utilisé par le HMI."
+    },
+    {
+      "type": "Commande",
+      "definition": "Demande de changement d'état du système, saisie par l'utilisateur ou par un port de communication série."
+    }
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "type": "Statut",
+      "target": "Utilisateur",
+      "purpose": "Information d'état normale",
+      "example": "On Battery"
+    },
+    {
+      "level": 2,
+      "type": "Statut",
+      "target": "Service",
+      "purpose": "Information d'état détaillée pour le service",
+      "example": "Rectifier On"
+    },
+    {
+      "level": 3,
+      "type": "Commande",
+      "target": "Utilisateur",
+      "purpose": "Commande saisie par l'utilisateur ou à distance",
+      "example": "To Bypass"
+    },
+    {
+      "level": 4,
+      "type": "Avis",
+      "target": "Utilisateur",
+      "purpose": "Condition mineure normale",
+      "example": "Bypass is Not Available"
+    },
+    {
+      "level": 5,
+      "type": "Avis",
+      "target": "Utilisateur",
+      "purpose": "Instruction pour l'utilisateur",
+      "example": "Close Battery Breaker"
+    },
+    {
+      "level": 6,
+      "type": "Avis",
+      "target": "Service",
+      "purpose": "Condition mineure normale",
+      "example": "Input ACUV"
+    },
+    {
+      "level": 10,
+      "type": "Alarme",
+      "target": "Utilisateur (niveau 1)",
+      "purpose": "Une action de l'utilisateur peut être requise ; l'utilisateur doit inspecter l'équipement",
+      "example": "Line 1 OverLoad"
+    },
+    {
+      "level": 12,
+      "type": "Alarme",
+      "target": "Utilisateur",
+      "purpose": "Planifier une intervention de service",
+      "example": "Check Battery"
+    },
+    {
+      "level": 14,
+      "type": "Alarme",
+      "target": "Service",
+      "purpose": "Diagnostic et réparation",
+      "example": "Inverter Current Limit"
+    },
+    {
+      "level": 15,
+      "type": "Alarme",
+      "target": "Service",
+      "purpose": "Intervention de service requise",
+      "example": "Check Inverter Contactor"
+    }
+  ],
+  "levels_note": "Les niveaux 0, 7, 8, 9 et 11 ne sont pas définis : 0 est invalide, 8 est réservé aux avis, 9 et 11 aux alarmes.",
+  "characteristics": [
+    {
+      "event_type": "Alarme",
+      "header": "oui",
+      "alarm_led": "oui",
+      "horn": "oui"
+    },
+    {
+      "event_type": "Avis",
+      "header": "oui",
+      "alarm_led": "oui",
+      "horn": "oui"
+    },
+    {
+      "event_type": "Statut",
+      "header": "oui",
+      "alarm_led": "oui",
+      "horn": "non"
+    },
+    {
+      "event_type": "Commande",
+      "header": "oui",
+      "alarm_led": "oui",
+      "horn": "non"
+    }
+  ],
+  "display_rules": [
+    "Les alarmes utilisateur sont toujours affichées sur l'écran des alarmes actives ; elles apparaissent aussi dans l'historique système.",
+    "Les alarmes de service sont toujours affichées sur l'écran des alarmes actives ; elles ne sont affichées dans l'historique que dans le journal de service."
+  ],
+  "timings": {
+    "scan": "Fréquence de contrôle de l'état.",
+    "activation": "Délai approximatif avant que l'événement soit journalisé après que l'état est devenu actif ; sert à ignorer les parasites et transitions très rapides.",
+    "deactivation": "Durée approximative pendant laquelle l'événement reste actif après que l'état est redevenu inactif."
+  },
+  "logging": [
+    {
+      "mode": "All",
+      "meaning": "Journalisé à chaque activation et désactivation."
+    },
+    {
+      "mode": "When activated",
+      "meaning": "Journalisé seulement à l'activation."
+    },
+    {
+      "mode": "None",
+      "meaning": "Non journalisé."
+    },
+    {
+      "mode": "UPM only",
+      "meaning": "Journalisé seulement en interne dans l'UPM : invisible à l'écran."
+    },
+    {
+      "mode": "MCU only",
+      "meaning": "Journalisé seulement en interne dans la MCU : invisible à l'écran."
+    }
+  ],
+  "logging_note": "Les textes d'activation et de désactivation indiqués par le manuel concernent le journal de la CSB, pas les journaux des UPM ou de la MCU pris individuellement.",
+  "numbering": {
+    "upm": "Les événements UPM commencent au numéro 0.",
+    "mcu": "Les événements MCU commencent au numéro 192.",
+    "csb": "Les événements CSB commencent au numéro 320 dans ce manuel (rev B02) ; à partir du firmware 1.24 la numérotation CSB diffère (manuel d'alarmes rev 003, section 2.3).",
+    "error_code": "Quand plusieurs causes sont possibles pour un événement, un code d'erreur indique le type d'erreur ; il est visible dans le journal historique."
+  },
+  "source_of_event_tables": "Tableaux 11.3 à 11.6 compilés à partir de la spécification « Panda Premier Alarms and Notices », révision 117 du 22 octobre 2013."
+}

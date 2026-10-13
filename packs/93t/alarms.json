@@ -1,0 +1,2989 @@
+{
+  "_source": "Eaton 93T Service Manual HPO-1046599 rev 001 (avril 2024, 'not final'), section 13.5.6 (événements UPM 0-133) et 13.5.7 (événements CSB 192-238).",
+  "_status": "Extraction automatique à relire. Pas d'événements MCU sur 93T. Pas de niveau ni de cible (utilisateur/service) dans ce manuel. Les pages renvoient au manuel 93T.",
+  "family": "ups93t",
+  "events": [
+    {
+      "source": "UPM",
+      "ids": [
+        0
+      ],
+      "name": "Inverter AC Under Voltage",
+      "kind": "notice",
+      "page": 132,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "20 | 80 | 2560 | All",
+      "desc_en": "Inverter voltage is below programmed limits on any phase. Used to as an inverter self test when the inverter starts up in Bypass standby state before going online. Inverter starts up. • If there is inverter UV alarm, the inverter stays in bypass and the UV alarm appears in the history queue. • If the inverter is in online state, no action is taken for this alarm. The under voltage configuration level is defined in UPM EEP 142. The default value is 90 % of nominal. When the voltage goes below this level, the alarm is activated. The under voltage clear alarm is defined in UPM EEP 143. The default value is 91.8 % of nominal. The alarm is cleared when the voltage goes back above this level or the inverter is turned off.",
+      "desc_fr": "Tension onduleur sous les limites programmées sur une phase.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        1
+      ],
+      "name": "Bypass AC Over Voltage",
+      "kind": "notice",
+      "page": 133,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.392 | 4.3 | 2000 | All",
+      "desc_en": "Bypass voltage is above programmed limits on any phase. Transfer to bypass is not allowed. If the UPS is on bypass, the UPS will forward transfer to inverter, if possible. The bypass over voltage limit is defined as a percentage in UPM EEP 55. The default value is 10 %. This means (1 + 0.1) * 120 V = 132 V for LV system and (1 + 0.1) * 230 V = 253 V for HV system",
+      "desc_fr": "Tension bypass trop haute : transfert vers bypass interdit.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        2
+      ],
+      "name": "Bypass AC Under Voltage",
+      "kind": "notice",
+      "page": 133,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.392 | 4.3 | 2000 | All",
+      "desc_en": "Bypass voltage is below programmed limits on any phase. Transfer to bypass is not allowed. If UPS is on bypass, UPS will forward transfer to inverter, if possible. The bypass under voltage limit is defined as a percentage in UPM EEP 56. The default value is 10 %. This means (1 - 0.1) * 120 V = 108 V for LV system and (1 - 0.1) * 230 V =",
+      "desc_fr": "Tension bypass trop basse : transfert vers bypass interdit.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        3
+      ],
+      "name": "Bypass Under/Over Frequency",
+      "kind": "notice",
+      "page": 133,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 200 | 400 | All",
+      "desc_en": "Bypass frequency is above or below programmed limits. Transfer to bypass is not allowed. If UPS is on bypass, UPS will forward transfer to inverter, if possible. The bypass frequency limit is defined in UPM EEP 57 and is dependent on the nominal output frequency defined in UPM EEP 54. The default value is 4, which means that the lower limit is nominal output frequency - 4 Hz (default 56 Hz) and the higher limit is nominal output frequency + 4 Hz (default 64 Hz).",
+      "desc_fr": "Fréquence bypass hors limites.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        4
+      ],
+      "name": "Input AC Over Voltage",
+      "kind": "notice",
+      "page": 133,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Activation : 0.784 | 3.1 | Désactivation : 20 | 1280 | All",
+      "desc_en": "Input voltage is above programmed limits on any phase. Rectifier operation is not possible, transfer to battery if battery is available. The maximum input voltage is defined in UPM EEP 214. The default value is 144 V for LV system and 276 V for HV system.",
+      "desc_fr": "Tension d'entrée au-dessus des limites. Le redresseur est désactivé et l'UPM passe sur batterie si elle est disponible.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        5
+      ],
+      "name": "Input AC Under Voltage",
+      "kind": "notice",
+      "page": 134,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "20 | 80 | 1280 | All",
+      "desc_en": "Input voltage is below or programmed limits on any phase. Rectifier operation may not be possible, depending on the load. UPS will run on rectifier, rectifier + battery, or battery, depending on load power requirements. Battery charging may be disabled. The minimum input voltage is defined in UPM EEP 215. The default value is 60 V.",
+      "desc_fr": "Tension d'entrée sous les limites. Fonctionnement redresseur, redresseur+batterie ou batterie selon la charge ; charge batterie possiblement coupée.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        6
+      ],
+      "name": "Input Under/Over Frequency",
+      "kind": "notice",
+      "page": 134,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "20 | 80 | 1280 | All",
+      "desc_en": "Input frequency is above or below programmed limits. For information only, no UPS response. Frequency limits are defined in UPM EEPs 224 and 225. The default values are 40 Hz for the low limit and 72 Hz for the high limit.",
+      "desc_fr": "Fréquence d'entrée hors limites.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        7
+      ],
+      "name": "Output AC Over Voltage",
+      "kind": "notice",
+      "page": 134,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1000": "Phase A : tension RMS trop haute",
+          "2000": "Phase B : tension RMS trop haute",
+          "4000": "Phase C : tension RMS trop haute"
+        },
+        "note": "Unité LV : code > 1000 = détection rapide (Sd) ; code = 1000 = détection lente (RMS). Unité HV : 1000/2000/4000 = phase A/B/C en RMS ; 1xxx = détection rapide (Sd)."
+      },
+      "timing": "0.784 | 2.352 | 50 | All",
+      "desc_en": "The output uses the same limits as the bypass. The bypass over voltage limit is defined as a percentage in UPM EEP 55. The default value is 10 %. This means (1 + 0.1) * 120 V = 132 V for LV system and (1 + 0.1) * 230 V = 253 V for HV system.",
+      "desc_fr": "Tension de sortie au-dessus des limites (mesure interne de l'UPM). En monobloc, le code précise la phase ou la détection rapide.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        8
+      ],
+      "name": "Output AC Under Voltage",
+      "kind": "notice",
+      "page": 134,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1000": "Phase A : tension RMS trop basse",
+          "2000": "Phase B : tension RMS trop basse",
+          "4000": "Phase C : tension RMS trop basse"
+        },
+        "note": "Unité LV : code < 1000 = détection rapide (Sd) ; code = 1000 = détection lente (RMS). Unité HV : 1000/2000/4000 = phase A/B/C en RMS ; autre valeur = détection rapide (Sd)."
+      },
+      "timing": "0.784 | 2.352 | 50 | All",
+      "desc_en": "The output uses the same limits as the bypass. The bypass under voltage limit is defined as a percentage in UPM EEP 56. The default value is 10 %. This means (1 - 0.1) * 120 V = 108 V for LV system and (1 - 0.1) * 230 V = 207 V for HV system.",
+      "desc_fr": "Tension de sortie sous les limites (mesure interne de l'UPM). En monobloc, le code précise la phase ou la détection rapide.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        9
+      ],
+      "name": "Output Under/Over Frequency",
+      "kind": "notice",
+      "page": 135,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "20 | 160 | 1280 | All",
+      "desc_en": "The output frequency is above or below programmed limits. Forces forward transfer to inverter in ESS. The low limit is defined in UPM EEP 224 with a default value of 40 Hz. The high limit is defined in UPM EEP 225 with a default value of 72 Hz.",
+      "desc_fr": "Fréquence de sortie hors limites.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        10
+      ],
+      "name": "Remote Emergency Power Off",
+      "kind": "alarm",
+      "page": 135,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.4 | 0.4 | 0.4 | All",
+      "desc_en": "Remote EPO activated. Immediately turns the converters off and performs load off.",
+      "desc_fr": "EPO distant : convertisseurs et charge coupés immédiatement.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        11
+      ],
+      "name": "Inverter Over Temperature",
+      "kind": "notice",
+      "page": 135,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 1600 | 6400 | All",
+      "desc_en": "Inverter temperature sensor reading is too high, at a warning level. This is a set alarm only, it requires no action. The limit is defined in UPM EEP 219.",
+      "desc_fr": "Température onduleur trop haute (niveau d'avertissement, aucune action automatique).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        12
+      ],
+      "name": "Output Overload",
+      "kind": "alarm",
+      "page": 135,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 3200 | All",
+      "desc_en": "Load power or VA above rating. See Behavioral document for overload response.",
+      "desc_fr": "Puissance ou VA de sortie supérieure à la valeur nominale. La réaction dépend du niveau de surcharge (voir le document de comportement du constructeur).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        13
+      ],
+      "name": "Rectifier Input Over Current",
+      "kind": "alarm",
+      "page": 135,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "phase A over current",
+          "2": "phase B over current",
+          "4": "phase C over current"
+        }
+      },
+      "timing": "1 inverter period 1 inverter period 64 inverter periods All",
+      "desc_en": "Rectifier hardware current limit latch set for a defined number of continuous line cycles. Set rectifier off, transfer to battery. The maximum number of continuous line cycles is defined in UPM EEP 204. The limit is defined in UPM EEP 216.",
+      "desc_fr": "Limite de courant matérielle du redresseur atteinte plusieurs cycles : redresseur coupé, transfert sur batterie.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        14
+      ],
+      "name": "Inverter Output Over Current",
+      "kind": "alarm",
+      "page": 136,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "phase A over current",
+          "2": "phase B over current",
+          "4": "phase C over current"
+        }
+      },
+      "timing": "1 inverter period 1 inverter period 64 inverter periods All",
+      "desc_en": "Inverter hardware current limit latch set for a defined number of continuous line cycles. Set inverter off, transfer to bypass, if possible. The maximum number of continuous line cycles is defined in UPM EEP 203. The default value is 20.",
+      "desc_fr": "Limite de courant de sortie onduleur atteinte : onduleur coupé, transfert sur bypass si possible.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        15
+      ],
+      "name": "DC Link Over Voltage",
+      "kind": "alarm",
+      "page": 136,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "bits 0-7": "negative BUS -250 V",
+          "bits 8-15": "negative BUS -250 V"
+        }
+      },
+      "timing": "0.392 | 0.392 | 2000 | All",
+      "desc_en": "DC bus voltage is too high, immediate converters off, transfer to bypass, if possible. The limit is defined in UPM EEP 201. The default value is 250 V for LV system and 420 V for HV system.",
+      "desc_fr": "Tension du bus DC trop haute : convertisseurs coupés, transfert sur bypass si possible.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        16
+      ],
+      "name": "DC Link Under Voltage",
+      "kind": "alarm",
+      "page": 136,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.392 | 0.392 | 2000 | All",
+      "desc_en": "DC bus voltage is too low, immediate converters off, transfer to bypass, if possible. The limit is defined in UPM EEP 202. The default value is 130 V for LV system and 250 V for HV system.",
+      "desc_fr": "Tension du bus DC trop basse : convertisseurs coupés immédiatement.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        17
+      ],
+      "name": "Static Switch Failed",
+      "kind": "alarm",
+      "page": 136,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 800 | 6400 | All",
+      "desc_en": "Communication with SSW PIC processor is lost, bypass status is unknown. Bypass transfer not allowed. NOTE: This alarm is suppressed when communication loss is expected (bypass power loss).",
+      "desc_fr": "Communication avec le processeur PIC du STS perdue : état du bypass inconnu, transfert vers bypass interdit.",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        18
+      ],
+      "name": "Battery Current Over Limit",
+      "kind": "alarm",
+      "page": 136,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "1 inverter period | 1 inverter period | 64 inverter periods | All",
+      "desc_en": "Battery hardware current limit latch set for a defined number of continuous line cycles. Set charger/boost off. The maximum number of continuous line cycles is defined in UPM EEP 205 and the default value is 20. The limit is defined in UPM EEP 218. The default value is 300 A for LV system and 350 A for HV system.",
+      "desc_fr": "Limite de courant batterie atteinte : chargeur/boost coupé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        19
+      ],
+      "name": "EEPROM Checksum Failed",
+      "kind": "alarm",
+      "page": 137,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "0x0001": "section 0 failed",
+          "0x0002": "section 1 failed"
+        }
+      },
+      "timing": "N/A, at system initialization N/A N/A All",
+      "desc_en": "Interface board EEPROM checksum failure at initialization. Startup not allowed.",
+      "desc_fr": "Échec de checksum EEPROM de la carte interface à l'initialisation ; démarrage interdit (un bit par section).",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        20
+      ],
+      "name": "Shutdown imminent",
+      "kind": "alarm",
+      "page": 137,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Not yet supported Not yet supported Not yet supported All",
+      "desc_en": "Load power off warning. UPS is about to shutdown the load. Battery UV limit is reached and low battery shutdown counter started.",
+      "desc_fr": "Avertissement de coupure imminente de la charge (limite batterie atteinte, ou surcharge sans bypass disponible).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        21
+      ],
+      "name": "Low Battery Warning",
+      "kind": "alarm",
+      "page": 137,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "500 | 8000 | 8000 | All",
+      "desc_en": "The battery voltage is below the low battery alarm level and UPS is on battery. The limit is defined in UPM EEP 319. The default value is 1.81 VPC.",
+      "desc_fr": "Tension batterie sous le niveau d'alarme batterie faible.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        22
+      ],
+      "name": "Output Short Circuit",
+      "kind": "alarm",
+      "page": 137,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Inverter period Inverter period Inverter period All",
+      "desc_en": "Output short circuit detected.",
+      "desc_fr": "Court-circuit détecté en sortie.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        23
+      ],
+      "name": "Utility Not Available",
+      "kind": "notice",
+      "page": 137,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.392 | 6.27 | 1000 | All",
+      "desc_en": "Utility has failed. Lost phase lock with utility or utility voltage has fallen below 40 % of nominal voltage. Unit goes to battery mode when active.",
+      "desc_fr": "Réseau perdu (perte de verrouillage de phase ou tension < 50 % du nominal) : passage sur batterie.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        24
+      ],
+      "name": "Battery DC Over Voltage",
+      "kind": "alarm",
+      "page": 137,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "500 | 500 | 500 | All",
+      "desc_en": "Either set of battery voltage sensors detects a battery voltage higher than 2.45 VPC for 60 seconds (both are in EEPROM) longer than the alarm appears in the history queue. If the voltage goes above 2.45 VPC, the charger is shut off. After 60 seconds, an active time alarm appears in the history queue and the unit will disconnect the battery.",
+      "desc_fr": "Tension batterie > 2,45 V/élément : chargeur coupé, batterie déconnectée après 60 s.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        25
+      ],
+      "name": "Power Supply Failure",
+      "kind": "alarm",
+      "page": 138,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Not yet supported Not yet supported Not yet supported All",
+      "desc_en": "Currently not supported.",
+      "desc_fr": "Défaut d'alimentation : réservé, non pris en charge actuellement.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        26
+      ],
+      "name": "To Bypass Command",
+      "kind": "command",
+      "page": 138,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | UPM only",
+      "desc_en": "UPM received an external command to transfer to bypass",
+      "desc_fr": "Commande « To Bypass Command » reçue.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        27
+      ],
+      "name": "Bypass Not Available",
+      "kind": "notice",
+      "page": 138,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "0x01": "bypass phase lock fail",
+          "0x02": "bypass voltage DQ loss",
+          "0x04": "PIC not ready"
+        }
+      },
+      "timing": "0.392 | 0.392 | 0.392 | All",
+      "desc_en": "This alarm is raised if any of these alarms are raised: Bypass phase rotation alarm, Bypass under voltage alarm, Bypass over voltage alarm, Bypass under/over frequency alarm or Static switch failure alarm AND the backfeed relay is closed.",
+      "desc_fr": "Bypass indisponible (rotation, tension, fréquence ou défaut interrupteur statique) alors que le relais anti-retour est fermé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        28
+      ],
+      "name": "Rectifier Phase Rotation",
+      "kind": "alarm",
+      "page": 138,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "1000 | 1000 | 8000 | All",
+      "desc_en": "Rectifier input phase rotation is reversed.",
+      "desc_fr": "Ordre des phases d'entrée redresseur inversé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        29
+      ],
+      "name": "Bypass Phase Rotation",
+      "kind": "alarm",
+      "page": 138,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 800 | All",
+      "desc_en": "Bypass phases are rotated. Transfer to bypass is not allowed.",
+      "desc_fr": "Ordre des phases bypass inversé : transfert vers bypass interdit.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        30
+      ],
+      "name": "UPM Control Power",
+      "kind": "status",
+      "page": 139,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A, set at initialization N/A N/A When activated",
+      "desc_en": "This status is logged after the initialization is complete.",
+      "desc_fr": "Journalisé après l'initialisation du processeur UPM (0 = mise sous tension normale ; 3, 5, 8 = reset anormal).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        31
+      ],
+      "name": "Inverter On/Off",
+      "kind": "status",
+      "page": 139,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "This event is logged when inverter is started or stopped.",
+      "desc_fr": "Journalisé au démarrage ou à l'arrêt de l'onduleur.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        32
+      ],
+      "name": "Charger On/Off",
+      "kind": "status",
+      "page": 139,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "This event is logged when inverter is started or stopped.",
+      "desc_fr": "Journalisé au démarrage ou à l'arrêt du chargeur.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        33
+      ],
+      "name": "Internal MBS Active",
+      "kind": "notice",
+      "page": 139,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "Internal MBS is installed and activated. The status is not activated when a building input configured as \"Maintenance Bypass\" goes active. When the building input goes active, also the MBS Closed node bit activates.",
+      "desc_fr": "Bypass de maintenance (MBS) interne installé et activé.",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        34
+      ],
+      "name": "Service Battery",
+      "kind": "alarm",
+      "page": 139,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "Voltage dropped too much in rest mode (opportunity charge)",
+          "2": "Battery is connected backwards",
+          "4": "Battery positive is faulted to ground",
+          "8": "Battery negative is faulted to ground"
+        }
+      },
+      "timing": "500 | 4000 | 4000 | All",
+      "desc_en": "Battery needs to be serviced.",
+      "desc_fr": "La batterie nécessite une intervention.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        35
+      ],
+      "name": "PhaseA OverLoad Level2",
+      "kind": "alarm",
+      "page": 139,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 800 | All",
+      "desc_en": "Output power/VA exceeds level 2 limit on phase A. See \"Behavioral specification\" for response.",
+      "desc_fr": "Puissance / VA de sortie au-dessus du seuil de surcharge niveau 2 sur la phase A.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        36
+      ],
+      "name": "PhaseB OverLoad Level2",
+      "kind": "alarm",
+      "page": 139,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 800 | All",
+      "desc_en": "Output power/VA exceeds level 2 limit on phase C. See \"Behavioral specification\" for response.",
+      "desc_fr": "Puissance / VA de sortie au-dessus du seuil de surcharge niveau 2 sur la phase B.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        37
+      ],
+      "name": "PhaseC OverLoad Level2",
+      "kind": "alarm",
+      "page": 140,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 100 | All",
+      "desc_en": "Output power/VA exceeds level 2 limit on phase B. See \"Behavioral specification\" for response.",
+      "desc_fr": "Puissance / VA de sortie au-dessus du seuil de surcharge niveau 2 sur la phase C.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        38
+      ],
+      "name": "PhaseA OverLoad Level3",
+      "kind": "alarm",
+      "page": 140,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "5 | 40 | 20 | All",
+      "desc_en": "Output power/VA exceeds level 3 limit on phase A. See \"Behavioral specification\" for response.",
+      "desc_fr": "Puissance / VA de sortie au-dessus du seuil de surcharge niveau 3 sur la phase A.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        39
+      ],
+      "name": "PhaseB OverLoad Level3",
+      "kind": "alarm",
+      "page": 140,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "5 | 40 | 20 | All",
+      "desc_en": "Output power/VA exceeds level 3 limit on phase B. See \"Behavioral specification\" for response.",
+      "desc_fr": "Puissance / VA de sortie au-dessus du seuil de surcharge niveau 3 sur la phase B.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        40
+      ],
+      "name": "PhaseC OverLoad Level3",
+      "kind": "alarm",
+      "page": 140,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "5 | 40 | 20 | All",
+      "desc_en": "Output power/VA exceeds level 3 limit on phase C. See \"Behavioral specification\" for response.",
+      "desc_fr": "Puissance / VA de sortie au-dessus du seuil de surcharge niveau 3 sur la phase C.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        41
+      ],
+      "name": "PhaseA OverLoad Level4",
+      "kind": "alarm",
+      "page": 140,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "5 | 40 | 20 | All",
+      "desc_en": "Output power/VA exceeds level 4 limit on phase A. See \"Behavioral specification\" for response.",
+      "desc_fr": "Puissance / VA de sortie au-dessus du seuil de surcharge niveau 4 sur la phase A.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        42
+      ],
+      "name": "PhaseB OverLoad Level4",
+      "kind": "alarm",
+      "page": 140,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "5 | 40 | 20 | All",
+      "desc_en": "Output power/VA exceeds level 4 limit on phase B. See \"Behavioral specification\" for response.",
+      "desc_fr": "Puissance / VA de sortie au-dessus du seuil de surcharge niveau 4 sur la phase B.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        43
+      ],
+      "name": "PhaseC OverLoad Level4",
+      "kind": "alarm",
+      "page": 140,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "5 | 40 | 20 | All",
+      "desc_en": "Output power/VA exceeds level 4 limit on phase C. See \"Behavioral specification\" for response.",
+      "desc_fr": "Puissance / VA de sortie au-dessus du seuil de surcharge niveau 4 sur la phase C.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        44
+      ],
+      "name": "Ups On Battery",
+      "kind": "status",
+      "page": 141,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "The UPS load is powered from battery. This status is suppressed during battery test.",
+      "desc_fr": "La charge est alimentée par la batterie.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        45
+      ],
+      "name": "Ups On Bypass",
+      "kind": "status",
+      "page": 141,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "Load is powered from bypass. The status is suppressed in ESS mode.",
+      "desc_fr": "La charge est alimentée par le bypass.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        46
+      ],
+      "name": "Load Power Off",
+      "kind": "status",
+      "page": 141,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | UPM only",
+      "desc_en": "The load was shut down. This status is not active at startup when the UPS has not been commanded on yet, and is not active if the UPS is commanded off or turns off due to EPO or low battery shutdown. That is, this status signifies an abnormal shutdown.",
+      "desc_fr": "La charge a été coupée de façon anormale (pas sur commande, EPO ou batterie basse).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        47
+      ],
+      "name": "Ups On Command",
+      "kind": "command",
+      "page": 141,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | UPM only",
+      "desc_en": "The UPM has received a command for load on.",
+      "desc_fr": "L'UPM a reçu une commande de mise en marche de la charge (load on).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        48
+      ],
+      "name": "Ups Off Command",
+      "kind": "command",
+      "page": 141,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | UPM only",
+      "desc_en": "The UPM has received a command for load off (excluding EPO).",
+      "desc_fr": "L'UPM a reçu une commande d'arrêt de la charge (load off, hors EPO).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        49
+      ],
+      "name": "Low Battery Shutdown",
+      "kind": "alarm",
+      "page": 141,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "500 | 500 | 500 | All",
+      "desc_en": "Battery shutdown 1 minute timer has started. Battery voltage has fallen below the limit defined in UPM EEP 320. The default value is 1.75 VPC.",
+      "desc_fr": "Tension batterie sous la limite EEPROM : charge coupée après 3 s.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        50
+      ],
+      "name": "Software Incompatible",
+      "kind": "alarm",
+      "page": 141,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "0x001x": "Interface board ID is incorrect for this firmware. The lowest 4 bits show the incorrect ID read from HW.",
+          "0x0020": "Incompatible PLD version"
+        }
+      },
+      "timing": "N/A, checked at N/A N/A All initialization",
+      "desc_en": "Incompatible firmware or incompatible PLD version detected.",
+      "desc_fr": "Firmware ou PLD incompatible (ID de carte interface, version PLD).",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        51
+      ],
+      "name": "Battery Test Failed",
+      "kind": "alarm",
+      "page": 142,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "0x1": "battery voltage too low during battery test",
+          "0x2": "battery over current during.",
+          "0x4": "rectifier is not normal during battery test",
+          "0x8": "load percentage < 5 %",
+          "0x10": "battery voltage < battery UV shutdown limit"
+        }
+      },
+      "timing": "500 | 500 | 500 | All",
+      "desc_fr": "Un test batterie a échoué : tension passée sous la limite.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        52
+      ],
+      "name": "Fuse Failed",
+      "kind": "sticky_alarm",
+      "page": 142,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "0x0001": "Rectifier Phase A",
+          "0x0002": "Rectifier Phase B",
+          "0x0004": "Rectifier Phase C",
+          "0x0010": "Battery Positive",
+          "0x0020": "Battery Negative",
+          "0x0100": "Inverter Phase A",
+          "0x0200": "Inverter Phase B",
+          "0x0400": "Inverter Phase C"
+        }
+      },
+      "timing": "100 | 800 | N/A | All",
+      "desc_en": "One or more fuses detected open. Detection is disabled per phase if the input RMS voltage falls below 25 % of nominal.",
+      "desc_fr": "Défaillance de fusible : NON implémenté (une défaillance de fusible ne peut pas être détectée de façon fiable). Mesurer, ne pas déduire.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        53
+      ],
+      "name": "Fan Failed",
+      "kind": "alarm",
+      "page": 142,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "0x01": "Fan 1 failed.",
+          "0x02": "Fan 2 failed.",
+          "0x04": "Fan 3 failed.",
+          "0x08": "Fan 4 failed."
+        }
+      },
+      "timing": "100 | 800 | 800 | All",
+      "desc_en": "A rotor is locked in one or more fans.",
+      "desc_fr": "Rotor bloqué détecté sur un ou plusieurs ventilateurs.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        54
+      ],
+      "name": "Site Wiring Fault",
+      "kind": "alarm",
+      "page": 142,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "5 | HV: 50, LV: 20 | HV: 1 min, LV: 3 min | All",
+      "desc_en": "Excessive ground to neutral voltage detected. The alarm activates when the neutral voltage is above the limit defined in EEP 228.",
+      "desc_fr": "Tension neutre-terre excessive (défaut de câblage du site).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        55
+      ],
+      "name": "Backfeed Relay Failed",
+      "kind": "alarm",
+      "page": 142,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "phA fail to open",
+          "2": "phB fail to open",
+          "3": "phC fail to open",
+          "4": "phA fail to close",
+          "5": "phB fail to close",
+          "6": "phC fail to close",
+          "12": "phA + phB fail to open",
+          "13": "phA + phC fail to open... etc",
+          "45": "phA + phB fail to close",
+          "46": "phA + phC fail to close... etc"
+        }
+      },
+      "timing": "100 | 6400 | N/A | All",
+      "desc_en": "Anti-backfeed relay(s) failed to open or failed to close. Detection is disabled under Bypass ACUV. The backfeed relay failure threshold setting is defined in UPM EEP 226. The default value is 50 % of nominal. When the backfeed relay is open and the voltage measured on the output side of the backfeed relay is above this level, the alarm is activated. When the backfeed relay is closed and the voltage measured on the output side of the backfeed relay is not above this level, the alarm is activated, and when the voltage between the two sides of the backfeed relay is below 20 V, the alarm is deactivated.",
+      "desc_fr": "Relais anti-retour (backfeed) en défaut d'ouverture ou de fermeture. Seuil réglé par l'EEP 226 (50 % de la nominale par défaut) ; détection désactivée en bypass sous-tension. Le code indique la ou les phases concernées.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        56
+      ],
+      "name": "Batteries Disconnected",
+      "kind": "alarm",
+      "page": 143,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "500 | 500 | 500 | All",
+      "desc_en": "The batteries are not connected. The voltage on the battery side of the relay is below 150 V.",
+      "desc_fr": "Batteries non connectées, aucune tension batterie.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        57
+      ],
+      "name": "Ambient Over Temperature",
+      "kind": "notice",
+      "page": 143,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Not yet supported Not yet supported Not yet supported All",
+      "desc_en": "The ambient temperature is over the limit.",
+      "desc_fr": "Température ambiante de l'UPM trop haute.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        58
+      ],
+      "name": "UPM Selective Trip",
+      "kind": "sticky_alarm",
+      "page": 143,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.4 1.6 Reset alarms All",
+      "desc_en": "Selective trip of parallel UPM has occurred. Selective trip algorithm detects a critical inverter failure and removes the module from the external parallel system.",
+      "desc_fr": "Déclenchement sélectif d'un UPM en parallèle : défaut onduleur critique, module retiré du système.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        59
+      ],
+      "name": "Output Voltage Abnormal",
+      "kind": "alarm",
+      "page": 144,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 800 | 800 | All",
+      "desc_en": "Abnormal output voltage detected on unit initialization. Indicates a stuck relay or shorted SCR. Another unit is feeding the load while the units cannot communicate with each other or parallel units do not have outputs connected. This is detected by measuring voltage on output while no voltage is expected or measuring no voltage on output while voltage is expected.",
+      "desc_fr": "Tension de sortie anormale au démarrage : relais collé, SCR en court-circuit ou problème de communication parallèle.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        60
+      ],
+      "name": "Rectifier Over Temperature",
+      "kind": "notice",
+      "page": 144,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 1600 | 1600 | All",
+      "desc_en": "Rectifier/boost temperature sensor reading is too high, at a warning level. This is a set alarm only, it requires no action. The limit is defined in UPM EEP 2019. Configuration Error",
+      "desc_fr": "Température redresseur/boost trop haute (avertissement).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        61
+      ],
+      "name": "Configuration Error",
+      "kind": "alarm",
+      "page": 144,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "0x01": "Parallel UPM or UPS number is invalid.",
+          "0x02": "EE map revision is too high (firmware downgrade).",
+          "0x04": "PLD version fail.",
+          "0x08": "Observed bypass PIC when not expected.",
+          "0x10": "Observed PCAN packets in a non-parallel configuration.",
+          "0x20": "Private section values mismatch between boards.",
+          "0x40": "Field service is required.",
+          "0x80": "EEPROM has been reset and verification is required. This alarm can be cleared by resetting UPM EEP 69.",
+          "0x100": "Hardware revision incompatible with current configuration",
+          "0x200": "system invalid, it is not an available system type",
+          "0x400": "system type check fail from CSB",
+          "0x800": "Decryption failed when communicate with SHA204",
+          "0x1000": "the dead band configure failed for the system",
+          "0x2000": "control board HW version is not correct"
+        },
+        "note": "For HV: 0x4000 = battery cells setup required ; For LV: 0x4000 = ABM is disabled for LV unit while it should not be. This bit is for LV unit only."
+      },
+      "timing": "1000 | 1000 | 1000 | All",
+      "desc_en": "An error in the configuration has been detected.",
+      "desc_fr": "Erreur de configuration. Plusieurs conditions peuvent être actives en même temps (code = somme de bits).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        62
+      ],
+      "name": "System Not Redundant",
+      "kind": "notice",
+      "page": 145,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "1000 | 8000 | 8000 | All",
+      "desc_en": "Parallel system configured for redundancy is operating in capacity mode.",
+      "desc_fr": "Système parallèle configuré en redondance fonctionnant en mode capacité.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        63
+      ],
+      "name": "In High Efficiency Mode",
+      "kind": "status",
+      "page": 145,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "UPS is in ESS mode. This requires that ESS is installed and has been enabled by the user. The state is activated whenever the UPS state changes to ESS mode and deactivated when the state changes from ESS mode to something else. Refer to the Behavioral specification for more information.",
+      "desc_fr": "L'UPS est en mode ESS (haut rendement) : nécessite que l'ESS soit installé et activé par l'utilisateur.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        64
+      ],
+      "name": "UPS System Normal",
+      "kind": "status",
+      "page": 145,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "UPS is in normal mode. This status is activated whenever the UPS state changes to normal mode and deactivated when the state changes from normal mode to something else. Refer to the Behavioral specification for more information.",
+      "desc_fr": "L'UPS est en mode normal ; actif tant que l'état normal est maintenu.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        65
+      ],
+      "name": "Invalid Board ID",
+      "kind": "alarm",
+      "page": 145,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Not yet supported Not yet supported Not yet supported All",
+      "desc_en": "Error codes: Interface board ID does not match UPM firmware package. UPS cannot start.",
+      "desc_fr": "L'identifiant de la carte interface ne correspond pas au paquet firmware de l'UPM : l'UPS ne peut pas démarrer.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        66
+      ],
+      "name": "PreCharge Failed",
+      "kind": "sticky_alarm",
+      "page": 145,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All (défini/effacé à chaque tentative de précharge)",
+      "desc_en": "attempt N/A N/A All No error code. DC link pre-charge circuit failed to charge the link. UPS cannot start.",
+      "desc_fr": "La précharge du bus DC a échoué : l'UPS ne peut pas démarrer.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        67
+      ],
+      "name": "Rectifier On/Off",
+      "kind": "status",
+      "page": 145,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "The event is logged when rectifier is turned on/off.",
+      "desc_fr": "Journalisé à la mise en marche ou à l'arrêt du redresseur.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        68
+      ],
+      "name": "UPS On Generator",
+      "kind": "notice",
+      "page": 145,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "UPS is on generator mode. This mode is activated when a building input configured for \"On generator\" goes active.",
+      "desc_fr": "L'UPS fonctionne sur groupe électrogène (entrée de signal configurée \"On generator\").",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        69
+      ],
+      "name": "Battery Test In Progress",
+      "kind": "status",
+      "page": 146,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "500 | 500 | 500 | All",
+      "desc_en": "UPS is running a battery test, either a battery quick test or the battery test. Refer to \"Battery Management specification\" for more information.",
+      "desc_fr": "Un test batterie (rapide ou complet) est en cours.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        70
+      ],
+      "name": "Clock Set Done",
+      "kind": "status",
+      "page": 146,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "The real-time clock has been set. This happens when the user changes the date and time.",
+      "desc_fr": "L'horloge temps réel a été réglée.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        72
+      ],
+      "name": "ABM State Charging",
+      "kind": "status",
+      "page": 146,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "ABM charge mode is charge. Refer to \"Battery Management specification\" for more information.",
+      "desc_fr": "Mode ABM : charge.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        73
+      ],
+      "name": "ABM State Floating",
+      "kind": "status",
+      "page": 146,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "ABM charge mode is float. Refer to \"Battery Management specification\" for more information.",
+      "desc_fr": "Mode ABM : floating (maintien).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        74
+      ],
+      "name": "ABM State Resting",
+      "kind": "status",
+      "page": 146,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "ABM charge mode is rest. Refer to \"Battery Management specification\" for more information.",
+      "desc_fr": "Mode ABM : repos.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        75
+      ],
+      "name": "ABM State Charger On/Off",
+      "kind": "status",
+      "page": 146,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "ABM is disabled through user setting. Refer to the Battery Management specification for more information.",
+      "desc_fr": "ABM désactivé par réglage utilisateur.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        76
+      ],
+      "name": "Output Hot",
+      "kind": "status",
+      "page": 147,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | None",
+      "desc_en": "CSB determines if the output is energized. The status affects what is shown on the display but does not impact the actual UPM functionality.",
+      "desc_fr": "Indique à la CSB si la sortie est sous tension ; n'agit que sur l'affichage.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        77
+      ],
+      "name": "Bypass Hot",
+      "kind": "status",
+      "page": 147,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | None",
+      "desc_en": "CSB determines if the bypass input is energized. The status affects what is shown on the display but does not impact the actual UPM functionality.",
+      "desc_fr": "Indique à la CSB si l'entrée bypass est sous tension ; n'agit que sur l'affichage.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        78
+      ],
+      "name": "Battery Discharging",
+      "kind": "status",
+      "page": 147,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | None",
+      "desc_en": "CSB determines if the battery is discharging. The status affects what is shown on the display but does not impact the actual UPM functionality. Triggered by the On Battery node bit. The On Battery node bit is set when the battery boost converter is on for more than 5 seconds (EEPROM).",
+      "desc_fr": "La batterie se décharge ; n'agit que sur l'affichage.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        79
+      ],
+      "name": "Inverter Relay Closed",
+      "kind": "status",
+      "page": 147,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "CSB determines if the inverter relay is closed or not. The status affects what is shown on the display but does not impact the actual UPM functionality.",
+      "desc_fr": "Indique à la CSB si le relais onduleur est fermé ; sert à l'affichage, sans effet fonctionnel.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        80
+      ],
+      "name": "MIS",
+      "kind": "status",
+      "page": 147,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Always false Always false Always false None",
+      "desc_en": "Indicates if the Inverter Contactor is closed or open. The status is always false.",
+      "desc_fr": "Indique si le contacteur onduleur est fermé ; toujours faux.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        81
+      ],
+      "name": "MIS installed",
+      "kind": "status",
+      "page": 147,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Always false Always false Always false None",
+      "desc_en": "Indicates if the Inverter Contactor is installed or not. The status is always false.",
+      "desc_fr": "Indique si un MIS est installé (toujours faux).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        82
+      ],
+      "name": "Bypass Installed",
+      "kind": "status",
+      "page": 147,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Always true Always true Always true None",
+      "desc_en": "Indicates if the bypass is installed or not. The status is always true.",
+      "desc_fr": "Indique si le bypass est installé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        83
+      ],
+      "name": "Internal MBS Installed",
+      "kind": "status",
+      "page": 147,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "1000 | 1000 | 1000 | None",
+      "desc_en": "Indicates if the Internal MBS is installed or not. The status is always false. This is defined in UPM EEP 68. The default value is 0 (not installed).",
+      "desc_fr": "Indique si le bypass de maintenance interne (MBS) est installé ; toujours faux (EEP 68, valeur par défaut 0).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        84
+      ],
+      "name": "Battery Installed",
+      "kind": "status",
+      "page": 148,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Always true Always true Always true None",
+      "desc_en": "Indicates if the battery is installed or not. The status is always true.",
+      "desc_fr": "Indique si la batterie est installée.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        85
+      ],
+      "name": "Parallel Can Bus Failed",
+      "kind": "alarm",
+      "page": 148,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "UPM not responding"
+        }
+      },
+      "timing": "1000 | 1000 | 1000 | All",
+      "desc_en": "A parallel CAN error has occurred.",
+      "desc_fr": "Erreur sur le bus CAN parallèle.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        86
+      ],
+      "name": "Charger Off Command",
+      "kind": "command",
+      "page": 148,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | UPM only",
+      "desc_en": "UPM received a charger off command.",
+      "desc_fr": "Commande « Charger Off Command » émise depuis la CSB. Source : 1 = afficheur, 2 = commande distante.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        87
+      ],
+      "name": "Battery Switchgear Open/Closed",
+      "kind": "notice",
+      "page": 148,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "Set/cleared when the battery relay is opened or closed.",
+      "desc_fr": "Le relais batterie ou un contacteur interne à l'UPS est ouvert ou fermé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        88
+      ],
+      "name": "ESS Installed",
+      "kind": "status",
+      "page": 148,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "1000 | 1000 | 1000 | None",
+      "desc_en": "The unit has ESS mode installed. It can be commanded to ESS mode. This can be defined in UPM EEP 62.",
+      "desc_fr": "Le mode ESS est installé et peut être commandé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        89
+      ],
+      "name": "ESS Enable",
+      "kind": "status",
+      "page": 148,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | None",
+      "desc_en": "Set if ESS mode is enabled (enable command given from the control panel). The unit transfers to ESS mode when conditions allow.",
+      "desc_fr": "ESS activé (commande donnée depuis le panneau de commande) ; l'unité passe en ESS dès que les conditions le permettent.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        90
+      ],
+      "name": "Battery In Common",
+      "kind": "status",
+      "page": 149,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Not yet supported Not yet supported Not yet supported All",
+      "desc_en": "This status is valid only in a parallel system with 2 or more UPMs. If the condition is true, all UPMs have a common battery, otherwise each have their own battery.",
+      "desc_fr": "Valable en parallèle (2 UPM ou plus) : vrai si les UPM partagent une batterie commune.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        91
+      ],
+      "name": "Too Many Inverter Transfers",
+      "kind": "notice",
+      "page": 149,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 100 | All",
+      "desc_en": "In case the unit is locked on bypass, the UPM performs an emergency transfer to bypass and back to the inverter state 3 times within 10 minutes. The unit is locked on bypass for 1 hour. In case the unit is online, the UPM has transferred from ESS mode to Online mode too many times within a 1-hour period due to some disturbances. ESS mode is disabled for a defined time period. The number of ESS to Online transfer before activating ESS lockout is defined in UPM EEP 63 with a default value of 3. The ESS lockout time is defined in UPM EEP 65 with a default value of 60 minutes. The ESS outage reset time is defined in UPM EEP 64 with a default value of 60 minutes.",
+      "desc_fr": "Trop de transferts onduleur / orage.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        92
+      ],
+      "name": "Output Phase Rotation",
+      "kind": "alarm",
+      "page": 149,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "Not yet supported Not yet supported Not yet supported All",
+      "desc_en": "Output phase rotation is reversed.",
+      "desc_fr": "Ordre des phases de sortie inversé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        93
+      ],
+      "name": "Static Switch Short",
+      "kind": "sticky_alarm",
+      "page": 149,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "phA",
+          "2": "phB",
+          "3": "phC",
+          "12": "phA + phB",
+          "13": "phA + phC ... etc"
+        }
+      },
+      "timing": "500 | 8000 | N/A | All",
+      "desc_en": "The static switch current is too high on any phase when not firing the static switch. The limit is defined as a percentage of the nominal output current in UPM EEP 66. The default value is 15 %.",
+      "desc_fr": "Courant trop élevé dans l'interrupteur statique alors qu'il n'est pas commandé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        94
+      ],
+      "name": "Pull Chain",
+      "kind": "notice",
+      "page": 149,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.2 | 1.6 | 0.8 | All",
+      "desc_en": "In an internal or external parallel system, indicates that one or more UPSs has transferred to bypass in the presence of a CAN bus failure.",
+      "desc_fr": "En parallèle, une ou plusieurs UPS ont transféré sur bypass en présence d'un défaut CAN (pull chain active).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        95
+      ],
+      "name": "Check Pull Chain",
+      "kind": "alarm",
+      "page": 149,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.2 | 122 | 0.2 | All",
+      "desc_en": "Indicates that the pull chain is being pulled low when not on bypass, or that the pull chain is floating high when on bypass.",
+      "desc_fr": "Pull chain tirée au niveau bas alors qu'une MCU n'est pas sur bypass, ou flottante au niveau haut alors qu'une MCU est sur bypass.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        96
+      ],
+      "name": "Ups Normal Command",
+      "kind": "command",
+      "page": 150,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | UPM only",
+      "desc_en": "A normal command has been received by the UPM.",
+      "desc_fr": "Commande « UPS Normal Command » reçue.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        97
+      ],
+      "name": "Rectifier Failed",
+      "kind": "sticky_alarm",
+      "page": 150,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "UPM has requested rectifier start 3 times and the rectifier has failed to start.",
+      "desc_fr": "L'UPM a demandé trois fois le démarrage du redresseur et celui-ci n'a pas démarré.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        98
+      ],
+      "name": "Inverter Switchgear Failed",
+      "kind": "alarm",
+      "page": 150,
+      "error_code": {
+        "type": "phases",
+        "note": "Chiffres = phases dont le relais onduleur est collé : 1 = A, 2 = B, 3 = C ; 12 = A et B ; 13 = A et C ; etc."
+      },
+      "timing": "0.784 | 250 | N/A | All",
+      "desc_en": "A relay is stuck. The UPM has detected inverter voltage to equal output voltage when the UPM is on bypass and inverter off with the relay open. This event is cleared upon user command.",
+      "desc_fr": "Relais onduleur collé (fermé ou ouvert). Effacé sur commande utilisateur.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        99
+      ],
+      "name": "Inverter Over Temperature Trip",
+      "kind": "alarm",
+      "page": 150,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 200 | 600000 | All",
+      "desc_en": "The inverter heat sink temperature exceeded the shutdown level. The inverter is immediately turned off. The system transfers to bypass, if possible. The limit is defined in UPM EEP 220. Refer to \"Parameter Map\" for the default values.",
+      "desc_fr": "Radiateur onduleur au-dessus du seuil d'arrêt : onduleur coupé, transfert bypass si possible.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        100
+      ],
+      "name": "Rectifier Over Temperature Trip",
+      "kind": "alarm",
+      "page": 150,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 200 | 600000 | All",
+      "desc_en": "The rectifier/boost heat sink temperature exceeded the shutdown level. The inverter is immediately turned off. The system transfers to bypass, if possible. The limit is defined in UPM EEP 220. Refer to \"Parameter Map\" for the default values.",
+      "desc_fr": "Radiateur redresseur/boost au-dessus du seuil d'arrêt.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        101
+      ],
+      "name": "Automatic Start Up",
+      "kind": "notice",
+      "page": 150,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "5 | 5 | 5 | All",
+      "desc_en": "The UPS has shut down on low battery and automatic restart is pending. Auto restart happens when the input returns and the battery totally discharged alarm is cleared.",
+      "desc_fr": "L'UPS s'est arrêté sur batterie basse ; un redémarrage automatique est en attente (au retour du réseau, après effacement de l'alarme batterie totalement déchargée).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        102
+      ],
+      "name": "Charger On Command",
+      "kind": "command",
+      "page": 151,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | UPM only",
+      "desc_en": "The UPM has received a charger on command.",
+      "desc_fr": "Commande « Charger On Command » émise depuis la CSB. Source : 1 = afficheur, 2 = commande distante.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        103
+      ],
+      "name": "Charger Failed",
+      "kind": "alarm",
+      "page": 151,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "Charger did not get to the charge voltage within the maximum time in the constant current charge (defined in UPM EEP 305 with a default value of 1440 minutes)",
+          "2": "Battery bus pre-charge fail (voltage greater than battery voltage +10 V)",
+          "4": "Battery bus pre-charge fail (voltage lower than battery voltage -10 V)"
+        }
+      },
+      "timing": "500 | 500 | 500 | When activated",
+      "desc_fr": "Défaut du chargeur.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        104
+      ],
+      "name": "Battery Switchgear Failed",
+      "kind": "alarm",
+      "page": 151,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "Battery relay failed to open",
+          "2": "Battery relay failed to close"
+        }
+      },
+      "timing": "500 | 2000 | 2000 | When activated",
+      "desc_en": "Fail to open occurs when the relay is commanded open, but there is still greater than 10 A flowing through the relay. Fail to close occurs when the relay is commanded to close, but there is a 20 V difference between the battery bus voltage sensor and the battery voltage sensor.",
+      "desc_fr": "Défaut du relais batterie.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        105
+      ],
+      "name": "Output Overload Trip",
+      "kind": "alarm",
+      "page": 151,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "5 | 5 | 5 | All",
+      "desc_en": "The UPM has transferred to bypass or shut down due to output overload.",
+      "desc_fr": "Déclenchement sur surcharge de sortie.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        106
+      ],
+      "name": "5V Power Supply Failed",
+      "kind": "alarm",
+      "page": 151,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.392 | LV: 0.784, HV: 98 | 3.92 | All",
+      "desc_en": "An internal logic power failure has been detected. The alarm is activated when the 5 V supply voltage goes out of the limits defined in UPM EEP 222. The default value is 15 %, which means that the voltage should stay between 4.25 V and 5.75 V.",
+      "desc_fr": "Défaut de l'alimentation logique 5 V.",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        107
+      ],
+      "name": "12V Power Supply Failed",
+      "kind": "alarm",
+      "page": 152,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.392 | LV: 0.784, HV: 98 | 3.92 | All",
+      "desc_en": "An internal logic power failure has been detected. In a LV system, the alarm is activated when the 12 V supply voltage goes out of the limits defined in UPM EEP 223. The default value is 15 %, which means that the voltage should stay between 10.2 V and 13.8 V. In a HV system, the alarm is activated when the 15 V supply voltage goes out of the limits defined in UPM EEP 223. The default value is 15 %, which means that the voltage should stay between 12.75 V and 17.75 V.",
+      "desc_fr": "Défaut de l'alimentation logique interne : 12 V sur système LV, 15 V sur système HV, hors des limites de l'EEP 223 (15 % par défaut).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        108
+      ],
+      "name": "Input Sync Out Of Range",
+      "kind": "notice",
+      "page": 152,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "20 | 20 | 20 | All",
+      "desc_en": "The input frequency of the unit has become unqualified for the purposes of synchronization.",
+      "desc_fr": "La fréquence d'entrée n'est plus qualifiée pour la synchronisation.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        109
+      ],
+      "name": "Inverter Startup Failure",
+      "kind": "alarm",
+      "page": 152,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "The inverter has failed to start and further action is cancelled.",
+      "desc_fr": "L'onduleur n'a pas démarré.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        110
+      ],
+      "name": "UPS on ECT",
+      "kind": "status",
+      "page": 152,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "Exit ECT mode when time is over",
+          "2": "Unbalance power",
+          "4": "Other abnormal condition"
+        }
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "The unit operates in Easy Capacity Test mode.",
+      "desc_fr": "L'unité fonctionne en mode ECT (Easy Capacity Test, test de capacité).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        111
+      ],
+      "name": "I2C Bus Failed",
+      "kind": "status",
+      "page": 152,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "Module timeout",
+          "2": "Arbitration lost",
+          "3": "PLD NACK",
+          "4": "Receive FIFO overrun",
+          "5": "IOExpander NACK",
+          "6": "Start condition by another master",
+          "7": "Stop condition by another master"
+        }
+      },
+      "timing": "5 | 5 | 25 | All",
+      "desc_fr": "Problème de bus I2C dans le module.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        112
+      ],
+      "name": "Rectifier Switchgear Open",
+      "kind": "status",
+      "page": 153,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "The unit's rectifier switchgear is open, the rectifier is off.",
+      "desc_fr": "Appareillage redresseur ouvert : le redresseur est arrêté.",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        113
+      ],
+      "name": "ECT Command",
+      "kind": "command",
+      "page": 153,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | UPM only",
+      "desc_en": "UPM has received the ECTcommand.",
+      "desc_fr": "Commande « ECT Command » reçue.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        114
+      ],
+      "name": "Exit ECT mode abnormally",
+      "kind": "alarm",
+      "page": 153,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "UPM has exited ECT mode in an abnormal manner.",
+      "desc_fr": "L'UPM quitte le mode ECT de façon anormale (champ de bits : temps écoulé, déséquilibre de puissance, commande, défaut, arrêt redresseur, relais ouvert, tension de sortie, surcharge). Codes 60001 à 60005 : entrée en ECT impossible.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        115
+      ],
+      "name": "Parallel Setup Failure",
+      "kind": "status",
+      "page": 153,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "0x01": "Parallel shared parameter mismatch.",
+          "0x02": "Number of UPMs observed not equal to number expected.",
+          "0x04": "Number of UPSs observed not equal to number expected."
+        }
+      },
+      "timing": "1000 | 1000 | 5000 | All",
+      "desc_en": "This alarm activates if parallel shared parameters do not match in all UPMs in a parallel system. The alarm activates also if the number of UPMs observed is not equal to the number expected. Refer to \"Parallel Specification\" for a list of parallel shared parameters.",
+      "desc_fr": "Échec de configuration parallèle : le code donne le numéro du paramètre en cause.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        116
+      ],
+      "name": "System Test in Progress",
+      "kind": "status",
+      "page": 153,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "Performing ECT",
+          "2": "Performing parallel auto-calibration"
+        }
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_fr": "Test système en cours (1 = ECT, 2 = auto-calibration parallèle).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        117
+      ],
+      "name": "Loss of Sync Bus",
+      "kind": "status",
+      "page": 153,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "Loss of PWM sync signal",
+          "2": "Loss of parallel sync signal"
+        }
+      },
+      "timing": "100 | 100 | 1600 | All",
+      "desc_fr": "Perte du signal de synchronisation parallèle.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        118
+      ],
+      "name": "MBS Closed",
+      "kind": "notice",
+      "page": 153,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "1000 | 1000 | 1000 | All",
+      "desc_fr": "Le bypass de maintenance (MBS) est fermé.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        119
+      ],
+      "name": "MOB Open",
+      "kind": "notice",
+      "page": 154,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.196 | 0.196 | 0.196 | All",
+      "desc_fr": "Le disjoncteur de sortie du module (MOB) est ouvert.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        120
+      ],
+      "name": "MOB Failure",
+      "kind": "sticky_alarm",
+      "page": 154,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "20 | 20 | N/A | All",
+      "desc_fr": "Défaut du disjoncteur de sortie du module (MOB).",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        121
+      ],
+      "name": "External Parallel",
+      "kind": "status",
+      "page": 154,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_fr": "Le système fonctionne en parallèle externe.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        122
+      ],
+      "name": "System is Redundant",
+      "kind": "status",
+      "page": 154,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_fr": "Le système est redondant.",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        123
+      ],
+      "name": "Driver Voltage Fault",
+      "kind": "alarm",
+      "page": 154,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "0.392 | 98 | 3.92 | All",
+      "desc_en": "This alarm is only used for the HV system. The driver voltage is out of range: 14 V...16 V.",
+      "desc_fr": "Système HV uniquement : tension d'alimentation des drivers hors plage (14 V à 16 V).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        124
+      ],
+      "name": "PowerModule Over Temperature",
+      "kind": "notice",
+      "page": 154,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "Phase R over temperature",
+          "2": "Phase S over temperature",
+          "4": "Phase Tover temperature",
+          "8": "Battery Module over temperature"
+        }
+      },
+      "timing": "100 | 1600 | 6400 | All",
+      "desc_en": "This alarm is only used for the HV system. Power module temperature sensor reading is too high, at a warning level. This is a set alarm only, it requires no action. The limit is defined in UPM EEP 219. Refer to \"Parameter Map\" for the default value.",
+      "desc_fr": "Système HV uniquement : température du module de puissance trop élevée (avertissement, aucune action requise ; limite EEP 219). Le code indique la phase R, S, T ou le module batterie.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        125
+      ],
+      "name": "PowerModule Over Temperature Trip",
+      "kind": "alarm",
+      "page": 154,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "Phase R over temperature",
+          "2": "Phase S over temperature",
+          "4": "Phase Tover temperature",
+          "8": "Battery Module over temperature"
+        }
+      },
+      "timing": "100 | 200 | 600000 | All",
+      "desc_en": "This alarm is only used for the HV system. Power module temperature sensor reading exceeded shutdown level. The inverter is immediately turned off. The system transfers to bypass, if possible. The limit is defined in UPM EEP 220. Refer to \"Parameter Map\" for the default value.",
+      "desc_fr": "Système HV uniquement : température du module de puissance au-delà du seuil d'arrêt ; l'onduleur est coupé immédiatement et le système transfère sur bypass si possible (limite EEP 220).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        126
+      ],
+      "name": "Balancer Loop Over Current",
+      "kind": "alarm",
+      "page": 155,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "1 inverter period 1 inverter period 64 inverter periods All",
+      "desc_en": "This alarm is only used for the HV system. This is a set alarm only, it requires no action.",
+      "desc_fr": "Système HV uniquement ; alarme d'information, aucune action requise.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        127
+      ],
+      "name": "Battery Breaker Failure",
+      "kind": "sticky_alarm",
+      "page": 155,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_fr": "Défaut du disjoncteur batterie.",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        128
+      ],
+      "name": "Too Many Battery Transfers",
+      "kind": "alarm",
+      "page": 155,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | 100 | 100 | All",
+      "desc_en": "Unit locked on battery: UPM has transferred on battery and back 3 times within a 30 seconds time window. The unit will be locked on battery for 2 minutes.",
+      "desc_fr": "Trop de transferts normal/batterie.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        129
+      ],
+      "name": "SPI Bus Failed",
+      "kind": "alarm",
+      "page": 155,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "EEPROM communication failure",
+          "2": "RTC communication failure",
+          "4": "IOExpander communication failure"
+        }
+      },
+      "timing": "5 | 5 | 25 | All",
+      "desc_en": "Parallel Load Share Error",
+      "desc_fr": "Problème de bus SPI dans le module.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        130
+      ],
+      "name": "Parallel Load Share Error",
+      "kind": "alarm",
+      "page": 155,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "Phase A Parallel Load Share Error",
+          "2": "Phase B Parallel Load Share Error",
+          "4": "Phase C Parallel Load Share Error"
+        }
+      },
+      "timing": "1000 | 32000 | 10000 | All",
+      "desc_en": "For parallel system without Parallel CAN failure Set when ABS (this UPM's phase A/B/C load percent - system phase A/B/C average load percent) is greater than 20 %. This is defined in EEPROM 87. The default value is 20 %.",
+      "desc_fr": "Erreur de partage de charge en parallèle (système 3:3 ; 1 = phase A, 2 = phase B, 4 = phase C).",
+      "translation": "dictionary",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        131
+      ],
+      "name": "HE Not Available",
+      "kind": "notice",
+      "page": 155,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "1": "ESS Lockout due to three time transfer",
+          "2": "Inverter not sync to bypass",
+          "4": "Force UPS Stay Online",
+          "8": "ABM not in floating or resting",
+          "16": "Charger current larger than limit",
+          "32": "Bypass not available on bypass"
+        }
+      },
+      "timing": "100 | 100 | 200 | All",
+      "desc_en": "This node bit is for a HV unit only.",
+      "desc_fr": "Bit de nœud pour unité HV uniquement : indique pourquoi le mode haut rendement n'est pas disponible (voir le code).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        132
+      ],
+      "name": "Input Voltage Abnormal",
+      "kind": "notice",
+      "page": 156,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "0x1": "phase A voltage abnormal",
+          "0x2": "phase B voltage abnormal",
+          "0x4": "phase C voltage abnormal"
+        }
+      },
+      "timing": "0.196 | 0.196 | 7056 | All",
+      "desc_en": "This node bit is for a HV unit only.",
+      "desc_fr": "Bit de nœud pour unité HV uniquement : tension d'entrée anormale sur une phase (voir le code).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "UPM",
+      "ids": [
+        133
+      ],
+      "name": "Battery Start Up Failure",
+      "kind": "notice",
+      "page": 156,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All (défini/effacé à chaque tentative de précharge)",
+      "desc_en": "attempt N/A N/A All No error code. 1 13 3..5 5..7 7 C CS SB B e ev ve en nt ts s The events are listed in a numerical order. NOTE: Scan time means time in ms, unless otherwise noted.",
+      "desc_fr": "Le convertisseur batterie n'a pas démarré après 3 demandes.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        192
+      ],
+      "name": "UPM To Normal Command",
+      "kind": "command",
+      "page": 156,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "Entered from the display",
+          "2": "Remote command"
+        }
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "A normal mode command is issued from the CSB.",
+      "desc_fr": "Commande de passage en mode normal émise depuis la CSB. Source : 1 = afficheur, 2 = commande distante.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        193
+      ],
+      "name": "UPM To Bypass Command",
+      "kind": "command",
+      "page": 157,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "Entered from the display",
+          "2": "Remote command"
+        }
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "A bypass command is issued from the CSB.",
+      "desc_fr": "Commande de passage sur bypass émise depuis la CSB. Source : 1 = afficheur, 2 = commande distante.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        194
+      ],
+      "name": "UPM Load Off Command",
+      "kind": "command",
+      "page": 157,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "Entered from the display",
+          "2": "Remote command"
+        }
+      },
+      "timing": "N/A | N/A | N/A | When activated",
+      "desc_en": "A load off command is issued from the CSB.",
+      "desc_fr": "Commande d'arrêt de la charge (load off) émise depuis la CSB. Source : 1 = afficheur, 2 = commande distante.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        211
+      ],
+      "name": "Build Input On Generator",
+      "kind": "notice",
+      "page": 157,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | All",
+      "desc_en": "A building input is active and configured as \"On Generator\". The input used can be either building input 1 or 2 or 3 or 4 or 5.",
+      "desc_fr": "Une entrée bâtiment (1 à 5) est active et configurée sur « On Generator » : le site fonctionne sur groupe électrogène.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        212
+      ],
+      "name": "Build Input Remote Goto Bypass",
+      "kind": "notice",
+      "page": 157,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | All",
+      "desc_en": "A building input is active and configured as \"Remote Goto Bypass\". The input used can be either building input 1 or 2 or 3 or 4 or 5.",
+      "desc_fr": "Une entrée bâtiment (1 à 5) est active et configurée sur « Remote Goto Bypass » : demande de passage sur bypass à distance.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        213
+      ],
+      "name": "Build Input Remote Charger Off",
+      "kind": "notice",
+      "page": 157,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | All",
+      "desc_en": "A building input is active and configured as \"Remote Charger Off\". The input used can be either building input 1 or 2 or 3 or 4 or 5.",
+      "desc_fr": "Une entrée bâtiment (1 à 5) est active et configurée sur « Remote Charger Off » : demande d'arrêt du chargeur à distance.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        214
+      ],
+      "name": "Build Input Battery Disconnected",
+      "kind": "notice",
+      "page": 157,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | All",
+      "desc_en": "A building input is active and configured as \"Battery Disconnected\". The input used can be either building input 1 or 2 or 3 or 4 or 5.",
+      "desc_fr": "Une entrée bâtiment (1 à 5) est active et configurée sur « Battery Disconnected » : batterie déconnectée.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        215
+      ],
+      "name": "Build Input Maintenance Bypass",
+      "kind": "notice",
+      "page": 157,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | All",
+      "desc_en": "A building input is active and configured as \"Maintenance Bypass\". The input used can be either building input 1 or 2 or 3 or 4 or 5.",
+      "desc_fr": "Une entrée bâtiment (1 à 5) est active et configurée sur « Maintenance Bypass » : bypass de maintenance.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        216
+      ],
+      "name": "Build Input MOB Open",
+      "kind": "notice",
+      "page": 158,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | All",
+      "desc_en": "A building input is active and configured as \"MOB Open\". The input used can be either building input 1 or 2 or 3 or 4 or 5.",
+      "desc_fr": "Une entrée bâtiment (1 à 5) est active et configurée sur « MOB Open » : disjoncteur de sortie du module ouvert.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        217
+      ],
+      "name": "Building Alarm 1",
+      "kind": "notice",
+      "page": 158,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 320 | 1280 | All",
+      "desc_en": "Building input 1 is active but not configured for any action. A generic building input notice is activated but no other actions are taken.",
+      "desc_fr": "L'entrée bâtiment 1 est active mais non configurée : avis générique, aucune autre action.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        218
+      ],
+      "name": "Building Alarm 2",
+      "kind": "notice",
+      "page": 158,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 320 | 1280 | All",
+      "desc_en": "Building input 2 is active but not configured for any action. A generic building input notice is activated but no other actions are taken.",
+      "desc_fr": "L'entrée bâtiment 2 est active mais non configurée : avis générique, aucune autre action.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        219
+      ],
+      "name": "Building Alarm 3",
+      "kind": "notice",
+      "page": 158,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 320 | 1280 | All",
+      "desc_en": "Building input 3 is active but not configured for any action. A generic building input notice is activated but no other actions are taken.",
+      "desc_fr": "L'entrée bâtiment 3 est active mais non configurée : avis générique, aucune autre action.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        220
+      ],
+      "name": "Building Alarm 4",
+      "kind": "notice",
+      "page": 158,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 320 | 1280 | All",
+      "desc_en": "Building input 4 is active but not configured for any action. A generic building input notice is activated but no other actions are taken.",
+      "desc_fr": "L'entrée bâtiment 4 est active mais non configurée : avis générique, aucune autre action.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        221
+      ],
+      "name": "Building Alarm 5",
+      "kind": "notice",
+      "page": 158,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 320 | 1280 | All",
+      "desc_en": "Building input 5 is active but not configured for any action. A generic building input notice is activated but no other actions are taken.",
+      "desc_fr": "L'entrée bâtiment 5 est active mais non configurée : avis générique, aucune autre action.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        222
+      ],
+      "name": "UPM Not Responding",
+      "kind": "alarm",
+      "page": 159,
+      "error_code": {
+        "type": "bitfield",
+        "bits": {
+          "0x1": "UPM1 ne répond pas",
+          "0x2": "UPM2 ne répond pas",
+          "0x4": "UPM3 ne répond pas",
+          "0x8": "UPM4 ne répond pas"
+        },
+        "note": "0x0 = aucune erreur (journalisé à la désactivation). Bit n = UPM n+1, le code est la somme des bits (0x3 = UPM1 et UPM2)."
+      },
+      "timing": "1000 | 4000 | 1000 | All",
+      "desc_en": "One or several UPMs are no longer responding. No message has been received for 4 seconds. Either there is a problem with the CAN communication or the UPM is in an unknown state and is no longer able to respond.",
+      "desc_fr": "Un UPM ne répond pas.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        223
+      ],
+      "name": "On Line LED Is Lit",
+      "kind": "status",
+      "page": 159,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 100 | None",
+      "desc_en": "The green online LED light is lit, indicating that the UPS is in Online mode.",
+      "desc_fr": "LED verte online allumée : charge protégée.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        224
+      ],
+      "name": "On Battery LED Is Lit",
+      "kind": "status",
+      "page": 159,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 100 | None",
+      "desc_en": "The yellow battery LED light is lit, indicating that the UPS is on battery.",
+      "desc_fr": "LED jaune batterie allumée : charge sur batterie.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        225
+      ],
+      "name": "On Bypass LED Is Lit",
+      "kind": "status",
+      "page": 159,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 100 | None",
+      "desc_en": "The yellow bypass LED light is lit, indicating that the UPS is on bypass.",
+      "desc_fr": "LED jaune bypass allumée : UPS sur bypass.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        226
+      ],
+      "name": "On Alarm LED Is Lit",
+      "kind": "status",
+      "page": 159,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "100 | 100 | 100 | None",
+      "desc_en": "The red alarm LED light is lit, indicating that at least one alarm is active.",
+      "desc_fr": "LED rouge d'alarme allumée : au moins une alarme active.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        227
+      ],
+      "name": "Check CSB EEPROM",
+      "kind": "sticky_alarm",
+      "page": 159,
+      "error_code": {
+        "type": "enum",
+        "values": {
+          "1": "EEPROM write failure.",
+          "2": "EEPROM read failure.",
+          "3": "EEPROM reset to default values due to checksum failure.",
+          "4": "Invalid kVA. Check combination of S/N, CTO, Magic Number, and kVA"
+        }
+      },
+      "timing": "100 | 100 | N/A | When activated",
+      "desc_fr": "Défaut EEPROM de la CSB.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        228
+      ],
+      "name": "Reset History LOG",
+      "kind": "notice",
+      "page": 160,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A | N/A | N/A | All",
+      "desc_en": "The history log has been cleared.",
+      "desc_fr": "Le journal historique a été effacé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        229
+      ],
+      "name": "CSB Control Power On/Off",
+      "kind": "status",
+      "page": 160,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 20 | 20 | All",
+      "desc_en": "Checks for a control power failure.",
+      "desc_fr": "Surveille la présence de l'alimentation de commande de la CSB (défaut d'alimentation de commande).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        230
+      ],
+      "name": "CSB Software Incompatible",
+      "kind": "alarm",
+      "page": 160,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "N/A* | N/A | N/A | All",
+      "desc_en": "CSB and UPM software version check failed. The versions might be incompatible. * ) checked when software version is received from MCU/UPM (should happen every",
+      "desc_fr": "Versions logicielles CSB / UPM / MCU potentiellement incompatibles (vérifié toutes les 20 s).",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        231
+      ],
+      "name": "Static Switch On",
+      "kind": "alarm",
+      "page": 160,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "500 | 500 | 500 | None",
+      "desc_en": "The static switch is gating, which means that the system is either on bypass or in ESS mode.",
+      "desc_fr": "L'interrupteur statique est activé.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        232
+      ],
+      "name": "Build Input Chimney Fan Fail",
+      "kind": "notice",
+      "page": 160,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | All",
+      "desc_en": "A building input is active and configured as \"Chimney Fan Fail\". The input used can be either building input 1, 2, or 3.",
+      "desc_fr": "Une entrée bâtiment (1, 2 ou 3) est active et configurée sur « Chimney Fan Fail » : défaut ventilateur de cheminée.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        233
+      ],
+      "name": "System Type Configure Error",
+      "kind": "alarm",
+      "page": 160,
+      "error_code": {
+        "type": "none",
+        "note": "Protections signalées : ubKVAProtected et ubMCUTypeProtected."
+      },
+      "timing": "1000 | 8000 | 1000 | All",
+      "desc_en": "Error codes: This alarm activates if kVA is not valid, the UPM is not responding, or the CSB software is incompatible.",
+      "desc_fr": "Activé si la puissance (kVA) n'est pas valide, si l'UPM ne répond pas ou si le logiciel de la CSB est incompatible.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        234
+      ],
+      "name": "Build Input Not Configured",
+      "kind": "notice",
+      "page": 161,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | None",
+      "desc_en": "Function not configured for the build input.",
+      "desc_fr": "La fonction n'est pas configurée pour l'entrée bâtiment.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        235
+      ],
+      "name": "Password Level",
+      "kind": "status",
+      "page": 161,
+      "error_code": {
+        "type": "none",
+        "note": "Le code est le niveau de mot de passe saisi (1, 2, …)."
+      },
+      "timing": "500 | 500 | 500 | Active only",
+      "desc_en": "The Password level (1, 2, etc.) This status is logged when the user changes the password level on the Tools screen. The number is the password level entered.",
+      "desc_fr": "Journalisé quand l'utilisateur change le niveau de mot de passe sur l'écran Outils ; le code est le niveau saisi (1, 2, …).",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        236
+      ],
+      "name": "Build Input Remote UPS On",
+      "kind": "notice",
+      "page": 161,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | All",
+      "desc_en": "A building input is active and configured as \"Remote UPS On\". The input used can be either building input 1, 2, or 3.",
+      "desc_fr": "Une entrée bâtiment (1, 2 ou 3) est active et configurée sur « Remote UPS On » : demande de mise en marche à distance.",
+      "translation": "manual",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        237
+      ],
+      "name": "Ambient Over Temperature",
+      "kind": "alarm",
+      "page": 161,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "1000 | 8000 | 64000 | All",
+      "desc_en": "If the ambient over temperature function is enabled, the CSB EEP 427 bit0 is set to 1. This alarm activates if the ambient temperature detected by the CSB temperature sensor is beyond the limit set in CSB EEP 426.",
+      "desc_fr": "Température ambiante de l'UPM trop haute.",
+      "translation": "reused",
+      "import": "auto"
+    },
+    {
+      "source": "CSB",
+      "ids": [
+        238
+      ],
+      "name": "Build Input Remote UPS Off",
+      "kind": "notice",
+      "page": 161,
+      "error_code": {
+        "type": "none"
+      },
+      "timing": "10 | 80 | 1280 | All",
+      "desc_en": "A building input is active and configured as \"Remote UPS Off\". The input used can be either building input 1, 2, 3, 4, or 5.",
+      "desc_fr": "Une entrée bâtiment (1 à 5) est active et configurée sur « Remote UPS Off » : demande d'arrêt à distance.",
+      "translation": "manual",
+      "import": "auto"
+    }
+  ]
+}
