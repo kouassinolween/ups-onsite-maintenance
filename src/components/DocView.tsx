@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
-  DOC_FAMILIES, DOC_TABS, loadDoc93t, loadPmDoc, loadPmProcedures, resolveRef,
+  DOC_FAMILIES, TABS_BY_FAMILY, TAB_LABEL, loadDoc93t, loadPmDoc, loadPmProcedures, resolveRef,
   type Doc93T, type ProceduresDoc, type DocFamily, type DocRoute, type DocTab, type Procedure,
 } from '../lib/doc93t';
 import { GenericDoc } from './GenericDoc';
@@ -236,16 +236,20 @@ export function DocNav({
   return (
     <nav className="tabs" aria-label="Sections">
       <button type="button" aria-current={tab === null ? 'page' : undefined} onClick={() => onSelect(null, family)}>Alarmes</button>
-      {DOC_TABS.map((t) => (
-        <button key={t.id} type="button" aria-current={tab === t.id ? 'page' : undefined} onClick={() => onSelect(t.id, family)}>
-          {t.label}
+      {TABS_BY_FAMILY[family].map((id) => (
+        <button key={id} type="button" aria-current={tab === id ? 'page' : undefined} onClick={() => onSelect(id, family)}>
+          {TAB_LABEL[id]}
         </button>
       ))}
       <select
         className="fam"
         aria-label="Famille de la documentation"
         value={family}
-        onChange={(e) => onSelect(tab, e.target.value as DocFamily)}
+        onChange={(e) => {
+          const f = e.target.value as DocFamily;
+          const tabs = TABS_BY_FAMILY[f];
+          onSelect(tab === null ? null : tabs.includes(tab) ? tab : tabs[0], f);
+        }}
       >
         {DOC_FAMILIES.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}
       </select>
@@ -282,6 +286,7 @@ const PM_INTRO: Record<DocTab, string> = {
   modes: 'Modes de fonctionnement du 93PM (service manual P-164000219 Rev B02, manuel d\'alarmes rev 003) et gestion avancée de batterie.',
   parallel: 'Parallèle du 93PM : topologies, câblage, mise en service, synchronisation, ajout et retrait d\'unité.',
   options: 'Options du 93PM : cartes de connectivité MiniSlot, armoires et accessoires (service manual P-164000219 Rev B02, chapitre 5).',
+  context: 'Contexte des alarmes du 93PS 8-40 kW (manuel de service HPO-1041857 rév. A). Le catalogue d\'événements du 93PS modulaire est celui de la famille « 93PM / 93PS modulaire » de l\'écran Alarmes.',
 };
 
 function Doc93PMView({ tab }: { tab: DocTab }) {
@@ -316,28 +321,28 @@ function Doc93PMView({ tab }: { tab: DocTab }) {
   );
 }
 
-function OptionsView({ family }: { family: DocFamily }) {
+function OptionsView({ family, tab }: { family: DocFamily; tab: DocTab }) {
   const [items, setItems] = useState<{ family: DocFamily; docs: Awaited<ReturnType<typeof loadPmDoc>> } | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const name = family === '93pm' ? '93PM' : '93T';
+  const name = family === '93pm' ? '93PM' : family === '93ps' ? '93PS' : '93T';
 
   useEffect(() => {
     let alive = true;
     setError(null);
-    loadPmDoc('options', family)
+    loadPmDoc(tab, family)
       .then((docs) => { if (alive) setItems({ family, docs }); })
       .catch((e: Error) => { if (alive) setError(e.message); });
     return () => { alive = false; };
-  }, [family]);
+  }, [family, tab]);
 
-  if (error) return <p className="empty">Impossible de charger les options {name} : {error}</p>;
+  if (error) return <p className="empty">Impossible de charger la documentation {name} : {error}</p>;
   if (!items || items.family !== family) return <p className="empty">Chargement des options {name}…</p>;
   return (
     <section aria-label={`Options ${name}`}>
       <p className="muted">
-        {family === '93pm'
-          ? PM_INTRO.options
-          : 'Options du 93T : cartes MiniSlot et logiciels IPP / IPM (service manual HPO-1046599, chapitre 8).'}{' '}
+        {family === '93t'
+          ? 'Options du 93T : cartes MiniSlot et logiciels IPP / IPM (service manual HPO-1046599, chapitre 8).'
+          : PM_INTRO[tab]}{' '}
         Brouillon à valider par un technicien certifié.
       </p>
       {items.docs.map((d, i) => <GenericDoc key={i} data={d.data} title={d.title} />)}
@@ -346,6 +351,6 @@ function OptionsView({ family }: { family: DocFamily }) {
 }
 
 export function DocView({ route }: { route: DocRoute }) {
-  if (route.tab === 'options') return <OptionsView family={route.family} />;
+  if (route.tab === 'options' || route.tab === 'context') return <OptionsView family={route.family} tab={route.tab} />;
   return route.family === '93pm' ? <Doc93PMView tab={route.tab} /> : <Doc93TView tab={route.tab} />;
 }

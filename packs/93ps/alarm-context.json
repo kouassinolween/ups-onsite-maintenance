@@ -1,0 +1,164 @@
+{
+  "_source": "Manuel de service Eaton 93PS UPS 8-40 kW, HPO-1041857 révision A (2015), version française, 314 p. Reformulé en français, texte non recopié. Numéros de page = numéros imprimés dans le manuel.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Ce document ne remplace pas le catalogue d'événements : les tableaux 6 à 9 du manuel (événements UPM, MCU, CSB, et liste alphabétique) sont VIDES dans le PDF fourni (pages 42 à 133 du PDF). Les alarmes ci-dessous sont celles que le manuel cite dans ses descriptions de fonctionnement.",
+
+  "event_catalog_status": {
+    "finding": "Le manuel annonce les tableaux 6, 7 et 8 (événements UPM à partir de 0, MCU à partir de 192, CSB à partir de 320) et le tableau 9 (tous les événements par ordre alphabétique), mais les pages correspondantes sont blanches dans le PDF fourni : le contenu a été perdu à la conversion du document.",
+    "common_source": "Le manuel indique que ces tableaux sont compilés à partir de la spécification « Panda Premier Alarms and Notices », révision 117 du 22 octobre 2013 : la même spécification que le service manual 93PM Rev B02. La numérotation des événements est donc celle du catalogue modulaire de l'application (famille « 93PM / 93PS modulaire »).",
+    "consistency_check": "Les numéros d'alarme cités par ce manuel (tableaux 85 et 86) correspondent aux événements UPM du catalogue 93PM, sauf le n° 20 « Power Supply Failure » absent du catalogue et le n° 55 dont le libellé diffère (voir plus bas).",
+    "what_to_do": "Utiliser le catalogue « 93PM / 93PS modulaire » de l'application pour les alarmes du 93PS 8-40 kW. Pour obtenir les tableaux manquants, demander une copie intacte de HPO-1041857 (les tableaux 6 à 9 y figurent dans la version Word d'origine).",
+    "page_range": "p. 41 à 133 du manuel (PDF 42 à 133)"
+  },
+
+  "event_types": {
+    "same_as": "93PM",
+    "note": "Le manuel reprend les quatre types (alarme, alarme mémorisée, avis, statut, commande) et les niveaux 1 à 15 du manuel 93PM ; les niveaux 0, 7, 8, 9 et 11 ne sont pas définis. Voir la section « Événements : types, niveaux et journalisation » de l'onglet Procédures 93PM.",
+    "numbering": "UPM à partir de 0, MCU à partir de 192, CSB à partir de 320.",
+    "source": "§7.4.1 à §7.4.3, p. 39-41"
+  },
+
+  "expected_at_first_power_up": {
+    "intro": "À la première mise sous tension (inspection électrique, interrupteur d'entrée interne ouvert, réseau et bypass appliqués), les alarmes suivantes peuvent être présentes sur l'afficheur :",
+    "alarms": [
+      "Sortie AC sous tension (Output AC Under Voltage)",
+      "Disjoncteur batterie ouvert (Battery breaker open)",
+      "Batteries déconnectées (Batteries Disconnected)",
+      "Sortie sous / sur fréquence (Output Under/Over Frequency)",
+      "Synchronisation de sortie hors plage (Output Sync Out of Range)",
+      "Service requis (Service Required)"
+    ],
+    "source": "§5.1.2 Inspection électrique, p. 30-31"
+  },
+
+  "blocking_initialization": {
+    "label": "Alarmes qui maintiennent l'unité à l'état d'initialisation du système",
+    "text": "Certaines alarmes doivent être effacées avant que le DSP puisse piloter le matériel en toute sécurité : tant qu'elles sont actives, le signal IO_GOOD est maintenu désactivé et toutes les commandes sont désactivées.",
+    "alarms": [
+      "Échec de la version de la carte de commande (control board version failed)",
+      "Matériel non reconnu",
+      "Version PLD incompatible",
+      "Configuration requise",
+      "Erreur EEPROM"
+    ],
+    "checks_performed": [
+      "Contrôle des broches d'identification du matériel : l'ID de carte doit être supporté, la version de la carte de commande et du PLD connues et compatibles ; sinon l'alarme « Software Incompatibility Detected » est levée et le système reste à l'état d'initialisation.",
+      "Attente de la stabilisation de l'alimentation auxiliaire.",
+      "Mise à zéro des capteurs à effet Hall.",
+      "Initialisation des mesures réseau lentes aux valeurs rapides.",
+      "Activation des compteurs (donc de toutes les alarmes à base de compteurs) et de la surveillance de tension auxiliaire.",
+      "Contrôle des erreurs EEPROM : le système ne continue pas si une erreur EEP est active.",
+      "Contrôle de l'état UPM et du verrouillage bypass, puis initialisation dans l'état correspondant ; activation de IO_GOOD ; passage à l'état d'arrêt."
+    ],
+    "related_events": ["UPM:44 UPM Software Incompatible", "UPM:53 Configuration Error", "UPM:13 UPM EEPROM Checksum Failed"],
+    "source": "§13.1.1.1 État d'initialisation du système, p. 234"
+  },
+
+  "rectifier_start_inhibit": {
+    "label": "Alarmes qui empêchent le démarrage du redresseur (tableau 85)",
+    "text": "Si l'une de ces alarmes est active, le redresseur ne quitte pas l'état d'arrêt ; si elle devient active pendant la précharge, la précharge est interrompue et le redresseur revient à l'état d'arrêt.",
+    "alarms": [
+      { "number": 10, "name": "DC Link Over Voltage", "catalog": "UPM:10 DC Link Over Voltage" },
+      { "number": 11, "name": "DC Link Under Voltage", "catalog": "UPM:11 DC Link Under Voltage" },
+      { "number": 13, "name": "EEPROM Checksum Failure", "catalog": "UPM:13 UPM EEPROM Checksum Failed" },
+      { "number": 20, "name": "Power Supply Failure", "catalog": null, "note": "Numéro 20 absent du catalogue 93PM de l'application : à vérifier sur un manuel complet." },
+      { "number": 45, "name": "Remote Emergency Power Off", "catalog": "UPM:45 UPM Remote Emergency Power Off" },
+      { "number": 53, "name": "Configuration Error", "catalog": "UPM:53 Configuration Error" },
+      { "number": 69, "name": "Rectifier Over Temperature (trip)", "catalog": "UPM:69 Rectifier Over Temperature Trip" }
+    ],
+    "source": "§13.1.1.4, tableau 85, p. 271"
+  },
+
+  "rectifier_to_battery_conditions": {
+    "label": "Conditions de passage du redresseur à l'état batterie (tableau 86)",
+    "text": "Quand l'une de ces alarmes est active (ou en cas de commande par l'UPM) et qu'aucune alarme du tableau 85 n'interdit le démarrage, le redresseur passe à l'état batterie.",
+    "alarms": [
+      { "number": 2, "name": "Input AC Over Voltage", "catalog": "UPM:2 Input AC Over Voltage" },
+      { "number": 3, "name": "Input AC Under Voltage", "catalog": "UPM:3 Input AC Under Voltage" },
+      { "number": 4, "name": "Input Under/Over Frequency", "catalog": "UPM:4 Input Under / Over Frequency" },
+      { "number": 8, "name": "Rectifier Input Over Current", "catalog": "UPM:8 Rectifier Input Over Current" },
+      { "number": 16, "name": "Utility Not Available", "catalog": "UPM:16 Utility Not Available" },
+      { "number": 55, "name": "Rectifier Off Signal Input Active", "catalog": "UPM:55 Rectifier On/ Off", "note": "Libellé différent du catalogue 93PM (statut « Rectifier On/Off ») : correspondance à confirmer." },
+      { "number": 60, "name": "Battery Test in Progress", "catalog": "UPM:60 Battery Test In Progress" }
+    ],
+    "source": "tableau 86, p. 274"
+  },
+
+  "precharge_failures": {
+    "label": "Précharge du bus DC : échecs",
+    "steps": [
+      "Activer le circuit de précharge ; après 1 s, vérifier que la tension du bus DC monte : les mesures DC+ et DC- doivent dépasser 25 V, sinon l'alarme « Précharge Échec 1 » est levée, la précharge coupée et le redresseur revient à l'arrêt.",
+      "Attendre que DC+ et DC- dépassent de 30 V la crête de tension d'alimentation d'une phase ; si ce niveau n'est pas atteint en 20 s : alarme « Précharge Échec 2 », précharge coupée, retour à l'arrêt.",
+      "Couper la précharge, fermer les relais d'entrée L1, L2 et L3, puis, 20 ms plus tard, le relais d'alimentation (PSUDCRelay) ; après 500 ms démarrer le redresseur en mode normal.",
+      "Si la tension du bus DC n'est pas à moins de 5 V de la référence pendant 1 s, alarme « Précharge Échec 3 », redresseur arrêté et retour à l'arrêt. Sinon l'alarme de précharge échouée est effacée et le système passe à l'état normal."
+    ],
+    "related_events": ["UPM:54 Precharge Failed"],
+    "source": "§13.1.1.5 État de pré-charge, p. 271-272"
+  },
+
+  "output_voltage_abnormal": {
+    "label": "Alarme de tension de sortie anormale",
+    "activation": "Déclenchée quand l'état du système parallèle signalé ne correspond pas aux mesures de tension de sortie, ou quand le signal MBS n'est pas actif.",
+    "effects": [
+      "Les commandes Online et Bypass sont ignorées.",
+      "Sur une UPS seule, toute condition qui donne une tension de sortie inconnue empêche le démarrage de l'onduleur."
+    ],
+    "clearing": "Effacée quand la condition disparaît ou quand l'unité passe à l'état de charge en bypass ou en ligne.",
+    "source": "§13.1.1.4 Alarme de tension de sortie anormale, p. 270"
+  },
+
+  "battery_alarms": {
+    "label": "Alarmes batterie (tableau 91)",
+    "alarms": [
+      {
+        "name": "Service Battery",
+        "type": "Alarme mémorisée (sticky), conservée après réinitialisation du processeur (stockée en EEPROM)",
+        "meaning": "Défaillance catastrophique imminente de la batterie : le remplacement des batteries est requis.",
+        "clearing": "Uniquement par la fonction « Quit » (Reset Alarms) du HMI.",
+        "triggers": [
+          "Surveillance de la tension de cellule à vide (OCV) en mode repos : si l'OCV passe sous BattRestMinVoltage en moins de BattRestFailTime. La surveillance n'est pas faite pendant les 30 premières minutes du repos ; un test réussi sur 10 jours n'efface pas une alarme active.",
+          "Test d'échec de charge, pendant l'état ABM Charge : si la tension batterie n'atteint pas BattABMFloatVoltage dans BattChrgTimeMax. Un test réussi n'efface pas une alarme active."
+        ],
+        "catalog": "UPM:26 Service Battery"
+      },
+      {
+        "name": "Battery Test Failed",
+        "type": "Alarme non mémorisée, non conservée à la réinitialisation du processeur",
+        "meaning": "Dégradation des performances de la batterie : batteries à remplacer rapidement, ou conditions d'un test réussi non remplies.",
+        "clearing": "Par l'exécution réussie d'un test batterie ou par la fonction « Quit » du HMI.",
+        "triggers": [
+          "Limite d'échec du test déterminée par LowRateTestThreshold si le temps de fonctionnement prévu dépasse 15 minutes, sinon par HighRateTestThreshold.",
+          "Alarme levée si la tension batterie passe sous ce seuil pendant les 25 % premiers du temps de fonctionnement prévu. Exemple du manuel : 10 minutes prévues, débit élevé, seuil 1,81 V par élément, surveillance sur 2,5 minutes."
+        ],
+        "catalog": "UPM:46 Battery Test Failed"
+      }
+    ],
+    "note": "Le manuel précise que les durées d'exemple ne représentent pas les durées de fonctionnement réelles du 93PS.",
+    "source": "§13.3.11.5 Diagnostic de la batterie, tableau 91, p. 288-289"
+  },
+
+  "overload": {
+    "label": "Niveaux de surcharge (tableau 95)",
+    "text": "La MCU et les UPM surveillent les mêmes niveaux ; ceux de la MCU sont mis à l'échelle de la puissance kW de l'UPS. Valeurs pour 1000 m d'altitude, 40 °C et tension nominale. Limites et temporisations stockées en EEPROM ; mêmes niveaux sur réseau et sur batterie.",
+    "levels": [
+      { "alarm": "Surcharge niveau 1", "turn_on_pct": 105, "turn_off_pct": 102, "shutdown_time": "10 minutes" },
+      { "alarm": "Surcharge niveau 2", "turn_on_pct": 111, "turn_off_pct": 105, "shutdown_time": "60 secondes" },
+      { "alarm": "Surcharge niveau 3", "turn_on_pct": 126, "turn_off_pct": 111, "shutdown_time": "10 secondes" },
+      { "alarm": "Surcharge niveau 4", "turn_on_pct": 150, "turn_off_pct": 126, "shutdown_time": "300 ms" },
+      { "alarm": "Inverter Output Over Current", "turn_on": "Courant crête ±110 A (module 20 kW) ; ±83 A (module 15 kW, à venir)", "shutdown_time": "15 cycles" }
+    ],
+    "behaviour": [
+      "L'unité passe immédiatement en bypass sur tous les niveaux de surcharge onduleur si le bypass est disponible et que le paramètre « temporisation de transfert en surcharge » n'est pas défini ; la charge est coupée après le temps d'arrêt si le bypass n'est pas disponible.",
+      "Transfert normal sur bypass lors d'une alarme de surcharge de niveau 1 ou 2 ; transfert d'urgence lors d'un niveau 3 ou 4.",
+      "Si des batteries sont disponibles, la surcharge est supportée par les batteries.",
+      "L'UPM doit prévenir la MCU au moins 2 secondes avant l'expiration du compteur d'arrêt de surcharge pour permettre un transfert normal en bypass.",
+      "La limite de courant matérielle est de 83 A dans l'UPM 15 kW et de 110 A dans l'UPM 20 kW.",
+      "Une faible capacité n'est surveillée que par la MCU : un avis est affiché mais n'est ni journalisé ni listé dans les événements actifs."
+    ],
+    "parallel_overload": {
+      "text": "L'alarme de surcharge du système parallèle compare la charge de sortie du système complet à un niveau défini par l'utilisateur ; elle n'a aucun effet sur le comportement du système et est désactivée si le paramètre vaut zéro.",
+      "parameter": "Parallel system overload kW (défaut : 0 = alarme désactivée)"
+    },
+    "related_events": ["UPM:27-29 Phase A/B/C Overload", "UPM:30 Phase A/B/C Overload Level 2/3/4", "UPM:65 Too Many Inverter Transfers"],
+    "source": "§13.3.12.4 à §13.3.13.1, tableaux 94 et 95, p. 291-292"
+  }
+}

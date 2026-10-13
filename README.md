@@ -22,6 +22,7 @@ npm run build      # production : dist/ (PWA, packs inclus)
 | `src/lib/catalog.ts` | Chargement des packs, recherche (synonymes FR → EN, accents ignorés) |
 | `src/components/` | Écrans : recherche, détail, décodeur de code ; documentation 93T (procédures, modes, parallèle : `#/v/procedures`, `#/v/modes`, `#/v/parallel`) |
 | `packs/93pm/` | Pack Eaton 93PM : alarmes, pièces, modes, ABM, parallèle, checklist (brouillon) |
+| `packs/93ps/alarm-context.json` | 93PS 8-40 kW : alarmes citées par le manuel de service français (tableaux d'événements vides dans le PDF) |
 | `packs/93ps/` | Pack 91PS/93PS : catalogue monobloc, hérite du catalogue modulaire du 93PM |
 | `packs/93pm/options.json` | Options 93PM : cartes MiniSlot, armoires batterie, distribution, sidecars, panneaux |
 | `packs/93pm/access.json` | Niveaux d'accès HMI 93PM et menus par niveau (sans mots de passe) |
