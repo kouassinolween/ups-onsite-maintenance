@@ -1,0 +1,394 @@
+{
+  "_source": "Eaton 93E 15-80 kVA Service Manual V1.0 (ch. 7, 8 et annexe) et Eaton 93E 300-400 kVA Service Manual A01 (ch. 7 et 8, §9.3.2). Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Le manuel 15-80 kVA ne détaille pas de procédure de dépose composant par composant (liste des unités remplaçables, accès, préparation, remise en service). Le manuel 300-400 kVA détaille 11 procédures. Les figures ne sont pas reprises.",
+
+  "tools": [
+    { "tool": "Clé à tube (nut driver)", "sizes": "6 mm (1/4 po) et 8 mm (5/16 po)" },
+    { "tool": "Douilles", "sizes": "10 mm (3/8 po) ; en 300-400 kVA aussi 13, 16 et 24 mm" },
+    { "tool": "Clés plates ou à molette (300-400 kVA)", "sizes": "13 mm (1/2 po) et 17 mm (21/32 po)" },
+    { "tool": "Clés hexagonales", "sizes": "6 mm et 8 mm" },
+    { "tool": "Tournevis Phillips n° 2 (long 12 po) et tournevis plat (1/4 po)", "sizes": null },
+    { "tool": "Pince coupante (6 po) et colliers de serrage (6 po)", "sizes": null }
+  ],
+
+  "torque_values": [
+    { "component": "[300-400 kVA] Section E/S : câbles sur barre cuivre, contacteur", "nm": 30, "lb_in": 266, "kgf_cm": 306 },
+    { "component": "[300-400 kVA] Section E/S : barre aluminium sur disjoncteur d'entrée", "nm": 30, "lb_in": 266, "kgf_cm": 306 },
+    { "component": "[300-400 kVA] Section E/S : disjoncteur d'entrée sur châssis", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Section E/S : ensemble disjoncteur d'entrée sur armoire", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Section E/S : fils sur condensateur de stockage", "nm": 2.8, "lb_in": 25, "kgf_cm": 29 },
+    { "component": "[300-400 kVA] Section E/S : contacteur backfeed sur châssis", "nm": 2.1, "lb_in": 19, "kgf_cm": 22 },
+    { "component": "[300-400 kVA] Section E/S : première carte EMI sur châssis", "nm": 0.8, "lb_in": 7, "kgf_cm": 8 },
+    { "component": "[300-400 kVA] Module de puissance : câbles sur inductance", "nm": 6, "lb_in": 54, "kgf_cm": 62 },
+    { "component": "[300-400 kVA] Module de puissance : câbles sur borne DC link", "nm": 3.6, "lb_in": 32, "kgf_cm": 37 },
+    { "component": "[300-400 kVA] Module de puissance : connecteur rapide sur châssis", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Module de puissance : connecteur rapide sur inductance", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Module de puissance : vis M6 sur carte IO", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Module de puissance : vis M6 sur carte IO (variante)", "nm": 2, "lb_in": 18, "kgf_cm": 21 },
+    { "component": "[300-400 kVA] Module de puissance : capots sur mini-slot", "nm": 0.8, "lb_in": 7, "kgf_cm": 8 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : barre cuivre sur fusible", "nm": 13, "lb_in": 116, "kgf_cm": 133 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : isolant sur châssis", "nm": 9, "lb_in": 80, "kgf_cm": 92 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : isolant sur fusible", "nm": 9, "lb_in": 80, "kgf_cm": 92 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : dissipateur sur fusible", "nm": 9, "lb_in": 80, "kgf_cm": 92 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : câbles sur contacteur", "nm": 6, "lb_in": 54, "kgf_cm": 62 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : dissipateur sur contacteur", "nm": 6, "lb_in": 54, "kgf_cm": 62 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : barre cuivre sur contacteur", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : ensemble contacteur sur armoire", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : barre cuivre sur dissipateur", "nm": 1.6, "lb_in": 14, "kgf_cm": 16 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : contacteur sur châssis", "nm": 1.6, "lb_in": 14, "kgf_cm": 16 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : ensemble ventilateur sur armoire", "nm": 1.6, "lb_in": 14, "kgf_cm": 16 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : fils de mesure sur contacteur", "nm": 1.2, "lb_in": 11, "kgf_cm": 12 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : fils de signal sur contacteur", "nm": 0.8, "lb_in": 7, "kgf_cm": 8 },
+    { "component": "[300-400 kVA] Contacteurs batterie et sortie : protection sur ventilateur", "nm": 0.8, "lb_in": 7, "kgf_cm": 8 },
+    { "component": "[300-400 kVA] Contacteur d'entrée : câbles sur barre cuivre", "nm": 5, "lb_in": 45, "kgf_cm": 51 },
+    { "component": "[300-400 kVA] Contacteur d'entrée : fusible sur barre cuivre", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Contacteur d'entrée : barre cuivre sur isolant", "nm": 1.6, "lb_in": 14, "kgf_cm": 16 },
+    { "component": "[300-400 kVA] Contacteur d'entrée : barre cuivre sur contacteur", "nm": 1.6, "lb_in": 14, "kgf_cm": 16 },
+    { "component": "[300-400 kVA] Contacteur d'entrée : dissipateur sur barre cuivre", "nm": 1.2, "lb_in": 11, "kgf_cm": 12 },
+    { "component": "[300-400 kVA] ISBM : SCR sur dissipateur", "nm": 12, "lb_in": 107, "kgf_cm": 123 },
+    { "component": "[300-400 kVA] ISBM : barre cuivre sur SCR", "nm": 12, "lb_in": 107, "kgf_cm": 123 },
+    { "component": "[300-400 kVA] ISBM : barre cuivre sur châssis", "nm": 1.6, "lb_in": 14, "kgf_cm": 16 },
+    { "component": "[300-400 kVA] ISBM : ventilateur sur châssis STS", "nm": 1.2, "lb_in": 11, "kgf_cm": 12 },
+    { "component": "[300-400 kVA] ISBM : carte MCU-STS sur châssis", "nm": 1.2, "lb_in": 11, "kgf_cm": 12 },
+    { "component": "[300-400 kVA] ISBM : NTC sur dissipateur", "nm": 0.6, "lb_in": 5, "kgf_cm": 6 },
+    { "component": "[300-400 kVA] Portes et caches : caches (dead fronts)", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Portes et caches : charnière (gemel)", "nm": 3, "lb_in": 27, "kgf_cm": 31 },
+    { "component": "[300-400 kVA] Portes et caches : boulon sur porte", "nm": 1.6, "lb_in": 14, "kgf_cm": 16 },
+    { "component": "[300-400 kVA] Portes et caches : câble PE sur châssis / porte", "nm": 0.8, "lb_in": 7, "kgf_cm": 8 }
+  ],
+  "torque_note": "Table des couples du manuel 300-400 kVA (tableau 7.1). Le manuel 15-80 kVA ne fournit pas de table de couples. Valeurs particulières citées dans les procédures : carte EMI M5 = 2 Nm, M6 = 3 Nm ; fusibles batterie et sortie = 13 Nm ; câbles de puissance de l'ISBM = 12 Nm.",
+  "torque_source": "93E 300-400 kVA, §7.1.2 tableau 7.1",
+
+  "access": [
+    { "component": "[15-80 kVA, 20-40] CSB", "panels": ["porte avant"] },
+    { "component": "[15-80 kVA, 20-40] Port parallèle", "panels": ["porte avant", "caches avant", "capot supérieur"] },
+    { "component": "[15-80 kVA, 20-40] Mini-slot", "panels": ["porte avant", "capot supérieur"] },
+    { "component": "[15-80 kVA, 20-40] Module de puissance", "panels": ["porte avant", "caches avant"] },
+    { "component": "[15-80 kVA, 20-40] Ventilateur PM", "panels": ["porte avant"] },
+    { "component": "[15-80 kVA, 20-40] Carte STS", "panels": ["capot supérieur"] },
+    { "component": "[15-80 kVA, 20-40] Ventilateur STS", "panels": ["porte avant", "caches avant", "capot supérieur"] },
+    { "component": "[15-80 kVA, 20-40] Carte SPS", "panels": ["capot supérieur"] },
+    { "component": "[15-80 kVA, 20-40] Première carte EMI", "panels": ["porte avant", "caches avant", "capot arrière ou latéral"] },
+    { "component": "[15-80 kVA, 20-40] Carte E/S (I/O)", "panels": ["porte avant", "caches avant", "capot supérieur"] },
+    { "component": "[15-80 kVA, 20-40] Fusibles", "panels": ["porte avant", "caches avant", "capot supérieur"] },
+    { "component": "[15-80 kVA, 20-40] Carte de commande", "panels": ["porte avant", "caches avant"] },
+    { "component": "[15-80 kVA, 20-40] Carte interface", "panels": ["porte avant", "caches avant"] },
+    { "component": "[15-80 kVA, 20-40] Interrupteurs", "panels": ["porte avant", "caches avant"] },
+    { "component": "[15-80 kVA, 20-40] Contacteur backfeed", "panels": ["capot arrière ou latéral"] },
+    { "component": "[15-80 kVA, 20-40] Inductances", "panels": ["porte avant", "caches avant"] },
+    { "component": "[15-80 kVA, 60-80] CSB", "panels": ["porte avant"] },
+    { "component": "[15-80 kVA, 60-80] Port parallèle, mini-slot, module de puissance, carte STS, ventilateur STS, carte SPS, carte E/S, fusibles, cartes commande et interface, interrupteurs, inductances", "panels": ["porte avant", "caches avant"] },
+    { "component": "[15-80 kVA, 60-80] Ventilateur PM", "panels": ["porte avant"] },
+    { "component": "[15-80 kVA, 60-80] Première carte EMI", "panels": ["porte avant", "caches avant", "capot arrière ou latéral"] },
+    { "component": "[15-80 kVA, 60-80] Contacteur backfeed", "panels": ["capot arrière ou latéral"] },
+    { "component": "[300-400 kVA] CSB, ventilateur UPM", "panels": ["porte avant"] },
+    { "component": "[300-400 kVA] Port parallèle, mini-slot, disjoncteur d'entrée, fusibles, ventilateur STS, cartes de commande et interface UPM, module de puissance, ISBM", "panels": ["porte avant", "caches avant"] },
+    { "component": "[300-400 kVA] Première carte EMI, contacteurs", "panels": ["porte avant", "caches avant", "caches arrière"] },
+    { "component": "[300-400 kVA] Cartes EMI d'entrée et de sortie", "panels": ["caches arrière"] }
+  ],
+  "access_source": "93E 15-80 kVA §7.2.2 tableaux 7.2 et 7.3 ; 93E 300-400 kVA §7.2.2 tableau 7.3",
+
+  "safety": {
+    "before_any_work": [
+      "Arrêter l'UPS et sécuriser la charge ou la transférer sur le bypass de maintenance avant toute dépose.",
+      "Porter les EPI : chaussures de sécurité, lunettes, gants isolants.",
+      "Après transfert sur le bypass de maintenance, ouvrir l'interrupteur neutre (15-80 kVA) : un potentiel dangereux peut subsister sur la barre neutre à cause de la charge déséquilibrée de la source. Vérifier la barre neutre avec un multimètre en bon état avant d'intervenir.",
+      "300-400 kVA : le disjoncteur amont est souvent tripolaire et le disjoncteur d'entrée optionnel aussi : la barre neutre reste alors reliée en permanence à la source ; mesurer la tension de la barre neutre avant intervention.",
+      "Vérifier avec un multimètre numérique que l'unité est hors tension et sans énergie stockée.",
+      "Ne donner accès qu'à la partie de l'unité nécessaire au remplacement du composant."
+    ],
+    "source": "93E 15-80 kVA §7.1.2, §7.2 ; 93E 300-400 kVA §7.2"
+  },
+
+  "procedures": [
+    {
+      "id": "secure_load",
+      "label": "Sécuriser ou transférer la charge critique",
+      "variant": "15-80 kVA et 300-400 kVA",
+      "steps": [
+        "Prévenir le client que la charge doit être sécurisée ou transférée.",
+        "Relire les schémas et procédures du site avant tout changement d'état.",
+        "Selon les procédures du site : passer l'UPS en bypass ; transférer la charge sur le bypass de maintenance ; arrêter l'UPS ; consigner les disjoncteurs qui alimentent l'UPS.",
+        "Vérifier au multimètre numérique que l'unité est hors tension et sans énergie stockée."
+      ],
+      "source": "15-80 kVA §7.2.1 ; 300-400 kVA §7.2.1"
+    },
+    {
+      "id": "return_to_service",
+      "label": "Remise en service après intervention",
+      "variant": "15-80 kVA et 300-400 kVA",
+      "steps": [
+        "Vérifier qu'aucun outil ni corps étranger n'est resté dans l'unité et qu'aucune connexion n'est desserrée.",
+        "Si des câbles d'entrée ont été déposés, vérifier que l'ordre des phases n'a pas changé.",
+        "Démarrer l'UPS et contrôler l'état de fonctionnement.",
+        "Contrôler les mesures de l'UPS et calibrer si nécessaire (procédure « Calibrage »).",
+        "Corriger tous les défauts.",
+        "Passer l'unité en Load off.",
+        "Remettre les portes et caches dans l'ordre inverse de la dépose.",
+        "Vérifier le bon fonctionnement de l'unité dans tous les modes.",
+        "Informer le client que l'unité est prête à supporter la charge, puis remettre l'UPS en charge."
+      ],
+      "source": "15-80 kVA §7.3 ; 300-400 kVA §7.3"
+    },
+    {
+      "id": "fru_15_80",
+      "label": "Unités remplaçables sur site (FRU) : 15-80 kVA",
+      "variant": "15-80 kVA",
+      "steps": [
+        "Module de puissance (ou REC / INV selon la puissance), ventilateur du module (PM fan), carte de commande, carte interface, carte contacteur, carte SPS, ventilateur SPS, CSB, carte parallèle, carte STS, SCR, ventilateur STS, fusibles, carte E/S, interrupteurs, contacteur backfeed, inductances.",
+        "Toutes ces unités sont accessibles par l'avant ; les panneaux à déposer par composant sont donnés dans le tableau « Accès aux composants »."
+      ],
+      "notes": ["Le manuel 15-80 kVA ne détaille pas la dépose étape par étape : se référer aux repères du tableau d'accès et à la liste des pièces."],
+      "source": "93E 15-80 kVA §7.1.2 tableau 7.1"
+    },
+    {
+      "id": "door_panels",
+      "label": "Portes et caches : dépose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "L'armoire a trois portes (gauche, centre, droite) ; débrancher le fil de terre de chaque porte avant dépose.",
+        "Porte droite : retirer d'abord, à la douille de 8 mm, les deux vis au bas du panneau, puis la soulever pour la dégager de la gâche.",
+        "Porte centrale : ouvrir vers la droite, retirer le boulon et débrancher les câbles raccordés à la CSB, puis la soulever du support.",
+        "Porte gauche (avec disjoncteur d'entrée installé) : ouvrir vers la gauche, retirer le verrou, puis la soulever du support. Sans disjoncteur d'entrée : même procédure que la porte droite.",
+        "Caches avant (E/S) : retirer toutes les vis du pourtour, de haut en bas ou de bas en haut. Les caches avant UPM et ISBM se composent de 4 parties (deux pour les modules de puissance, une pour le ventilateur de refroidissement SPS, une pour le contacteur et l'ISBM).",
+        "Caches arrière : 4 parties (E/S, UPM2, UPM1, contacteurs) ; retirer les vis à la douille de 8 mm."
+      ],
+      "warnings": ["Déposer les portes centrale et droite ainsi que les caches avant avant de déposer l'ensemble bypass."],
+      "source": "300-400 kVA §7.2.2.1 à §7.2.2.3"
+    },
+    {
+      "id": "upm_fan",
+      "label": "Ventilateur UPM : dépose et repose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Ouvrir la porte centrale (UPM2) ou la porte droite (UPM1).",
+        "Retirer les 4 vis du panneau de ventilateurs, tenir la partie basse et sortir la partie haute.",
+        "Débrancher les 3 câbles d'alimentation du ventilateur.",
+        "Remonter dans l'ordre inverse."
+      ],
+      "notes": [
+        "Trois types de ventilateurs sont utilisés : module batterie et module réseau phase A (AVC, 24 V c.c. 0,8 A, 4400 tr/min) ; modules réseau phases B et C et carte SPS (Sanyo, 24 V c.c. 0,5 A, 3600 tr/min) ; bypass (Sanyo, 24 V c.c. 0,8 A, 5200 tr/min)."
+      ],
+      "parts_hint": ["730-B0879-00P", "730-50881-01P"],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.1, tableau 7.4"
+    },
+    {
+      "id": "power_module",
+      "label": "Module de puissance : dépose et repose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Ouvrir la porte centrale (UPM2) ou déposer la porte droite (UPM1).",
+        "Déposer le ventilateur UPM. Pour le module de la phase A, déposer aussi le ventilateur de la phase B ; pour la phase B ou C, déposer les deux ventilateurs voisins.",
+        "Débrancher les câbles de puissance sur le DC link (couple 3,6 Nm).",
+        "Module de la phase A : débrancher aussi les fils vers le circuit de précharge et les câbles de puissance en parallèle avec l'autre unité 100 kVA.",
+        "Sortir le module sur un tiers, desserrer les 3 sangles et débrancher le câble de signal.",
+        "Sortir complètement le module de l'armoire."
+      ],
+      "replacement_steps": [
+        "Poser le nouveau module sur le rail, le pousser doucement jusqu'au fond du connecteur, puis fermement pour s'assurer du bon raccordement.",
+        "Rebrancher les câbles dans l'ordre inverse."
+      ],
+      "torque_refs": ["Câbles sur borne DC link : 3,6 Nm", "Câbles sur inductance : 6 Nm"],
+      "parts_hint": ["730-D0031-00P", "730-D0032-00P"],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.2"
+    },
+    {
+      "id": "upm_control",
+      "label": "Section de commande UPM (cartes de commande et interface) : dépose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Ouvrir la porte centrale (UPM2) ou déposer la porte droite (UPM1).",
+        "Retirer au tournevis cruciforme les vis de fixation de l'ensemble ventilateur (4 vis pour UPM1, 5 pour UPM2).",
+        "Débrancher le connecteur d'alimentation du ventilateur et déposer l'ensemble ventilateur.",
+        "Retirer les vis du plateau et toutes les connexions des cartes (une seule vis fixe le panneau de la carte de commande de l'UPM1).",
+        "Soulever le plateau pour ne pas endommager les câbles en faisant glisser le plateau de la carte de commande.",
+        "Déposer la carte au tournevis cruciforme."
+      ],
+      "replacement_steps": ["Poser la nouvelle carte et remonter dans l'ordre inverse (correspondance des connecteurs de la carte connecteur : tableau 7.5 du manuel)."],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.3, tableau 7.5"
+    },
+    {
+      "id": "power_supply_board",
+      "label": "Carte d'alimentation (SPS) : dépose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Déposer l'ensemble ventilateur (procédure « Section de commande UPM »).",
+        "Débrancher les câbles de la carte d'alimentation, retirer la vis de fixation du plateau, sortir le plateau puis la carte.",
+        "Poser la nouvelle carte et remonter dans l'ordre inverse."
+      ],
+      "notes": [
+        "Interfaces ventilateurs de la carte : CN1 et CN5/6/7 pour les ventilateurs de refroidissement de la section de commande, CN8/9/10 pour le module réseau phase A, CN11/12/13 pour les phases B et C, CN14/15/16 pour le module batterie.",
+        "Les ventilateurs d'un même module sont interchangeables ; CN1 peut être raccordé à l'un ou l'autre des deux ventilateurs de la section de commande."
+      ],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.4, tableau 7.6"
+    },
+    {
+      "id": "csb",
+      "label": "Carte CSB (affichage) : dépose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Ouvrir la porte centrale.",
+        "Retirer les 4 vis du capot, puis le capot.",
+        "Débrancher les câbles et retirer la vis.",
+        "Poser la nouvelle carte et remonter dans l'ordre inverse.",
+        "Pour remplacer seulement l'afficheur LCD ou le panneau de boutons : retirer les vis correspondantes sur la CSB, remplacer, remonter."
+      ],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.5"
+    },
+    {
+      "id": "emi_boards",
+      "label": "Cartes EMI d'entrée et de sortie : dépose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Déposer le cache arrière de l'UPM.",
+        "Couper les colliers concernés.",
+        "Retirer les vis (M5 : 2 Nm ; M6 : 3 Nm) et les connexions de la carte EMI, puis sortir le plateau.",
+        "Poser la nouvelle carte et remonter dans l'ordre inverse."
+      ],
+      "notes": ["Respecter la correspondance contacteurs / plateaux (plateau n° 1 à 4) et le raccordement des fils aux inductances : voir figures du manuel §7.4.6."],
+      "torque_refs": ["Vis M5 : 2 Nm", "Vis M6 : 3 Nm"],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.6"
+    },
+    {
+      "id": "epo_board",
+      "label": "Carte EPO : dépose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Ouvrir les portes centrale et gauche.",
+        "Déposer le cache de la section E/S et l'ensemble ventilateur de la section de commande UPM.",
+        "Débrancher le fil de terre dans l'armoire E/S.",
+        "Retirer la vis du cadre EPO et sortir l'ensemble carte EPO.",
+        "Retirer la vis de la carte EPO, remplacer la carte et remonter dans l'ordre inverse.",
+        "Si le mini-slot doit être remplacé : retirer la vis et le cache, couper la poignée du mini-slot, poser le nouveau et remonter."
+      ],
+      "notes": ["Repérer le fil rouge."],
+      "parts_hint": ["710-09684-00P"],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.7"
+    },
+    {
+      "id": "connector_section",
+      "label": "Section contacteurs et fusibles : dépose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Ouvrir la porte centrale (UPM2) ou déposer la porte droite (UPM1).",
+        "Retirer les vis et les caches avant.",
+        "Pour remplacer seulement un fusible : le déposer par l'avant.",
+        "Retirer les fusibles batterie et sortie avec une douille de 13 mm et une clé (couple 13 Nm).",
+        "Pour remplacer un contacteur : déposer le cache arrière de la section contacteurs.",
+        "Retirer les vis fixant les câbles, le fusible et le contacteur.",
+        "Débrancher toutes les connexions du contacteur, puis déposer le fusible, la barre cuivre et le dissipateur.",
+        "Sortir le contacteur du plateau, le remplacer et remonter dans l'ordre inverse."
+      ],
+      "torque_refs": ["Barre cuivre sur fusible : 13 Nm"],
+      "parts_hint": ["102-00483-01", "102-23171-00", "102-23174-00", "092-10375-00"],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.8"
+    },
+    {
+      "id": "balance_contactor",
+      "label": "Contacteur d'équilibrage (balance) : dépose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Déposer la porte droite et le cache arrière de la section contacteurs.",
+        "Débrancher les câbles de puissance et de signal du contacteur d'équilibrage.",
+        "Retirer la vis qui fixe le cadre et sortir l'ensemble.",
+        "Retirer la vis qui fixe le contacteur, le remplacer et remonter dans l'ordre inverse."
+      ],
+      "parts_hint": ["092-10374-00"],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.9"
+    },
+    {
+      "id": "bypass_fan",
+      "label": "Ventilateur bypass : dépose (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load"],
+      "steps": [
+        "Déposer les portes centrale et droite, puis les caches.",
+        "Débrancher le connecteur et couper les colliers concernés.",
+        "Retirer les deux vis qui fixent le ventilateur.",
+        "Remplacer le ventilateur et remonter dans l'ordre inverse."
+      ],
+      "parts_hint": ["730-B0973-01P"],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.10"
+    },
+    {
+      "id": "bypass_assembly",
+      "label": "Ensemble bypass (ISBM) : dépose et remplacement du SCR, de la carte, du bouton (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "prerequisites": ["secure_load", "door_panels"],
+      "steps": [
+        "Déposer les portes centrale et droite, puis les caches.",
+        "À la douille de 13 mm, débrancher les câbles de sortie et d'entrée bypass sur la barre cuivre (couple 12 Nm).",
+        "Retirer les deux vis indiquées (fig. 7.29 du manuel).",
+        "Sortir à moitié l'ISBM et débrancher les fils de signal, puis le sortir complètement."
+      ],
+      "scr_steps": [
+        "Remplacement d'un SCR : débrancher les 4 câbles de commande ; retirer la barre cuivre à la clé de 17 mm (12 Nm) ; retirer les 4 vis de fixation du SCR au tournevis cruciforme (12 Nm) ; enduire de graisse thermique silicone et visser fermement le nouveau SCR sur le dissipateur, puis remonter."
+      ],
+      "pcb_steps": [
+        "Remplacement de la carte : débrancher les connexions (CN26 tension d'entrée bypass, CN24 tension de sortie bypass, CN27 tension d'entrée réseau, CN2 commande du contacteur backfeed, CN21 mesure du snubber SCR, mesure de courant bypass, commande SCR) ; retirer la vis de fixation ; poser la nouvelle carte."
+      ],
+      "force_bypass_steps": [
+        "Remplacement du bouton « Force to bypass » : débrancher les connexions entre le bouton et l'interrupteur, retirer le fil raccordé à CN23 de la carte MCU-STS, remplacer par la pièce neuve."
+      ],
+      "replacement_steps": [
+        "Après remplacement, replacer l'ISBM sur le rail et le pousser doucement jusqu'au fond (veiller à ce que la carte MCU-Interface ne frotte pas l'armoire), puis remonter dans l'ordre inverse."
+      ],
+      "torque_refs": ["SCR sur dissipateur : 12 Nm", "Barre cuivre sur SCR : 12 Nm"],
+      "parts_hint": ["090-01205-00", "710-09183-04P", "712-00328-06P"],
+      "after": ["return_to_service"],
+      "source": "300-400 kVA §7.4.11"
+    },
+    {
+      "id": "damageable_parts_300_400",
+      "label": "Contrôle des pièces sensibles : fusibles, module de puissance, ventilateurs, carte SPS (300-400 kVA)",
+      "variant": "300-400 kVA",
+      "steps": [
+        "Fusibles : déposer le cache de la section contacteurs ; vérifier les fusibles au multimètre pour savoir quel UPM et quelle phase a un fusible ouvert.",
+        "Un fusible d'entrée ouvert indique quelle unité 100 kVA a subi une surintensité ; les fusibles batterie et sortie n'indiquent que l'UPM concerné.",
+        "Si le journal d'historique signale une surintensité sur un UPM, l'inspecter même si son fusible n'est pas ouvert.",
+        "Module de puissance : le sortir de l'armoire et le contrôler au multimètre étalonné. Module réseau : diode ≈ 0,3 V et résistance 100 à 110 kΩ entre REC ou INV et +BUS, et entre -BUS et REC ou INV. Module batterie : mêmes valeurs entre BAT A+ / BAT B+ et +BUS, entre -BUS et BAT A- / BAT B-, et entre BAT A- et BAT A+, BAT B- et BAT B+.",
+        "Ventilateurs : observer d'abord un ventilateur arrêté ou nettement plus lent. Sinon, débrancher le connecteur d'alimentation de chaque ventilateur pour voir si l'alarme disparaît, ou alimenter le plateau en 24 V c.c. et mesurer la broche « detect » (au centre) : tension supérieure à 5 V = ventilateur défaillant. L'alarme ne permet pas de distinguer les FAN 2 et FAN 3 du bypass.",
+        "Carte d'alimentation SPS : pas de fusible ; trois résistances de 1 Ω limitent l'entrée. Valeurs : R103, R113, R116 ≈ 1,35 Ω ; diodes D48, D50, D52, D55, D57, D59 ≈ 1,17 V ; MOSFET flyback Q16, Q18 ≈ 0,45 V ; MOSFET de précharge Q11, Q13 ≈ 0,47 V."
+      ],
+      "source": "300-400 kVA §9.3.2"
+    },
+    {
+      "id": "calibration",
+      "label": "Calibrage des mesures",
+      "variant": "15-80 kVA et 300-400 kVA",
+      "steps": [
+        "Outils : Eaton Service Tool ou afficheur LCD, multimètre étalonné, pince ampèremétrique étalonnée (utiliser le même appareil pour mesurer et calibrer des paramètres du même type).",
+        "Tension : calibrer à vide. Courant : calibrer avec un courant de charge supérieur à 30 % du nominal.",
+        "Pour créer une charge : banc de charge de préférence ; à défaut ECT (ne permet pas de calibrer les courants de sortie) ; en dernier recours la charge du client (déconseillé).",
+        "Sur le LCD, les tensions alternatives s'affichent en phase-neutre.",
+        "Par le LCD : menu service > calibration (mot de passe service requis) ; 300-400 kVA : choisir l'objet MCU, UPM1 ou UPM2 ; déplacer le curseur sur « Channel », choisir le paramètre, saisir la valeur mesurée dans « Measure » : l'UPS calibre automatiquement et affiche l'écart par rapport à la valeur par défaut (en %).",
+        "Par l'Eaton Service Tool : panneau « Meters and calibration » (15-80 kVA) ; la fonction n'est pas encore implémentée sur le 300-400 kVA."
+      ],
+      "notes": [
+        "Points de test 15-80 kVA : tous les paramètres sauf le courant de branche batterie et la tension DC link se mesurent sur le bornier ; la tension DC link se mesure dans le module de puissance ou sur la carte SPS ; le courant de branche batterie ne se mesure pas sur site.",
+        "Points de test 300-400 kVA : paramètres MCU sur la barre cuivre de la section E/S ; paramètres UPM (hors courant de branche batterie et tension DC link) sur la section contacteurs UPM en bas de l'armoire ; courant de branche batterie sur la carte EMI de sortie ; tension DC link dans le module de puissance."
+      ],
+      "source": "15-80 kVA ch. 8 ; 300-400 kVA ch. 8"
+    }
+  ]
+}

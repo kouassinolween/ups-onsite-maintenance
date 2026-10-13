@@ -1,0 +1,328 @@
+{
+  "_source": "Eaton 93E 15-80 kVA Service Manual V1.0 : ch. 8 (calibrage), annexe « 93E 15-80 kVA application configuration SOP » (configuration EEPROM suggérée) ; Eaton 93E 300-400 kVA Service Manual A01 : ch. 8 et §9.4. Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Les valeurs EEPROM sont des suggestions du manuel (annexe d'application, non finale). Toujours suivre la SOP constructeur « update FW version SOP-93E » pour les mises à jour firmware. Les versions firmware minimales citées sont celles du manuel.",
+  "calibration_channels": {
+    "label": "Canaux de calibrage (écran Service > Calibration)",
+    "channels": [
+      {
+        "channel": "Out Va / Vb / Vc",
+        "meaning": "Tension de sortie"
+      },
+      {
+        "channel": "Byp Va / Vb / Vc",
+        "meaning": "Tension bypass"
+      },
+      {
+        "channel": "Utl Va / Vb / Vc",
+        "meaning": "Tension d'entrée réseau"
+      },
+      {
+        "channel": "Inv Va / Vb / Vc",
+        "meaning": "Tension onduleur"
+      },
+      {
+        "channel": "Byp Ia / Ib / Ic",
+        "meaning": "Courant bypass"
+      },
+      {
+        "channel": "Utl Ia / Ib / Ic",
+        "meaning": "Courant d'entrée réseau"
+      },
+      {
+        "channel": "Inv Ia / Ib / Ic",
+        "meaning": "Courant onduleur"
+      },
+      {
+        "channel": "Bat VDC",
+        "meaning": "Tension Bat+ à Bat-"
+      },
+      {
+        "channel": "Bat IDC A / Bat IDC B",
+        "meaning": "Courant de la branche A / de la branche B"
+      },
+      {
+        "channel": "Bat VDC+ / Bat VDC-",
+        "meaning": "Tension Bat+ / tension Bat-"
+      },
+      {
+        "channel": "VDC+ / VDC-",
+        "meaning": "Tension DC link + / DC link -"
+      }
+    ],
+    "rules": [
+      "Calibrage en tension : à vide.",
+      "Calibrage en courant : avec un courant de charge supérieur à 30 % du nominal.",
+      "Les tensions alternatives sont affichées en phase-neutre sur le LCD."
+    ],
+    "source": "15-80 kVA §8.4.1 tableau 8.1 ; 300-400 kVA §8.4.1"
+  },
+  "eeprom_application_settings": {
+    "label": "Configuration EEPROM suggérée par application",
+    "applications": [
+      {
+        "label": "Mode convertisseur (convertor) : APAC, 15-200 kVA",
+        "firmware": "15-80 kVA : V2.02.0502 ou supérieur ; 100-200 kVA : V1.26.0507 ou supérieur",
+        "settings": [
+          {
+            "eep": "UPM 5074",
+            "meaning": "Activer ATB (transfert bypass automatique)",
+            "default": "0",
+            "suggested": "1"
+          },
+          {
+            "eep": "UPM 5076",
+            "meaning": "Activer ATB avec commande bypass",
+            "default": "0",
+            "suggested": "1"
+          },
+          {
+            "eep": "UPM 5158",
+            "meaning": "Synchronisation sur la base une fois en ligne",
+            "default": "1",
+            "suggested": "3"
+          },
+          {
+            "eep": "UPM 5130",
+            "meaning": "Délai de walk-in du redresseur (s), selon le nombre d'UPS",
+            "default": "0",
+            "suggested": "UPS 1 : 22 ; UPS 2 : 25 ; UPS 3 : 28 ; UPS 4 : 30"
+          }
+        ],
+        "notes": [
+          "Avec UPM EEP 5158 = 3, l'UPS fonctionne en convertisseur : la sortie ne se synchronise plus sur le bypass, quel que soit l'état du réseau (bypass).",
+          "En mode convertisseur, l'UPS affiche « bypass not available » et ne transfère pas sur bypass, sauf si l'ATB (EEP 5074 = 1) et l'ATB avec commande bypass (EEP 5076 = 1) sont activés."
+        ]
+      },
+      {
+        "label": "Mode « power conditioner » et redémarrage automatique, 15-400 kVA",
+        "firmware": "300-400 kVA : V1.06.1002 ou supérieur ; 100-200 kVA : V1.26.0507 ; 15-80 kVA : V2.02.0501",
+        "settings": [
+          {
+            "eep": "UPM 5058 (15-200 kVA)",
+            "meaning": "Batterie non requise pour le mode Online",
+            "default": "0",
+            "suggested": "1"
+          },
+          {
+            "eep": "UPM 5060 (15-200 kVA)",
+            "meaning": "Activer le redémarrage automatique",
+            "default": "0",
+            "suggested": "1"
+          },
+          {
+            "eep": "UPM 5077 (15-200 kVA)",
+            "meaning": "Activer le mode power conditioner",
+            "default": "0",
+            "suggested": "1"
+          },
+          {
+            "eep": "MCU 50511 (300-400 kVA)",
+            "meaning": "Batterie non requise pour le mode Online",
+            "default": "0",
+            "suggested": "1"
+          },
+          {
+            "eep": "MCU 50103 (300-400 kVA)",
+            "meaning": "Activer le redémarrage automatique",
+            "default": "0",
+            "suggested": "1"
+          },
+          {
+            "eep": "MCU 50518 (300-400 kVA)",
+            "meaning": "Activer le mode power conditioner",
+            "default": "0",
+            "suggested": "1"
+          }
+        ],
+        "notes": [
+          "Après mise à jour du firmware, il est recommandé de réinitialiser l'EEPROM UPM et de remettre l'UPS sous tension, en suivant toute la SOP « update FW version SOP-93E ».",
+          "Avec le mode power conditioner, l'écran batterie n'apparaît plus sur le LCD.",
+          "Redémarrage automatique 15-200 kVA sans power conditioner : l'UPS redémarre après coupure réseau et arrêt sur batterie basse en Online ; avec power conditioner : redémarrage après coupure réseau, sauf arrêt manuel, transfert manuel sur bypass, entrée bâtiment « remote go to bypass », REPO ou signal de retour MBS actif."
+        ]
+      },
+      {
+        "label": "Charges fortement inductives ou capacitives (APAC), 15-200 kVA",
+        "firmware": "15-80 kVA : V2.02.0002 ou supérieur ; 100-200 kVA : V1.26.0507",
+        "settings": [
+          {
+            "eep": "UPM 5073",
+            "meaning": "Activer pour charge inductive ou capacitive (THDv de sortie supérieur à 5 %)",
+            "default": "0",
+            "suggested": "1"
+          },
+          {
+            "eep": "UPM 5124",
+            "meaning": "Erreur de phase maximale autorisée de la PLL (degrés)",
+            "default": "10",
+            "suggested": "5"
+          },
+          {
+            "eep": "UPM 5055",
+            "meaning": "À porter à 15 si UPM EEP 5073 = 1 et désactivation de l'UPS vers bypass par commande normale",
+            "default": "10",
+            "suggested": "15"
+          }
+        ]
+      },
+      {
+        "label": "Désactiver le transfert d'urgence sur bypass (ETB)",
+        "firmware": null,
+        "settings": [
+          {
+            "eep": "UPM 5084",
+            "meaning": "Retarder les transferts d'urgence sur bypass (désactivation de l'ETB)",
+            "default": "0",
+            "suggested": "1"
+          },
+          {
+            "eep": "UPM 5085",
+            "meaning": "Délai du transfert d'urgence quand 5084 est activé (ms)",
+            "default": "3000",
+            "suggested": "80"
+          }
+        ],
+        "notes": [
+          "Cas d'usage : l'ajout d'une charge non linéaire provoque une alarme « OP AC UV » et un transfert sur bypass ; si le client ne le souhaite pas, désactiver l'ETB.",
+          "Vérifier que le délai de 80 ms (UPM EEP 5085) est acceptable pour la charge lorsque la tension de sortie disparaît réellement."
+        ]
+      }
+    ],
+    "tool_note": "Les valeurs EEPROM sont écrites avec l'Eaton Service Tool (panneau EEPROM) ou l'outil JOECOMM (écran EEPs, fichier de valeurs « 93E ECT.txt », « write RTB »).",
+    "source": "93E 15-80 kVA, annexe « application configuration SOP »"
+  },
+  "preventive_maintenance_300_400": {
+    "label": "Maintenance préventive 93E 300-400 kVA : échéancier de remplacement",
+    "text": "Le manuel renvoie au site de support technique Eaton pour la procédure complète et donne un échéancier de remplacement sur 20 ans (§9.4.1). Les condensateurs DC se remplacent à 5 ans à 40 °C à pleine charge, jusqu'à 7 ans entre 25 et 35 °C.",
+    "schedule": [
+      {
+        "component": "Filtre à air",
+        "years": "chaque année (1 à 20)",
+        "note": ""
+      },
+      {
+        "component": "Ventilateur de l'interrupteur statique",
+        "years": "5, 10, 15, 20",
+        "note": ""
+      },
+      {
+        "component": "Ventilateurs UPM S&T",
+        "years": "5, 10, 15, 20",
+        "note": "3 ventilateurs par module de puissance"
+      },
+      {
+        "component": "Ventilateurs UPM R&BAT",
+        "years": "5, 10, 15, 20",
+        "note": "3 ventilateurs par module de puissance"
+      },
+      {
+        "component": "Carte interface",
+        "years": "10, 20",
+        "note": ""
+      },
+      {
+        "component": "Carte de commande",
+        "years": "10, 20",
+        "note": ""
+      },
+      {
+        "component": "Module de puissance REC/INV (100 kVA)",
+        "years": "10, 20",
+        "note": "hors condensateurs DC"
+      },
+      {
+        "component": "Module de puissance batterie (400 kVA)",
+        "years": "10, 20",
+        "note": "hors condensateurs DC"
+      },
+      {
+        "component": "Condensateurs DC",
+        "years": "7, 14",
+        "note": "à 40 °C pleine charge : 5 ans ; à 25-35 °C pleine charge : jusqu'à 7 ans"
+      },
+      {
+        "component": "Carte filtre d'entrée",
+        "years": "7, 14",
+        "note": ""
+      },
+      {
+        "component": "Carte filtre de sortie",
+        "years": "7, 14",
+        "note": ""
+      },
+      {
+        "component": "Carte SPS",
+        "years": "10, 20",
+        "note": ""
+      },
+      {
+        "component": "Carte connecteur",
+        "years": "10, 20",
+        "note": ""
+      },
+      {
+        "component": "Carte RFI",
+        "years": "10, 20",
+        "note": ""
+      },
+      {
+        "component": "Carte CSB",
+        "years": "10, 20",
+        "note": "LCD et carte"
+      },
+      {
+        "component": "Carte MCU-Interface",
+        "years": "10, 20",
+        "note": ""
+      },
+      {
+        "component": "Carte MCU-STS",
+        "years": "10, 20",
+        "note": ""
+      },
+      {
+        "component": "SCR",
+        "years": "5, 10, 15, 20",
+        "note": ""
+      }
+    ],
+    "source": "93E 300-400 kVA §9.4.1, p. 256"
+  },
+  "reference_values": {
+    "label": "Valeurs de référence pour contrôle des modules (300-400 kVA)",
+    "values": [
+      {
+        "item": "Module réseau : diode entre REC ou INV et +BUS, et entre -BUS et REC ou INV",
+        "typical": "0,3 V"
+      },
+      {
+        "item": "Module réseau : résistance entre ces mêmes points",
+        "typical": "100 à 110 kΩ"
+      },
+      {
+        "item": "Module batterie : diode entre BAT A+ ou BAT B+ et +BUS, entre -BUS et BAT A- ou BAT B-",
+        "typical": "0,3 V"
+      },
+      {
+        "item": "Module batterie : résistance entre ces mêmes points",
+        "typical": "100 à 110 kΩ"
+      },
+      {
+        "item": "Carte SPS : R103, R113, R116",
+        "typical": "1,35 Ω"
+      },
+      {
+        "item": "Carte SPS : diodes D48, D50, D52, D55, D57, D59",
+        "typical": "1,17 V"
+      },
+      {
+        "item": "Carte SPS : MOSFET flyback Q16, Q18 (SD)",
+        "typical": "0,45 V"
+      },
+      {
+        "item": "Carte SPS : MOSFET de précharge Q11, Q13 (SD)",
+        "typical": "0,47 V"
+      }
+    ],
+    "source": "93E 300-400 kVA §9.3.2, tableaux 9.1 et 9.2"
+  }
+}

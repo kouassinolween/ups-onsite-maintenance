@@ -1,0 +1,195 @@
+{
+  "_source": "Eaton 93E 15-80 kVA Service Manual V1.0, ch. 10 tableau 10.1 (p. 174-176) et Eaton 93E 300-400 kVA Service Manual A01, ch. 10 §10.1 et §10.2 (p. 258-266). Références relues sur les pages des manuels.",
+  "_status": "BROUILLON À VALIDER. Les références « 744-xxxxx-xxP » du manuel 15-80 kVA sont des numéros d'emballage non renseignés : seul le numéro de pièce unitaire est donné. Le manuel 300-400 kVA indique des quantités par unité (colonne « Quantity/unit »), dont la lecture exacte (par UPS ou par lot) n'est pas précisée. Les références peuvent évoluer : se rapporter au représentant Eaton.",
+
+  "parts_15_80_kva": {
+    "label": "93E 15-80 kVA : liste des pièces (quantité par unité selon la puissance)",
+    "rating_columns": ["20 kVA", "30 kVA", "40 kVA", "60 kVA", "80 kVA"],
+    "parts": [
+      { "part_number": "712-02896-00P", "description": "CSB", "qty_20": 1, "qty_30": 1, "qty_40": 1, "qty_60": 1, "qty_80": 1 },
+      { "part_number": "712-02895-00P", "description": "Carte de commande (Control board)", "qty_20": 1, "qty_30": 1, "qty_40": 1, "qty_60": 1, "qty_80": 1 },
+      { "part_number": "710-09789-00P", "description": "Carte interface (Interface board)", "qty_20": 1, "qty_30": 1, "qty_40": 1, "qty_60": 1, "qty_80": 1 },
+      { "part_number": "710-09787-00P", "description": "Module de puissance (20 kVA / 40 kVA)", "qty_20": 1, "qty_40": 2 },
+      { "part_number": "710-09790-00P", "description": "Carte E/S (I/O) (20 kVA / 40 kVA)", "qty_20": 1, "qty_40": 2 },
+      { "part_number": "710-09797-00P", "description": "Module de puissance REC (30 / 60 / 80 kVA)", "qty_30": 1, "qty_60": 2, "qty_80": 3 },
+      { "part_number": "710-09798-00P", "description": "Module de puissance INV (30 / 60 / 80 kVA)", "qty_30": 1, "qty_60": 2, "qty_80": 3 },
+      { "part_number": "710-09799-00P", "description": "Carte E/S REC (30 / 60 / 80 kVA)", "qty_30": 1, "qty_60": 2, "qty_80": 3 },
+      { "part_number": "710-09800-00P", "description": "Carte E/S INV (30 / 60 / 80 kVA)", "qty_30": 1, "qty_60": 2, "qty_80": 3 },
+      { "part_number": "710-09834-00P", "description": "Carte SPS (20 kVA / 30 kVA)", "qty_20": 1, "qty_30": 1 },
+      { "part_number": "710-09836-00P", "description": "Carte SPS (40 / 60 / 80 kVA)", "qty_40": 1, "qty_60": 1, "qty_80": 1 },
+      { "part_number": "712-02893-00P", "description": "Carte STS (20 kVA / 30 kVA)", "qty_20": 1, "qty_30": 1 },
+      { "part_number": "712-02894-00P", "description": "Carte STS (40 / 60 / 80 kVA)", "qty_40": 1, "qty_60": 1, "qty_80": 1 },
+      { "part_number": "710-09801-00P", "description": "Carte interface parallèle", "qty_20": 1, "qty_30": 1, "qty_40": 1, "qty_60": 1, "qty_80": 1 },
+      { "part_number": "710-09794-00P", "description": "Première carte EMI (20 kVA)", "qty_20": 1 },
+      { "part_number": "710-09795-00P", "description": "Première carte EMI (30 / 40 / 60 / 80 kVA)", "qty_30": 1, "qty_40": 1, "qty_60": 1, "qty_80": 1 },
+      { "part_number": "118-20292-00", "description": "Ventilateur du module de puissance (20 kVA / 40 kVA)", "qty_20": 3, "qty_40": 6 },
+      { "part_number": "118-22598-00", "description": "Ventilateur du module de puissance (30 / 60 / 80 kVA)", "qty_30": 3, "qty_60": 6, "qty_80": 9 },
+      { "part_number": "118-20511-00", "description": "Ventilateur SPS et STS (20 kVA / 30 kVA)", "qty_20": 2, "qty_30": 2 },
+      { "part_number": "118-20511-00", "description": "Ventilateur SPS (40 kVA)", "qty_40": 1 },
+      { "part_number": "118-20292-00", "description": "Ventilateur SPS (60 kVA / 80 kVA)", "qty_60": 1, "qty_80": 1 },
+      { "part_number": "118-20304-00", "description": "Ventilateur STS (40 kVA)", "qty_40": 1 },
+      { "part_number": "118-20312-00", "description": "Ventilateur STS (60 kVA / 80 kVA)", "qty_60": 1, "qty_80": 1 },
+      { "part_number": "090-00941-00", "description": "SCR (40 kVA)", "qty_40": 3 },
+      { "part_number": "090-01057-01", "description": "SCR (60 kVA / 80 kVA)", "qty_60": 3, "qty_80": 3 },
+      { "part_number": "082-11592-00", "description": "Inductance batterie (20 kVA / 40 kVA)", "qty_20": 2, "qty_40": 4 },
+      { "part_number": "082-11595-00", "description": "Inductance batterie (30 / 60 / 80 kVA)", "qty_30": 2, "qty_60": 4, "qty_80": 6 },
+      { "part_number": "082-11591-00", "description": "Carte inductance REC (20 kVA / 40 kVA)", "qty_20": 1, "qty_40": 2 },
+      { "part_number": "082-11591-00", "description": "Carte inductance INV (20 kVA / 40 kVA)", "qty_20": 1, "qty_40": 2 },
+      { "part_number": "082-11593-00", "description": "Inductance REC (30 / 60 / 80 kVA)", "qty_30": 3, "qty_60": 6, "qty_80": 9 },
+      { "part_number": "082-11594-00", "description": "Inductance INV (30 / 60 / 80 kVA)", "qty_30": 3, "qty_60": 6, "qty_80": 9 },
+      { "part_number": "092-30281-00", "description": "Interrupteur de ligne (20 / 30 / 40 / 60 kVA)", "qty_20": 3, "qty_30": 3, "qty_40": 3, "qty_60": 3 },
+      { "part_number": "092-30443-00", "description": "Interrupteur de ligne (80 kVA)", "qty_80": 3 },
+      { "part_number": "092-30280-00", "description": "Interrupteur neutre (20 kVA)", "qty_20": 1 },
+      { "part_number": "092-30280-00", "description": "Interrupteur neutre (30 kVA / 40 kVA)", "qty_30": 1, "qty_40": 1 },
+      { "part_number": "092-30281-00", "description": "Interrupteur neutre (60 kVA / 80 kVA)", "qty_60": 1, "qty_80": 1 },
+      { "part_number": "092-10388-00", "description": "Contacteur backfeed (20 kVA)", "qty_20": 1 },
+      { "part_number": "092-10389-00", "description": "Contacteur backfeed (30 kVA)", "qty_30": 1 },
+      { "part_number": "092-10384-00", "description": "Contacteur backfeed (40 kVA)", "qty_40": 1 },
+      { "part_number": "092-10385-00", "description": "Contacteur backfeed (60 kVA)", "qty_60": 1 },
+      { "part_number": "092-10386-00", "description": "Contacteur backfeed (80 kVA)", "qty_80": 1 },
+      { "part_number": "372-00067-00", "description": "Filtre à poussière (20 kVA)", "qty_20": 1 },
+      { "part_number": "372-00068-00", "description": "Filtre à poussière (30 kVA)", "qty_30": 1 },
+      { "part_number": "372-00070-00", "description": "Filtre à poussière (40 kVA)", "qty_40": 1 },
+      { "part_number": "TBD", "description": "Filtre à poussière (60 kVA / 80 kVA) : référence « à déterminer » dans le manuel", "qty_60": 1, "qty_80": 1 },
+      { "part_number": "102-01495-00", "description": "Fusible batterie sur carte (20 kVA / 40 kVA)", "qty_20": 1, "qty_40": 2 },
+      { "part_number": "102-01659-00", "description": "Fusible batterie sur carte (30 / 60 / 80 kVA)", "qty_30": 1, "qty_60": 2, "qty_80": 3 }
+    ],
+    "source": "93E 15-80 kVA §10.1, p. 174-176"
+  },
+
+  "parts_300_400_kva": {
+    "label": "93E 300-400 kVA : liste des pièces",
+    "parts": [
+      { "package_part": "744-D0031-00P", "part_number": "730-D0031-00P", "description": "Module de puissance réseau (Line Power Module)", "qty_per_unit": 12 },
+      { "package_part": "744-D0032-00P", "part_number": "730-D0032-00P", "description": "Module de puissance batterie (Battery Power Module)", "qty_per_unit": 4 },
+      { "package_part": "744-A2121-00P", "part_number": "710-09388-02P", "description": "Carte EMI d'entrée", "qty_per_unit": 4 },
+      { "package_part": "744-A2122-00P", "part_number": "710-09389-01P", "description": "Carte EMI de sortie", "qty_per_unit": 4 },
+      { "package_part": "744-A2123-00P", "part_number": "710-09390-02P", "description": "Carte connecteur (Connector board)", "qty_per_unit": 2 },
+      { "package_part": "744-A2124-00P", "part_number": "710-09391-03P", "description": "Carte SPS", "qty_per_unit": 4 },
+      { "package_part": "744-00365-00P", "part_number": "712-00365-02P", "description": "Carte de commande (Control board)", "qty_per_unit": 2 },
+      { "package_part": "744-00563-00P", "part_number": "710-09563-01P", "description": "Carte interface UPM", "qty_per_unit": 2 },
+      { "package_part": "744-00366-00P", "part_number": "712-00366-03P", "description": "Carte MCU-Interface", "qty_per_unit": 1 },
+      { "package_part": "744-09624-00P", "part_number": "710-09624-00P", "description": "Carte MCU-STS", "qty_per_unit": 1 },
+      { "package_part": "744-00364-00P", "part_number": "712-00364-02P", "description": "Carte CSB", "qty_per_unit": 1 },
+      { "package_part": "744-09684-00P", "part_number": "710-09684-01P", "description": "Carte parallèle (carte EPO)", "qty_per_unit": 1 },
+      { "package_part": "744-A2129-00P", "part_number": "710-09482-00P", "description": "Première carte EMI", "qty_per_unit": 1 },
+      { "package_part": "744-A2141-00P", "part_number": "102-00483-01", "description": "Fusible d'entrée (160 A)", "qty_per_unit": 24 },
+      { "package_part": "744-A2559-00P", "part_number": "102-23171-00", "description": "Fusible de sortie (450 A)", "qty_per_unit": 6 },
+      { "package_part": "744-A2140-00P", "part_number": "102-23174-00", "description": "Fusible batterie (700 A)", "qty_per_unit": 4 },
+      { "package_part": "744-A2560-00P", "part_number": "090-01205-00", "description": "SCR", "qty_per_unit": 3 },
+      { "package_part": "744-A2132-00P", "part_number": "730-B0879-00P", "description": "Ventilateur de refroidissement PM réseau et batterie (24 V Delta/AVC)", "qty_per_unit": 24 },
+      { "package_part": "744-A2131-00P", "part_number": "730-50881-01P", "description": "Ventilateur de refroidissement PM S et T (24 V Sanyo)", "qty_per_unit": 28 },
+      { "package_part": "744-B0973-00P", "part_number": "730-B0973-01P", "description": "Ventilateur STS", "qty_per_unit": 3 },
+      { "package_part": "744-A2316-00P", "part_number": "092-10375-00", "description": "Contacteur d'entrée", "qty_per_unit": 6 },
+      { "package_part": "744-A2316-00P", "part_number": "092-10375-00", "description": "Contacteur de sortie", "qty_per_unit": 6 },
+      { "package_part": "744-A2316-00P", "part_number": "092-10375-00", "description": "Contacteur batterie", "qty_per_unit": 4 },
+      { "package_part": "744-A2315-00P", "part_number": "092-10374-00", "description": "Contacteur d'équilibrage (balance)", "qty_per_unit": 2 },
+      { "package_part": "744-A2561-00P", "part_number": "092-10362-01", "description": "Contacteur backfeed", "qty_per_unit": 1 },
+      { "package_part": "744-A2562-00P", "part_number": "092-20846-00", "description": "Disjoncteur d'entrée (LIANGXIN, 1re source)", "qty_per_unit": 1 },
+      { "package_part": "744-A2587-00P", "part_number": "092-20847-00", "description": "Disjoncteur d'entrée (TIANSHUI, 2e source)", "qty_per_unit": 1 },
+      { "package_part": null, "part_number": "372-00063-01", "description": "Filtre à poussière 1709 x 238,3 x 6,35", "qty_per_unit": 2 },
+      { "package_part": null, "part_number": "372-00065-01", "description": "Filtre à poussière 1702 x 540,9 x 6,35", "qty_per_unit": 2 }
+    ],
+    "source": "93E 300-400 kVA §10.1, p. 258"
+  },
+
+  "assemblies_300_400_kva": [
+    {
+      "label": "Module de puissance REC / INV",
+      "components": [
+        { "callout": 1, "description": "Carte du module REC/INV", "part_number": "710-09559-01" },
+        { "callout": 2, "description": "Feuille isolante A", "part_number": "114-41109-00" },
+        { "callout": 3, "description": "Feuille isolante B", "part_number": "114-41134-00" },
+        { "callout": 4, "description": "Connecteur rapide", "part_number": "720-E5367-00" },
+        { "callout": 5, "description": "Plaque support du connecteur rapide", "part_number": "373-54334-00" },
+        { "callout": 6, "description": "Feuille isolante dissipateur", "part_number": "114-41133-00" },
+        { "callout": 7, "description": "Capot du module", "part_number": "373-53833-00" },
+        { "callout": 8, "description": "Plaque support du module", "part_number": "373-54333-00" }
+      ]
+    },
+    {
+      "label": "Module de puissance batterie",
+      "components": [
+        { "callout": 1, "description": "Carte du module batterie", "part_number": "710-09562-00P" },
+        { "callout": 2, "description": "Feuille isolante A", "part_number": "114-41109-00" },
+        { "callout": 3, "description": "Feuille isolante B", "part_number": "114-41134-00" },
+        { "callout": 4, "description": "Connecteur rapide", "part_number": "720-E5366-00" },
+        { "callout": 5, "description": "Plaque support du connecteur rapide", "part_number": "373-54345-00" },
+        { "callout": 6, "description": "Feuille isolante dissipateur", "part_number": "114-41133-00" },
+        { "callout": 7, "description": "Capot du module", "part_number": "373-53833-00" },
+        { "callout": 8, "description": "Plaque support du module", "part_number": "373-54333-00" }
+      ]
+    },
+    {
+      "label": "Module bypass système intégré (ISBM)",
+      "components": [
+        { "callout": 1, "description": "Ventilateur STS", "part_number": "730-B0973-01P" },
+        { "callout": 2, "description": "Bouton Force to bypass", "part_number": "092-39061-00" },
+        { "callout": 3, "description": "Plaque support STS", "part_number": "373-54350-00" },
+        { "callout": 4, "description": "Barre cuivre entrée", "part_number": "314-01949-00" },
+        { "callout": 5, "description": "Barre cuivre sortie", "part_number": "314-01950-00" },
+        { "callout": 6, "description": "Dissipateur", "part_number": "318-02371-00" },
+        { "callout": 7, "description": "SCR", "part_number": "090-01079-00" },
+        { "callout": 8, "description": "Feuille isolante dissipateur", "part_number": "114-41122-00" },
+        { "callout": 9, "description": "Feuille isolante carte", "part_number": "114-41124-00" },
+        { "callout": 10, "description": "Feuille de guidage d'air", "part_number": "114-41123-00" },
+        { "callout": 11, "description": "Carte MCU-Interface", "part_number": "712-00328-06P" },
+        { "callout": 12, "description": "Carte MCU-STS", "part_number": "710-09183-04P" },
+        { "callout": 13, "description": "Entretoise isolante", "part_number": "520-93290-01" }
+      ]
+    },
+    {
+      "label": "Ensemble contacteurs sortie et batterie",
+      "components": [
+        { "callout": 1, "description": "Fusible batterie (700 A)", "part_number": "102-23174-00" },
+        { "callout": 2, "description": "Fusible de sortie (450 A)", "part_number": "102-23171-00" },
+        { "callout": 3, "description": "Barre cuivre haute", "part_number": "314-01940-00" },
+        { "callout": 4, "description": "Entretoise isolante", "part_number": "520-93290-01" },
+        { "callout": 5, "description": "Plaque support (contacteurs sortie et batterie)", "part_number": "373-54356-00" },
+        { "callout": 6, "description": "Dissipateur", "part_number": "318-02336-01" },
+        { "callout": 7, "description": "Barre cuivre basse", "part_number": "314-01946-00" },
+        { "callout": 8, "description": "Barre cuivre arrière", "part_number": "314-01951-00" },
+        { "callout": 9, "description": "Contacteur sortie et batterie", "part_number": "092-10367-00" }
+      ]
+    },
+    {
+      "label": "Ensemble contacteur d'entrée",
+      "components": [
+        { "callout": 1, "description": "Fusible d'entrée (160 A)", "part_number": "102-00483-01" },
+        { "callout": 2, "description": "Barre cuivre basse", "part_number": "314-01964-00" },
+        { "callout": 3, "description": "Barre cuivre haute", "part_number": "314-01963-00" },
+        { "callout": 4, "description": "Dissipateur", "part_number": "318-02335-00" },
+        { "callout": 5, "description": "Barre cuivre arrière", "part_number": "314-01896-03" },
+        { "callout": 6, "description": "Contacteur d'entrée", "part_number": "092-10372-00" },
+        { "callout": 7, "description": "Plaque support (contacteur d'entrée)", "part_number": "373-54354-00" },
+        { "callout": 8, "description": "Entretoise isolante", "part_number": "520-93255-00" }
+      ]
+    },
+    {
+      "label": "Vue éclatée avant",
+      "components": [
+        { "callout": 1, "description": "Porte avant", "part_number": "373-54404-00 ; 373-54359-00 ; 373-54358-00" },
+        { "callout": 2, "description": "Cache avant gauche", "part_number": "373-54331-00" },
+        { "callout": 3, "description": "Cache avant central", "part_number": "373-54402-00" },
+        { "callout": 4, "description": "Cache avant droit", "part_number": "373-54403-00" },
+        { "callout": 7, "description": "ISBM", "part_number": "730-D0033-00P" },
+        { "callout": 12, "description": "Carte EPO", "part_number": "710-09684-00P" },
+        { "callout": 13, "description": "Sous-ensemble module réseau (Line PM)", "part_number": "730-D0031-00P" },
+        { "callout": 14, "description": "Sous-ensemble module batterie (Battery PM)", "part_number": "730-D0032-00P" },
+        { "callout": 15, "description": "Disjoncteur d'entrée", "part_number": "092-20847-00" },
+        { "callout": 16, "description": "Cache de câbles client (haut)", "part_number": "373-54407-00" }
+      ]
+    },
+    {
+      "label": "Vue éclatée arrière",
+      "components": [
+        { "callout": 1, "description": "Cache arrière E/S", "part_number": "373-54635-00" },
+        { "callout": 2, "description": "Cache arrière droit", "part_number": "373-54326-00" },
+        { "callout": 3, "description": "Cache arrière gauche", "part_number": "373-54327-00" },
+        { "callout": 4, "description": "Cache arrière bas", "part_number": "373-54324-00" },
+        { "callout": 7, "description": "Contacteur backfeed", "part_number": "092-10362-01" },
+        { "callout": 8, "description": "Cache de câbles client (bas)", "part_number": "373-54332-00" }
+      ]
+    }
+  ]
+}

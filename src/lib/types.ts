@@ -8,8 +8,8 @@ export interface ErrorCode {
 }
 
 export type EventKind = 'alarm' | 'sticky_alarm' | 'notice' | 'sticky_notice' | 'status' | 'command';
-export type Source = 'UPM' | 'MCU' | 'CSB';
-export type CatalogId = 'modular' | 'monoblock' | 'ups93t';
+export type Source = 'UPM' | 'MCU' | 'CSB' | 'UPS';
+export type CatalogId = 'modular' | 'monoblock' | 'ups93t' | 'ups93e' | 'ups93e_large' | 'ups9e';
 
 /** Une ligne du catalogue, un identifiant par objet (les groupes sont dépliés). */
 export interface CatalogEvent {
@@ -18,6 +18,8 @@ export interface CatalogEvent {
   source: Source;
   id: number;
   groupIds: number[];
+  /** Identifiant affiché quand il diffère du numéro (ex. code 9E « A60D »). */
+  displayId: string | null;
   name: string;
   kind: EventKind | null;
   level: number | null;

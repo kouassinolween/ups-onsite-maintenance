@@ -50,7 +50,7 @@ export function DetailView({
   return (
     <article className="detail">
       <button className="back" type="button" onClick={onBack}>← Retour aux résultats</button>
-      <h2>{e.source} {e.id} — {e.name}</h2>
+      <h2>{e.source} {e.displayId ?? e.id} — {e.name}</h2>
       <div className="meta">
         <span className={`badge b-${e.kind}`}>{KIND_LABEL[e.kind ?? ''] ?? '?'}</span>
         {e.level != null && <span className="badge b-src">Niveau {e.level}</span>}
@@ -82,7 +82,7 @@ export function DetailView({
         <table className="kv">
           <tbody>
             <tr><th>Source</th><td>{SOURCE_LABEL[e.source] ?? e.source}</td></tr>
-            <tr><th>Numéro d'événement</th><td>{e.id} {group}</td></tr>
+            <tr><th>{e.displayId ? 'Code affiché' : "Numéro d'événement"}</th><td>{e.displayId ?? e.id} {group}</td></tr>
             {e.page != null && <tr><th>Manuel</th><td>{def?.manual ?? 'Manuel Eaton'}, p. {e.page}</td></tr>}
             {e.defaults && (
               <tr><th>Valeurs par défaut</th><td>{Object.entries(e.defaults).map(([k, v]) => `${k} : ${v}`).join(' ; ')}</td></tr>

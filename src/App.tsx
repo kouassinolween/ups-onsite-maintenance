@@ -72,7 +72,7 @@ export function App() {
     <>
       <header className="top">
         <h1>
-          Entretien UPS <span className="sub">Alarmes Eaton 93PM / 93PS / 93T</span>
+          Entretien UPS <span className="sub">Alarmes Eaton 9E / 93E / 93PM / 93PS / 93T</span>
         </h1>
         <span className="net" role="status">{online ? 'en ligne' : 'hors ligne'}</span>
       </header>
@@ -87,7 +87,7 @@ export function App() {
       <footer className="foot">
         <p>
           Aide au diagnostic : ne remplace ni la documentation constructeur, ni la procédure de sécurité du site.
-          Catalogues extraits du manuel d'alarmes Eaton rev 003 (93PM / 93PS) et du service manual 93T (non final) ; entrées « extraction automatique » à relire.
+          Catalogues extraits du manuel d'alarmes Eaton rev 003 (93PM / 93PS) et des service manuals 93T (non final), 93E et 9E ; entrées « extraction automatique » à relire.
         </p>
       </footer>
     </>

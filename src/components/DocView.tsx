@@ -31,6 +31,9 @@ function ProcedureCard({ p, all }: { p: Procedure; all: Procedure[] }) {
       {p.switches && <p className="muted">Interrupteurs concernés : {p.switches.join(', ')}</p>}
       <List items={p.steps} ordered />
       {p.disassembly_steps && <><p><strong>Démontage :</strong></p><List items={p.disassembly_steps} ordered /></>}
+      {p.scr_steps && <><p><strong>Remplacement du SCR :</strong></p><List items={p.scr_steps} /></>}
+      {p.pcb_steps && <><p><strong>Remplacement de la carte :</strong></p><List items={p.pcb_steps} /></>}
+      {p.force_bypass_steps && <><p><strong>Bouton « Force to bypass » :</strong></p><List items={p.force_bypass_steps} /></>}
       {p.replacement_steps && <><p><strong>Repose :</strong></p><List items={p.replacement_steps} ordered /></>}
       {p.switches_note && <p className="muted">{p.switches_note}</p>}
       {p.torque_refs && p.torque_refs.length > 0 && (
@@ -286,6 +289,8 @@ const PM_INTRO: Record<DocTab, string> = {
   modes: 'Modes de fonctionnement du 93PM (service manual P-164000219 Rev B02, manuel d\'alarmes rev 003) et gestion avancée de batterie.',
   parallel: 'Parallèle du 93PM : topologies, câblage, mise en service, synchronisation, ajout et retrait d\'unité.',
   options: 'Options du 93PM : cartes de connectivité MiniSlot, armoires et accessoires (service manual P-164000219 Rev B02, chapitre 5).',
+  parts: '',
+  parameters: '',
   context: 'Contexte des alarmes du 93PS 8-40 kW (manuel de service HPO-1041857 rév. A). Le catalogue d\'événements du 93PS modulaire est celui de la famille « 93PM / 93PS modulaire » de l\'écran Alarmes.',
 };
 
@@ -350,7 +355,49 @@ function OptionsView({ family, tab }: { family: DocFamily; tab: DocTab }) {
   );
 }
 
+const PACK_INTRO: Record<'93e' | '9e', Record<'procedures' | 'parts' | 'parameters', string>> = {
+  '93e': {
+    procedures: 'Procédures 93E : unités remplaçables, accès, couples, remplacement (300-400 kVA), calibrage. Manuels 15-80 kVA V1.0 et 300-400 kVA A01.',
+    parts: 'Pièces détachées 93E 15-80 kVA (quantités par puissance) et 300-400 kVA (liste et vues éclatées).',
+    parameters: 'Paramètres 93E : canaux de calibrage, configuration EEPROM suggérée par application, échéancier de maintenance préventive.',
+  },
+  '9e': {
+    procedures: 'Procédures 9E 6-20 kVA : démontage des cartes, essais après réparation, système parallèle.',
+    parts: 'Références des cartes 9E par modèle et correspondance 744 / 710.',
+    parameters: 'Paramètres 9E : réglages par outil de service, fusibles et composants à contrôler, tensions types.',
+  },
+};
+
+function PackView({ family, tab }: { family: '93e' | '9e'; tab: 'procedures' | 'parts' | 'parameters' }) {
+  const [state, setState] = useState<{ key: string; procedures: ProceduresDoc | null; docs: Awaited<ReturnType<typeof loadPmDoc>> } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const key = `${family}/${tab}`;
+
+  useEffect(() => {
+    let alive = true;
+    setError(null);
+    const p = tab === 'procedures'
+      ? loadPmProcedures(family).then((procedures) => ({ procedures, docs: [] as Awaited<ReturnType<typeof loadPmDoc>> }))
+      : loadPmDoc(tab, family).then((docs) => ({ procedures: null as ProceduresDoc | null, docs }));
+    p.then((r) => { if (alive) setState({ key, ...r }); }).catch((e: Error) => { if (alive) setError(e.message); });
+    return () => { alive = false; };
+  }, [family, tab, key]);
+
+  if (error) return <p className="empty">Impossible de charger la documentation : {error}</p>;
+  if (!state || state.key !== key) return <p className="empty">Chargement…</p>;
+  return (
+    <section aria-label={`Documentation ${family} : ${tab}`}>
+      <p className="muted">{PACK_INTRO[family][tab]} Brouillon à valider par un technicien certifié.</p>
+      {state.procedures && <ProceduresView doc={state.procedures} />}
+      {state.docs.map((d, i) => <GenericDoc key={i} data={d.data} title={d.title} />)}
+    </section>
+  );
+}
+
 export function DocView({ route }: { route: DocRoute }) {
+  if ((route.family === '93e' || route.family === '9e') && (route.tab === 'procedures' || route.tab === 'parts' || route.tab === 'parameters')) {
+    return <PackView family={route.family} tab={route.tab} />;
+  }
   if (route.tab === 'options' || route.tab === 'context') return <OptionsView family={route.family} tab={route.tab} />;
   return route.family === '93pm' ? <Doc93PMView tab={route.tab} /> : <Doc93TView tab={route.tab} />;
 }

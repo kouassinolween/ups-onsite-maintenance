@@ -72,6 +72,67 @@ const LABELS: Record<string, string> = {
   behaviour: "Comportement",
   parallel_overload: "Surcharge du système parallèle",
   parameter: "Paramètre",
+  // pièces et paramètres 93E / 9E
+  boards_by_model: "Cartes par modèle",
+  correspondence_744_710: "Correspondance 744 / 710",
+  parts_15_80_kva: "Pièces 15-80 kVA",
+  parts_300_400_kva: "Pièces 300-400 kVA",
+  assemblies_300_400_kva: "Ensembles 300-400 kVA (vues éclatées)",
+  rating_columns: "Colonnes de puissance",
+  qty_20: "20 kVA",
+  qty_30: "30 kVA",
+  qty_40: "40 kVA",
+  qty_60: "60 kVA",
+  qty_80: "80 kVA",
+  package_part: "Référence emballage",
+  qty_per_unit: "Quantité / unité",
+  eaton_pn: "Réf. Eaton",
+  ba2_pn: "Réf. BA2",
+  designation: "Désignation",
+  board: "Carte",
+  function: "Fonction",
+  model: "Modèle",
+  boards: "Cartes",
+  components: "Composants",
+  callout: "Repère",
+  description: "Description",
+  service_tool_settings: "Réglages par l'outil de service",
+  display_modes: "Modes affichés",
+  buzzer: "Avertisseur sonore",
+  fuse_checks: "Fusibles à contrôler",
+  component_checks: "Contrôles de composants",
+  typical_voltages: "Tensions types",
+  calibration_channels: "Canaux de calibrage",
+  channel: "Canal",
+  eeprom_application_settings: "Configuration EEPROM par application",
+  applications: "Applications",
+  settings: "Réglages",
+  eep: "EEPROM",
+  default: "Défaut",
+  suggested: "Valeur suggérée",
+  firmware: "Firmware",
+  preventive_maintenance_300_400: "Maintenance préventive 300-400 kVA",
+  reference_values: "Valeurs de référence",
+  schedule: "Échéancier",
+  years: "Années",
+  component: "Composant",
+  item: "Élément",
+  typical: "Valeur type",
+  test_point: "Point de test",
+  expected: "Attendu",
+  priority: "Priorité",
+  beep: "Signal",
+  circuit: "Circuit",
+  warning: "Attention",
+  blocks: "Blocs",
+  block: "Bloc",
+  checks: "Contrôles",
+  tool_note: "Outil",
+  modes: "Modes",
+  code: "Code",
+  rows: "Lignes",
+  parts: "Pièces",
+  fuses: "Fusibles",
   // options.json
   connectivity: 'Connectivité', slots: 'Baies', cards: 'Cartes', catalog_number: 'Référence catalogue',
   enovia_pn: 'Référence Enovia', cabinets: 'Armoires', variants: 'Variantes', features: 'Caractéristiques',
@@ -107,6 +168,27 @@ function Value({ v }: { v: unknown }) {
   if (Array.isArray(v)) {
     if (v.every(isPrimitive)) {
       return <ul className="doc-list">{v.map((x, i) => <li key={i}>{fmt(x)}</li>)}</ul>;
+    }
+    if (v.length >= 2 && v.every((x) => x && typeof x === 'object' && !Array.isArray(x) &&
+        Object.entries(x as Record<string, unknown>).every(([k, y]) => k.startsWith('_') || isPrimitive(y)))) {
+      const cols: string[] = [];
+      for (const x of v as Record<string, unknown>[]) {
+        for (const k of Object.keys(x)) if (!k.startsWith('_') && !cols.includes(k)) cols.push(k);
+      }
+      if (cols.length >= 2 && cols.length <= 9) {
+        return (
+          <div className="doc-scroll">
+            <table className="kv grid">
+              <thead><tr>{cols.map((c) => <th key={c}>{keyLabel(c)}</th>)}</tr></thead>
+              <tbody>
+                {(v as Record<string, unknown>[]).map((x, i) => (
+                  <tr key={i}>{cols.map((c) => <td key={c}>{x[c] === undefined ? '' : fmt(x[c] as string | number | boolean | null)}</td>)}</tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      }
     }
     return (
       <div className="doc-items">

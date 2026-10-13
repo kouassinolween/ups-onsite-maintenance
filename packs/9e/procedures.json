@@ -1,0 +1,132 @@
+{
+  "_source": "Eaton 9E 6-20 kVA (MASTIFF) Service Manual Rev 1.0 : ch. 2 (sécurité), ch. 7 (démontage, p. 66-74), ch. 8 (tests au niveau composant, p. 75-84), annexe 9 (parallèle, p. 85-94). Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Les procédures de démontage du manuel sont presque entièrement illustrées : seules les légendes sont reprises ; les photos (repérage des vis et fixations) sont à consulter dans le manuel.",
+
+  "tools": [],
+  "torque_values": [],
+  "torque_note": "Le manuel 9E ne donne pas de couples de serrage.",
+  "torque_source": "",
+
+  "safety": {
+    "before_any_work": [
+      "Ne régler le produit qu'en présence d'une personne autorisée.",
+      "Une tension alternative peut être présente même si le réseau n'est plus raccordé.",
+      "Mettre l'UPS hors tension et le déconnecter du réseau avant de retirer les capots.",
+      "Retirer les batteries : une tension continue reste présente sur les cartes de puissance même UPS éteint.",
+      "Ne toucher aucune connexion ni composant UPS en marche.",
+      "Les condensateurs chargés peuvent délivrer une haute tension : attendre au moins cinq minutes après l'arrêt de l'UPS avant d'ouvrir le capot.",
+      "Remettre les capots latéral et supérieur avant de réalimenter ; le conducteur de terre (PE) doit être raccordé."
+    ],
+    "source": "9E §2, p. 10-11"
+  },
+
+  "procedures": [
+    {
+      "id": "dis_6ki",
+      "label": "Démontage des cartes : 9E 6Ki",
+      "variant": "6Ki",
+      "steps": [
+        "Débrancher les câbles puis retirer les vis pour déposer la carte EMI de sortie (Output EMI PCA).",
+        "Retirer les deux vis pour déposer la carte de commande (Control PCA).",
+        "Débrancher les câbles de la carte chargeur (Charger-PCBA), puis retirer ses deux vis pour la déposer.",
+        "Retirer les papiers de guidage d'air (air tunnel).",
+        "Débrancher les câbles de la carte PSDR (PSDR-PCBA), puis retirer ses vis pour la déposer."
+      ],
+      "parts_hint": ["710-09719-00P", "712-00371-00P", "710-09246-03P"],
+      "source": "9E §7, p. 66-68"
+    },
+    {
+      "id": "dis_10ki",
+      "label": "Démontage des cartes : 9E 10Ki et 10KiXL",
+      "variant": "10Ki / 10KiXL",
+      "steps": [
+        "Retirer les papiers de guidage d'air sur la carte PSDR.",
+        "Retirer les deux vis pour déposer la carte de commande (Control PCBA).",
+        "Débrancher les câbles de la carte PSDR, puis retirer les deux vis pour la déposer.",
+        "Débrancher les câbles, puis retirer les vis pour déposer le chargeur et les cartes BUS et EMI de sortie.",
+        "10KiXL : seul le chargeur diffère du 10Ki ; retirer le papier de guidage d'air de la carte chargeur, puis déposer le chargeur et les cartes BUS et EMI de sortie."
+      ],
+      "parts_hint": ["744-09720", "744-A2787"],
+      "source": "9E §7, p. 69-71"
+    },
+    {
+      "id": "dis_15_20ki",
+      "label": "Démontage des cartes : 9E 15Ki et 20Ki(XL)",
+      "variant": "15Ki / 20Ki(XL)",
+      "steps": [
+        "Retirer le papier de guidage d'air sur la carte PFC.",
+        "Débrancher les câbles et retirer les vis pour déposer les cartes PFC, SPS et chargeur.",
+        "Retirer le papier de guidage d'air sur la carte INV.",
+        "Débrancher les câbles, puis retirer les vis pour déposer les cartes INV et EMI de sortie."
+      ],
+      "source": "9E §7, p. 72-74"
+    },
+    {
+      "id": "test_after_repair",
+      "label": "Essais après réparation",
+      "variant": "6Ki à 20Ki(XL)",
+      "steps": [
+        "Contrôler le câblage interne.",
+        "Fixer les capots latéral et supérieur.",
+        "Raccorder le câblage externe (le PE doit être raccordé).",
+        "Vérifier la position de tous les interrupteurs.",
+        "Alimenter par la batterie : il est conseillé d'utiliser une source à courant limité (3 A) pour protéger l'UPS en cas de pièce encore défaillante.",
+        "Mettre l'UPS en marche, contrôler les tensions et l'état ; en cas d'échec, lire le code défaut.",
+        "Arrêter l'UPS, appliquer l'alimentation alternative d'entrée.",
+        "Remettre l'UPS en marche, contrôler les tensions et l'état ; en cas d'échec, lire le code défaut.",
+        "Si possible, faire un essai à pleine charge avant de rendre l'UPS à l'utilisateur."
+      ],
+      "notes": [
+        "Un fusible ouvert n'est presque jamais la cause : trouver et remplacer les composants réellement défaillants avant de redémarrer.",
+        "Valeurs types : bus DC + sur P6 et P7 de la carte PFC : +350 à +390 V c.c. ; bus DC - sur P9 et P12 : -350 à -390 V c.c. ; tension de sortie sur P1 et P4 de la carte INV : 230 V c.a. (ou 220 V, selon réglage) ; équilibre DC de sortie sur P1 et P4 : 100 mV maximum."
+      ],
+      "source": "9E §8, p. 82-83"
+    },
+    {
+      "id": "parallel_install",
+      "label": "Installer un système parallèle (9E, option APAC)",
+      "variant": "6Ki à 20Ki(XL)",
+      "steps": [
+        "Maximum 2 UPS en parallèle. Préparer les câbles d'entrée et de sortie et le câble parallèle (câble de communication standard 25 broches du kit parallèle).",
+        "Couper le réseau et arrêter complètement l'UPS avant d'installer la carte parallèle.",
+        "Retirer le capot du port parallèle : dévisser, tirer le capot, couper le câble d'auto-verrouillage, saisir le connecteur du câble plat.",
+        "Raccorder la carte parallèle, l'enfoncer dans l'UPS et visser.",
+        "Raccorder les câbles parallèles entre les UPS, une par une.",
+        "Raccorder les entrées de chaque UPS à un tableau de disjoncteurs d'entrée, et les sorties à un tableau de disjoncteurs de sortie ; chaque UPS a son propre pack batterie.",
+        "La distance entre les UPS en parallèle et le tableau de disjoncteurs doit être inférieure à 20 m ; l'écart de longueur des fils d'entrée et de sortie entre UPS doit être inférieur à 20 %."
+      ],
+      "warnings": [
+        "Le disjoncteur principal d'entrée et celui de sortie sont fournis par l'utilisateur final.",
+        "En parallèle, le câble parallèle externe doit avoir une isolation renforcée."
+      ],
+      "source": "9E §9.1 et §9.2, p. 85-90"
+    },
+    {
+      "id": "parallel_operate",
+      "label": "Démarrer, arrêter, ajouter ou retirer une UPS d'un système parallèle",
+      "variant": "6Ki à 20Ki(XL)",
+      "steps": [
+        "Démarrage : vérifier le câblage ; ne pas fermer le disjoncteur de sortie de chaque UPS, fermer le disjoncteur d'entrée de chaque UPS ; appuyer sur le bouton d'une UPS : toutes démarrent et passent ensemble en mode onduleur ; mesurer la tension de sortie de chaque UPS : l'écart entre les UPS doit être inférieur à 0,5 V, sinon régler les UPS.",
+        "Arrêt : un appui sur le bouton d'une UPS n'arrête que cette UPS si le système est en redondance ; si le système n'est pas redondant, tout le système parallèle s'arrête.",
+        "Ajouter une UPS : le système parallèle doit disposer d'un commutateur de maintenance principal (mécanique ou statique) ; régler séparément la tension de sortie de la nouvelle UPS (écart avec le système inférieur à 0,5 V) ; vérifier que le bypass du système est normal et réglé sur « enable », fermer le commutateur de maintenance de chaque UPS ; passer le commutateur principal de « UPS » à « BPS », ouvrir les disjoncteurs principaux de sortie et d'entrée (les UPS s'arrêtent) ; une fois l'arrêt complet, ajouter l'UPS et réinstaller le système parallèle (procédure « Installer un système parallèle ») ; fermer les disjoncteurs principaux, repasser le commutateur principal de « BPS » à « UPS », ouvrir le commutateur de maintenance propre à chaque UPS, puis démarrer.",
+        "Retirer une UPS : même précautions ; vérifier le bypass et son réglage « enable », fermer le commutateur de maintenance de chaque UPS (transfert automatique sur bypass) ; passer le commutateur principal de « UPS » à « BPS », ouvrir les disjoncteurs principaux ; retirer l'UPS voulue et réinstaller le système ; remettre sous tension, rouvrir les commutateurs de maintenance et démarrer."
+      ],
+      "source": "9E §9.3, p. 91-93"
+    },
+    {
+      "id": "parallel_troubleshooting",
+      "label": "Dépannage du parallèle (9E)",
+      "variant": "6Ki à 20Ki(XL)",
+      "steps": [
+        "« Para Cable Male Loss » ou « Para Cable Female Loss » (code A00E) : le câble parallèle est débranché : vérifier le câble parallèle.",
+        "« Para Line Differ » (code A012) : l'alimentation réseau d'une UPS est coupée : vérifier le câblage du bâtiment et le câble d'entrée, que le disjoncteur d'entrée est fermé et que les UPS sont sur la même source d'entrée.",
+        "« Para Work Mode Differ » (code AC18) : des réglages de stratégie de puissance différents existent dans le système parallèle : interdire de mettre en parallèle des UPS de modes différents (par exemple Line et Converter).",
+        "« Para Rate Power Differ » (code A00F) : des UPS de capacités différentes (par exemple 6 kVA et 10 kVA) sont interdites en parallèle.",
+        "« ECO In Para » (code AC19) : la fonction haut rendement (HE) est activée en parallèle : elle est interdite en parallèle.",
+        "« Cable male and female Loss fault » (code FC16) : le câble parallèle est débranché : vérifier le câble parallèle."
+      ],
+      "notes": ["Si le problème persiste après ces vérifications, contacter le revendeur."],
+      "source": "9E §9.4, p. 93-94"
+    }
+  ]
+}

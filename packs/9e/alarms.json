@@ -1,0 +1,729 @@
+{
+  "_source": "Eaton 9E 6-20 kVA (MASTIFF) Service Manual Rev 1.0 (DSD-9E1302), §6.1 « Alarms », p. 46-47. Reformulé en français, texte anglais conservé.",
+  "_status": "Codes relus sur les tables du manuel. L'identifiant numérique est la valeur hexadécimale du code (A60D = 42509) ; seul le code affiché fait foi.",
+  "family": "e9",
+  "events": [
+    {
+      "source": "UPS",
+      "ids": [
+        42509
+      ],
+      "display_id": "A60D",
+      "name": "Battery Open",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Battery not present (or some elements of the battery are disconnected)",
+      "desc_fr": "Batterie absente ou certains éléments de la batterie sont déconnectés.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        42240
+      ],
+      "display_id": "A500",
+      "name": "Charger Failure",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Any hardware fault that cause charger malfunction",
+      "desc_fr": "Tout défaut matériel provoquant un dysfonctionnement du chargeur.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        42242
+      ],
+      "display_id": "A502",
+      "name": "Over Charge",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Recharge battery voltage is too high",
+      "desc_fr": "La tension de recharge de la batterie est trop élevée.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        41226
+      ],
+      "display_id": "A10A",
+      "name": "Line Input Unbalance",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "The three input voltage are different, and the (Max voltage - Min Voltage) > 30V",
+      "desc_fr": "Déséquilibre des tensions d'entrée : écart entre la tension maximale et la tension minimale supérieur à 30 V.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        41223
+      ],
+      "display_id": "A107",
+      "name": "Site Wiring Fault",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Phase Neutral inversion on every UPS or GND no connect",
+      "desc_fr": "Défaut de câblage du site : inversion phase / neutre sur une UPS, ou terre non raccordée.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        43264
+      ],
+      "display_id": "A900",
+      "name": "On Maintenance Bypass",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "On Maintenance Bypass",
+      "desc_fr": "L'UPS est sur le bypass de maintenance.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        43022
+      ],
+      "display_id": "A80E",
+      "name": "Output Overload (level set)",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Output over load (default > 105% Load, it can be set from 1% to 105%)",
+      "desc_fr": "Surcharge de sortie au-dessus du seuil réglé (105 % par défaut, réglable de 1 % à 105 %).",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        43024
+      ],
+      "display_id": "A810",
+      "name": "Output Overload (>105%)",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Output over load (>105% Load)",
+      "desc_fr": "Surcharge de sortie supérieure à 105 % de la charge nominale.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        40974
+      ],
+      "display_id": "A00E",
+      "name": "Parallel Communication Loss",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Parallel communication line lost",
+      "desc_fr": "Perte de la ligne de communication parallèle.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        40975
+      ],
+      "display_id": "A00F",
+      "name": "Parallel Power Rating Different",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Two parallel UPS power rating different",
+      "desc_fr": "Deux UPS en parallèle ont des puissances nominales différentes.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        40978
+      ],
+      "display_id": "A012",
+      "name": "Parallel Input Power Different",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Line input power inconsistent",
+      "desc_fr": "Puissances d'entrée réseau incohérentes entre les UPS en parallèle.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        42500
+      ],
+      "display_id": "A604",
+      "name": "Low Battery",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Low battery",
+      "desc_fr": "Batterie faible.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        43014
+      ],
+      "display_id": "A806",
+      "name": "EPO",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Emergency stop was proceed",
+      "desc_fr": "Arrêt d'urgence (EPO) exécuté.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        40967
+      ],
+      "display_id": "A007",
+      "name": "Fan Failure",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "The fan have no connect or block",
+      "desc_fr": "Ventilateur non raccordé ou bloqué.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        42503
+      ],
+      "display_id": "A607",
+      "name": "Service Battery",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Battery need replacement or when the battery test was fail",
+      "desc_fr": "Batterie à remplacer, ou échec du test batterie.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        40964
+      ],
+      "display_id": "A004",
+      "name": "Over Temperature",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "The heat sink temperature is high",
+      "desc_fr": "Température du dissipateur élevée.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        43010
+      ],
+      "display_id": "A802",
+      "name": "Shut Down Imminent",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Shut down imminent",
+      "desc_fr": "Arrêt imminent de l'UPS.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        44054
+      ],
+      "display_id": "AC16",
+      "name": "Parallel CAN Communication Loss (Male & Female)",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Communication loss or abnormal",
+      "desc_fr": "Perte ou anomalie de la communication CAN parallèle (câbles mâle et femelle).",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        44056
+      ],
+      "display_id": "AC18",
+      "name": "Parallel UPS Work Mode Different",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Parallel UPS work mode is different",
+      "desc_fr": "Les UPS en parallèle ne sont pas dans le même mode de fonctionnement.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        44057
+      ],
+      "display_id": "AC19",
+      "name": "Parallel UPS Wrong Operation Mode",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Parallel UPS work in wrong operation mode",
+      "desc_fr": "Une UPS du système parallèle fonctionne dans un mode de fonctionnement incorrect.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        44064
+      ],
+      "display_id": "AC20",
+      "name": "UPS In Internal Bypass Mode",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "UPS work in internal Bypass operation mode (force to bypass by manual operation)",
+      "desc_fr": "L'UPS fonctionne en bypass interne (forcé manuellement).",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        44065
+      ],
+      "display_id": "AC21",
+      "name": "Input R Phase Abnormal",
+      "kind": "notice",
+      "level": null,
+      "target": null,
+      "page": 46,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Input R Phase abnormal",
+      "desc_fr": "Anomalie sur la phase R d'entrée.",
+      "import": "curated",
+      "manual_note": "Catégorie « Anomalie » du manuel : problème mineur qui ne verrouille pas l'UPS mais réduit les performances ou empêche certaines fonctions."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        61959
+      ],
+      "display_id": "F207",
+      "name": "Backfeed Failure",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "If UPS work on battery mode and has some current on bypass circuit, the unit will generate a alarm \"Back feed\" and transfer to fault mode",
+      "desc_fr": "Défaut de retour de tension (backfeed) : l'UPS sur batterie détecte du courant sur le circuit bypass et passe en mode défaut.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        63236
+      ],
+      "display_id": "F704",
+      "name": "Inverter Failure",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Inverter soft start fail",
+      "desc_fr": "Défaut onduleur : échec du démarrage progressif de l'onduleur.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        63245
+      ],
+      "display_id": "F70D",
+      "name": "Inverter Over Voltage",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Inverter voltage over 270V for 10 cycles",
+      "desc_fr": "Surtension onduleur : tension supérieure à 270 V pendant 10 périodes.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        63244
+      ],
+      "display_id": "F70C",
+      "name": "Inverter Under Voltage",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Inverter voltage under 140V for 10 cycles",
+      "desc_fr": "Sous-tension onduleur : tension inférieure à 140 V pendant 10 périodes.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        63505
+      ],
+      "display_id": "F811",
+      "name": "Negative Power",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Current inrush in output (could be due to the parallel unit)",
+      "desc_fr": "Puissance négative : appel de courant en sortie (peut venir d'une unité en parallèle).",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        63493
+      ],
+      "display_id": "F805",
+      "name": "Output Short Circuit",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Output short circuit",
+      "desc_fr": "Court-circuit en sortie.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        62212
+      ],
+      "display_id": "F304",
+      "name": "Bus Voltage Unbalance",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Bus voltage unbalance",
+      "desc_fr": "Déséquilibre de tension du bus DC.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        62209
+      ],
+      "display_id": "F301",
+      "name": "-BUS Over Voltage",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "-Bus voltage too high",
+      "desc_fr": "Surtension du bus DC négatif.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        62208
+      ],
+      "display_id": "F300",
+      "name": "+BUS Over Voltage",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "+Bus voltage too high",
+      "desc_fr": "Surtension du bus DC positif.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        62213
+      ],
+      "display_id": "F305",
+      "name": "BUS Soft Start Fail",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "If the rectifier could not rise the Bus voltage to 350V in 60 seconds during startup process",
+      "desc_fr": "Échec du démarrage progressif du bus : le redresseur n'a pas amené la tension du bus à 350 V en 60 s au démarrage.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        62211
+      ],
+      "display_id": "F303",
+      "name": "-BUS Under Voltage",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "-Bus voltage too low",
+      "desc_fr": "Sous-tension du bus DC négatif.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        62210
+      ],
+      "display_id": "F302",
+      "name": "+BUS Under Voltage",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "+Bus voltage too low",
+      "desc_fr": "Sous-tension du bus DC positif.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        61442
+      ],
+      "display_id": "F002",
+      "name": "UPS Fault",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "UPS have fault: Fault Mode / Charger Failure / Fan Lock / Battery Low / over load / Battery Disconnected",
+      "desc_fr": "Défaut de l'UPS : mode défaut, défaut chargeur, ventilateur bloqué, batterie faible, surcharge ou batterie déconnectée.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        63496
+      ],
+      "display_id": "F808",
+      "name": "Output Overload",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Output overload",
+      "desc_fr": "Surcharge de sortie.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        61444
+      ],
+      "display_id": "F004",
+      "name": "Over Temperature",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "The heat sink temperature is too high",
+      "desc_fr": "Température du dissipateur trop élevée.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    },
+    {
+      "source": "UPS",
+      "ids": [
+        64534
+      ],
+      "display_id": "FC16",
+      "name": "Parallel CAN Communication Loss (Male & Female)",
+      "kind": "alarm",
+      "level": null,
+      "target": null,
+      "page": 47,
+      "error_code": {
+        "type": "none"
+      },
+      "desc_en": "Communication loss or abnormal",
+      "desc_fr": "Perte ou anomalie de la communication CAN parallèle (câbles mâle et femelle) : l'UPS passe en défaut.",
+      "import": "curated",
+      "manual_note": "Catégorie « Alarme » du manuel : problème plus critique qui, s'il persiste, peut verrouiller l'UPS très rapidement (affichage FAULT / LOCK)."
+    }
+  ]
+}

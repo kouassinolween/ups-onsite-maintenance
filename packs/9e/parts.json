@@ -1,0 +1,104 @@
+{
+  "_source": "Eaton 9E 6-20 kVA (MASTIFF) Service Manual Rev 1.0, §1.3 « PCB board part number » (p. 7-8) et tableau de correspondance 744 / 710 (p. 9). Références relues sur les pages du manuel.",
+  "_status": "BROUILLON À VALIDER. Le manuel ne donne pas de quantités par appareil. Les références peuvent évoluer : se rapporter au représentant Eaton.",
+
+  "boards_by_model": [
+    {
+      "model": "9E 6Ki",
+      "boards": [
+        { "board": "Carte de commande (CNTL)", "part_number": "712-00371-00P", "function": "Protection, signalisation, régulation et commande ; interface LCD" },
+        { "board": "Carte de communication", "part_number": "712-00375-00P", "function": "Communication série et USB" },
+        { "board": "Carte parallèle", "part_number": "710-09561-00P", "function": "Interface de communication parallèle" },
+        { "board": "Carte PSRLY", "part_number": "710-09716-01P", "function": "Bornier de sortie" },
+        { "board": "Carte BUS", "part_number": "710-09242-00P", "function": "Condensateurs du bus" },
+        { "board": "Carte chargeur 1,4 A (6K)", "part_number": "710-09719-00P", "function": "Charge de la batterie interne ou externe" },
+        { "board": "Carte PSDR", "part_number": "710-09246-03P", "function": "Redresseur / PFC, onduleur, commande du relais INV" },
+        { "board": "Carte EMI d'entrée (I/P EMI)", "part_number": "710-09312-02P", "function": "Filtre EMI d'entrée" },
+        { "board": "Carte EMI de sortie (O/P EMI)", "part_number": "710-09249-01P", "function": "Filtre EMI de sortie, commande du relais de sortie" },
+        { "board": "Carte GND", "part_number": "710-15807-00P", "function": "Boîtier de l'UPS" }
+      ]
+    },
+    {
+      "model": "9E 10Ki / 10Ki(XL)",
+      "boards": [
+        { "board": "Carte de commande (CNTL)", "part_number": "712-00371-00P", "function": "Protection, signalisation, régulation et commande ; interface LCD" },
+        { "board": "Carte de communication", "part_number": "712-00375-00P", "function": "Communication série et USB" },
+        { "board": "Carte parallèle", "part_number": "710-09561-00P", "function": "Interface de communication parallèle" },
+        { "board": "Carte PSRLY", "part_number": "710-09716-01P", "function": "Bornier de sortie" },
+        { "board": "Carte EMI d'entrée", "part_number": "710-09248-03P", "function": "Filtre EMI d'entrée" },
+        { "board": "Carte PSDR", "part_number": "710-09829-00P", "function": "Redresseur / PFC, onduleur, commande du relais INV" },
+        { "board": "Carte BUS", "part_number": "710-09244-00P", "function": "Condensateurs du bus" },
+        { "board": "Carte EMI de sortie", "part_number": "710-09250-01P", "function": "Filtre EMI de sortie, commande du relais de sortie" },
+        { "board": "Carte GND", "part_number": "710-15807-00P", "function": "Boîtier de l'UPS" },
+        { "board": "Carte chargeur 1,4 A (10Ki seulement)", "part_number": "710-09720-00P", "function": "Charge de la batterie interne ou externe" },
+        { "board": "Carte chargeur 4,4 A (10KiXL seulement)", "part_number": "710-09253-02P", "function": "Charge de la batterie interne ou externe" }
+      ]
+    },
+    {
+      "model": "9E 15Ki / 20Ki(XL)",
+      "boards": [
+        { "board": "Carte de commande (CNTL)", "part_number": "712-00371-00P", "function": "Protection, signalisation, régulation et commande ; interface LCD" },
+        { "board": "Carte de communication", "part_number": "712-00375-00P", "function": "Communication série et USB" },
+        { "board": "Carte SPS", "part_number": "710-61440-02P", "function": "Alimente +/-15 V, 12 V et 5 V pour le fonctionnement de l'UPS" },
+        { "board": "Carte parallèle", "part_number": "710-09561-00P", "function": "Interface de communication parallèle" },
+        { "board": "Carte PSRLY", "part_number": "710-09716-01P", "function": "Bornier de sortie" },
+        { "board": "Carte GND", "part_number": "710-15807-00P", "function": "Boîtier de l'UPS" },
+        { "board": "Carte chargeur 2 A / 5 A", "part_number": "710-09259-02P", "function": "Charge de la batterie interne ou externe" },
+        { "board": "15Ki : carte PFC", "part_number": "710-09263-02P", "function": "Redresseur et PFC d'entrée" },
+        { "board": "15Ki : carte INV", "part_number": "710-09260-00P", "function": "Onduleur, commande des relais INV et de sortie" },
+        { "board": "15Ki : carte EMI d'entrée", "part_number": "710-09261-01P", "function": "Filtre EMI d'entrée" },
+        { "board": "15Ki : carte EMI de sortie", "part_number": "710-09262-00P", "function": "Filtre EMI de sortie" },
+        { "board": "20Ki(XL) : carte PFC", "part_number": "710-09264-03P", "function": "Redresseur et PFC d'entrée" },
+        { "board": "20Ki(XL) : carte INV", "part_number": "710-09265-00P", "function": "Onduleur, commande des relais INV et de sortie" },
+        { "board": "20Ki(XL) : carte EMI d'entrée", "part_number": "710-09266-01P", "function": "Filtre EMI d'entrée" },
+        { "board": "20Ki(XL) : carte EMI de sortie", "part_number": "710-09267-00P", "function": "Filtre EMI de sortie" }
+      ]
+    }
+  ],
+
+  "correspondence_744_710": {
+    "label": "Correspondance référence Eaton 744 / référence 710 (BA2)",
+    "parts": [
+      { "eaton_pn": "744-09720", "ba2_pn": "710-09720-00P", "designation": "Carte chargeur 10K" },
+      { "eaton_pn": "744-A2782", "ba2_pn": "710-09244-00P", "designation": "Carte condensateurs 10K" },
+      { "eaton_pn": "744-A2783", "ba2_pn": "710-09248-03P", "designation": "Carte IP EMI 10K" },
+      { "eaton_pn": "744-A2784", "ba2_pn": "710-09250-01P", "designation": "Carte OP EMI 10K" },
+      { "eaton_pn": "744-A2785", "ba2_pn": "710-09251-01P", "designation": "Carte PSDR 10K" },
+      { "eaton_pn": "744-A2786", "ba2_pn": "710-15807-00P", "designation": "Carte GND 6 à 20K" },
+      { "eaton_pn": "744-A2787", "ba2_pn": "710-09253-02P", "designation": "Carte chargeur 10K XL" },
+      { "eaton_pn": "744-09716", "ba2_pn": "710-09716-00P", "designation": "Carte relais 6 à 20K" },
+      { "eaton_pn": "744-00371", "ba2_pn": "712-00371-00P", "designation": "Carte CNTL 6 à 20K" },
+      { "eaton_pn": "744-00375", "ba2_pn": "712-00375-00P", "designation": "Carte COMM 6 à 20K" },
+      { "eaton_pn": "744-A2788", "ba2_pn": "710-61440-01P", "designation": "Carte SPS 15 à 20K" },
+      { "eaton_pn": "744-A2789", "ba2_pn": "710-09259-02P", "designation": "Carte chargeur 15 à 20K" },
+      { "eaton_pn": "744-A2790", "ba2_pn": "710-09260-00P", "designation": "Carte INV 15K" },
+      { "eaton_pn": "744-A2791", "ba2_pn": "710-09261-01P", "designation": "Carte IP EMI 15K" },
+      { "eaton_pn": "744-A2792", "ba2_pn": "710-09262-00P", "designation": "Carte OP EMI 15K" },
+      { "eaton_pn": "744-A2793", "ba2_pn": "710-09263-01P", "designation": "Carte PFC 15K" },
+      { "eaton_pn": "744-A2794", "ba2_pn": "710-09264-02P", "designation": "Carte PFC 20K" },
+      { "eaton_pn": "744-A2795", "ba2_pn": "710-09265-00P", "designation": "Carte INV 20K" },
+      { "eaton_pn": "744-A2796", "ba2_pn": "710-09266-01P", "designation": "Carte IP EMI 20K" },
+      { "eaton_pn": "744-A2797", "ba2_pn": "710-09267-00P", "designation": "Carte OP EMI 20K" },
+      { "eaton_pn": "744-A2798", "ba2_pn": "710-09312-02P", "designation": "Carte IP EMI 6K" },
+      { "eaton_pn": "744-A2799", "ba2_pn": "710-09249-01P", "designation": "Carte OP EMI 6K" },
+      { "eaton_pn": "744-09719", "ba2_pn": "710-09719-00P", "designation": "Carte chargeur 6K" },
+      { "eaton_pn": "744-A2800", "ba2_pn": "710-09242-00P", "designation": "Carte condensateurs 6K" },
+      { "eaton_pn": "744-A2801", "ba2_pn": "710-09246-00P", "designation": "Carte PSDR 6K" },
+      { "eaton_pn": "744-A2811", "ba2_pn": "710-09561-00P", "designation": "Carte parallèle 6 à 20K" },
+      { "eaton_pn": "744-A2802", "ba2_pn": "730-B0783-02P ; 730-B0451-01P", "designation": "Ventilateur 10K" },
+      { "eaton_pn": "744-A2804", "ba2_pn": "730-B0781-00P", "designation": "Ventilateur 15 à 20K" },
+      { "eaton_pn": "744-A2805", "ba2_pn": "730-B0782-00P", "designation": "Ventilateur 6K" },
+      { "eaton_pn": "610-D0086-00", "ba2_pn": "610-D0086-00", "designation": "Carton 6 à 10K" },
+      { "eaton_pn": "610-D0087-00", "ba2_pn": "610-D0087-00", "designation": "Carton 15 à 20K" },
+      { "eaton_pn": "102-01279-00", "ba2_pn": "102-01279-00", "designation": "Fusible 6 à 10K LITTEL 324025 25 A 250 V c.a." },
+      { "eaton_pn": "102-22023-00", "ba2_pn": "102-22023-00", "designation": "Fusible 10 à 20K FUSE BUS ABC-30-V 30 A" },
+      { "eaton_pn": "102-00116-00", "ba2_pn": "102-00116-00", "designation": "Fusible 6 à 10K LIF 0505 030.MXEP 30 A" },
+      { "eaton_pn": "102-23197-00", "ba2_pn": "102-23197-00", "designation": "Fusible 10K HOL 32NM-150H 15 A 250 V c.a. rapide" },
+      { "eaton_pn": "102-01240-01", "ba2_pn": "102-01240-01", "designation": "Fusible 6 à 10K PICO LIF 25101010A 125 V" },
+      { "eaton_pn": "102-01644-00", "ba2_pn": "102-01644-00", "designation": "Fusible 10K LIF 505025MXP 25 A 500 V rapide" },
+      { "eaton_pn": "102-01213-02", "ba2_pn": "102-01213-02", "designation": "Fusible 15 à 20K LIF 314030 30 A 250 V c.a." }
+    ],
+    "note": "Dans le tableau d'origine, la ligne 744-A2802 regroupe deux références 730 (B0783-02P et B0451-01P) pour le ventilateur 10K. Les libellés de désignation Eaton sont repris du tableau (colonne « Eaton designation »).",
+    "source": "9E p. 9"
+  }
+}

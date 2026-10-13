@@ -100,3 +100,5 @@ table.grid th, table.grid td { padding: .3rem .5rem .3rem 0; border-bottom: 1px 
 .doc-row dd { margin: 0; }
 @media (max-width: 520px) { .doc-row { grid-template-columns: 1fr; } }
 .doc-row.stack { grid-template-columns: 1fr; }
+.doc-scroll { overflow-x: auto; margin: .3rem 0; }
+.doc-scroll table.kv th, .doc-scroll table.kv td { white-space: normal; vertical-align: top; }

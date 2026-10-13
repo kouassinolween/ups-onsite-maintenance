@@ -1,0 +1,39 @@
+{
+  "pack_format": "1.0",
+  "pack_id": "eaton-9e",
+  "pack_version": "0.1.0-phase0",
+  "status": "draft",
+  "vendor": "Eaton",
+  "family": "9E",
+  "label": "Eaton 9E 6-20 kVA (MASTIFF)",
+  "ratings": [
+    {
+      "range": "6-20 kVA",
+      "notes": "Service Manual DSD-9E1302 Rev 1.0, 94 p."
+    }
+  ],
+  "event_key": [
+    "catalog",
+    "source",
+    "id"
+  ],
+  "event_key_note": "Le 9E n'a pas de numéros d'événement : il affiche des codes (A… anomalie, F… alarme). L'identifiant numérique du catalogue est la valeur hexadécimale du code ; le code est affiché dans l'application.",
+  "sources": [
+    {
+      "file": "9E/DSD-9E1302_Eaton_9E_service_manual.doc.pdf",
+      "ref": "Rev 1.0 (MASTIFF)",
+      "used_for": "alarms.json (§6.1, p. 46-47) ; procedures.json (ch. 7 démontage, ch. 8, annexe 9 parallèle), parts.json (p. 7-9), parameters.json (ch. 5, 6, 8)"
+    }
+  ],
+  "gaps": [
+    "Les organigrammes de dépannage par code (§6.3, p. 48-58) sont des images : non repris.",
+    "Les procédures de démontage (ch. 7) et les spécifications ne sont pas extraites.",
+    "Démontage : légendes seulement (les procédures du manuel sont des photos)."
+  ],
+  "contents": [
+    "alarms.json",
+    "procedures.json",
+    "parts.json",
+    "parameters.json"
+  ]
+}

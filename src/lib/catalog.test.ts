@@ -124,6 +124,50 @@ describe('packs réels', () => {
       for (const r of p.after ?? []) if (/^[a-z_0-9]+$/.test(r)) expect(ids.has(r), `${p.id} after ${r}`).toBe(true);
     }
   });
+  it('93E et 9E : catalogues sans doublon, numéros UPM/MCU/CSB cohérents', () => {
+    const small = expandEvents('ups93e', read('93e/alarms.json').events);
+    const large = expandEvents('ups93e_large', read('93e/alarms.large.json').events);
+    const e9 = expandEvents('ups9e', read('9e/alarms.json').events);
+    for (const [label, events] of [['93E 15-80', small], ['93E 300-400', large], ['9E', e9]] as const) {
+      const keys = events.map((e) => `${e.source}:${e.id}`);
+      expect(new Set(keys).size, label).toBe(keys.length);
+    }
+    expect(small.length).toBeGreaterThan(130);
+    expect(large.length).toBeGreaterThan(200);
+    expect(e9).toHaveLength(38);
+    // numérotation CSB du 93E à partir de 128, MCU à partir de 192
+    expect(large.filter((e) => e.source === 'CSB').every((e) => e.id >= 128)).toBe(true);
+    expect(large.filter((e) => e.source === 'MCU').every((e) => e.id >= 192)).toBe(true);
+    // un code 9E se retrouve par son code affiché
+    const hit = search(e9, 'A60D', {}).results;
+    expect(hit.map((e) => e.displayId)).toEqual(['A60D']);
+  });
+  it('93E et 9E : procédures et pièces cohérentes (références, prérequis)', () => {
+    const collect = (v: unknown, out: Set<string>) => {
+      if (Array.isArray(v)) v.forEach((x) => collect(x, out));
+      else if (v && typeof v === 'object') {
+        for (const [k, x] of Object.entries(v as Record<string, unknown>)) {
+          if (['part_number', 'eaton_pn', 'ba2_pn', 'package_part'].includes(k) && typeof x === 'string') {
+            x.split(/\s*;\s*/).forEach((p) => out.add(p));
+          } else collect(x, out);
+        }
+      }
+    };
+    for (const fam of ['93e', '9e']) {
+      const proc = read(`${fam}/procedures.json`);
+      const refs = new Set<string>();
+      collect(read(`${fam}/parts.json`), refs);
+      const ids = new Set(proc.procedures.map((p: { id: string }) => p.id));
+      expect(ids.size, fam).toBe(proc.procedures.length);
+      for (const p of proc.procedures) {
+        expect(p.steps.length, `${fam} ${p.id}`).toBeGreaterThan(0);
+        for (const r of p.prerequisites ?? []) expect(ids.has(r), `${fam} ${p.id} -> ${r}`).toBe(true);
+        for (const h of p.parts_hint ?? []) expect(refs.has(h), `${fam} ${p.id} pièce ${h}`).toBe(true);
+      }
+      JSON.parse(JSON.stringify(read(`${fam}/parameters.json`)));
+    }
+    expect(read('93e/procedures.json').torque_values.length).toBeGreaterThan(40);
+  });
   it("93PM : niveaux d'accès sans aucun mot de passe par défaut", () => {
     const acc = read('93pm/access.json');
     expect(acc.levels).toHaveLength(3);
@@ -132,7 +176,10 @@ describe('packs réels', () => {
     }
   });
   it('chaque entrée a un nom et une explication française', () => {
-    for (const f of ['93pm/alarms.json', '93ps/alarms.monoblock.json', '93t/alarms.json']) {
+    for (const f of [
+      '93pm/alarms.json', '93ps/alarms.monoblock.json', '93t/alarms.json',
+      '93e/alarms.json', '93e/alarms.large.json', '9e/alarms.json',
+    ]) {
       for (const e of read(f).events) {
         expect(e.name, f).toBeTruthy();
         expect(e.desc_fr, `${f} ${e.source} ${e.ids}`).toBeTruthy();

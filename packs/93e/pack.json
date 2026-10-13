@@ -1,0 +1,51 @@
+{
+  "pack_format": "1.0",
+  "pack_id": "eaton-93e",
+  "pack_version": "0.1.0-phase0",
+  "status": "draft",
+  "vendor": "Eaton",
+  "family": "93E",
+  "label": "Eaton 93E (15-80 kVA et 300-400 kVA)",
+  "ratings": [
+    {
+      "range": "15-80 kVA",
+      "notes": "Service Manual 93E 15-80 kVA V1.0 : événements UPM et CSB"
+    },
+    {
+      "range": "300-400 kVA",
+      "notes": "Service Manual 93E 300-400 kVA A01 : événements UPM, MCU et CSB"
+    }
+  ],
+  "event_key": [
+    "catalog",
+    "source",
+    "id"
+  ],
+  "event_key_note": "Les deux gammes ont des catalogues distincts : un événement se désigne par (gamme, source, id). Les numéros CSB du 93E commencent à 128, ceux du 93T à 192.",
+  "sources": [
+    {
+      "file": "93E/Service Manual/93E 15-80kVA Service Manual V1.0.pdf",
+      "ref": "V1.0, 256 p.",
+      "used_for": "alarms.json (§9.4.4 Event Chart, UPM et CSB) ; procedures.json, parts.json (ch. 10), parameters.json (ch. 8, annexe SOP)"
+    },
+    {
+      "file": "93E/Service Manual/93E 300-400kVA Service Manual A01.pdf",
+      "ref": "A01, 285 p.",
+      "used_for": "alarms.large.json (§9.2.4 Event Chart, UPM, MCU, CSB) ; procedures.json (ch. 7, §9.3.2), parts.json (ch. 10), parameters.json (ch. 8, §9.4)"
+    }
+  ],
+  "gaps": [
+    "Manuel 15-80 kVA : les événements ne sont pas numérotés ; les numéros UPM sont déduits par rapprochement avec le catalogue du 93T (ordre et noms concordants), les numéros CSB par rapprochement avec le manuel 300-400 kVA. Les numéros déduits par l'ordre sont signalés.",
+    "Manuel 300-400 kVA : mise en page dégradée dans le PDF ; 5 libellés corrigés à la main (UPM 0, MCU 219 et 298...) ; 2 événements CSB (« Password Level », « MCU Not Responding ») sans numéro lisible, non repris.",
+    "Les descriptions françaises sont reprises des catalogues 93T et 93PM par nom d'événement (même plateforme logicielle) ; 23 sont rédigées. Tout est à relire.",
+    "Les codes d'erreur (champs de bits, énumérations) sont repris des entrées de même nom du 93T / 93PM : à confirmer sur le 93E.",
+    "Procédures : le manuel 15-80 kVA ne détaille pas de dépose composant par composant (FRU et accès seulement) ; le 300-400 kVA détaille 11 procédures (figures non reprises). Quantités du tableau 300-400 kVA : lecture « par unité » à confirmer."
+  ],
+  "contents": [
+    "alarms.json",
+    "alarms.large.json",
+    "procedures.json",
+    "parts.json",
+    "parameters.json"
+  ]
+}

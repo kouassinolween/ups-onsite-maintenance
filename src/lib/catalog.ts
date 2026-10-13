@@ -8,6 +8,9 @@ export const CATALOGS: CatalogDef[] = [
   { id: 'modular', label: '93PM / 93PS modulaire', pack: '93pm', file: 'alarms.json', manual: "Manuel d'alarmes Rev 003" },
   { id: 'monoblock', label: '91PS / 93PS monobloc 8-10 kVA', pack: '93ps', file: 'alarms.monoblock.json', manual: "Manuel d'alarmes Rev 003" },
   { id: 'ups93t', label: '93T 15-80 kW', pack: '93t', file: 'alarms.json', manual: 'Service Manual 93T HPO-1046599 rev 001 (non final)' },
+  { id: 'ups93e', label: '93E 15-80 kVA', pack: '93e', file: 'alarms.json', manual: 'Service Manual 93E 15-80 kVA V1.0' },
+  { id: 'ups93e_large', label: '93E 300-400 kVA', pack: '93e', file: 'alarms.large.json', manual: 'Service Manual 93E 300-400 kVA A01' },
+  { id: 'ups9e', label: '9E 6-20 kVA', pack: '9e', file: 'alarms.json', manual: 'Service Manual 9E 6-20 kVA (MASTIFF) Rev 1.0' },
 ];
 
 export const KIND_LABEL: Record<string, string> = {
@@ -16,7 +19,7 @@ export const KIND_LABEL: Record<string, string> = {
 };
 export const TARGET_LABEL: Record<string, string> = { user: 'Utilisateur', service: 'Service' };
 export const SOURCE_LABEL: Record<string, string> = {
-  UPM: 'UPM (module de puissance)', MCU: 'MCU (contrôle / STS)', CSB: 'CSB (commande / HMI)',
+  UPM: 'UPM (module de puissance)', MCU: 'MCU (contrôle / STS)', CSB: 'CSB (commande / HMI)', UPS: 'UPS (code affiché)',
 };
 
 export const strip = (s: unknown): string =>
@@ -26,7 +29,7 @@ export const strip = (s: unknown): string =>
 export interface RawEvent {
   source: Source; ids: number[]; name: string; kind?: EventKind | null; level?: number | null;
   target?: 'user' | 'service' | null; page?: number | null; error_code?: CatalogEvent['errorCode'];
-  desc_fr?: string | null; desc_en?: string | null; defaults?: Record<string, string> | null;
+  desc_fr?: string | null; desc_en?: string | null; defaults?: Record<string, string> | null; display_id?: string | null;
   timing?: string | null; import?: 'auto' | 'curated'; manual_note?: string | null;
 }
 
@@ -36,13 +39,13 @@ export function expandEvents(catalog: CatalogId, raw: RawEvent[]): CatalogEvent[
     for (const id of e.ids) {
       out.push({
         key: `${catalog}|${e.source}|${id}`,
-        catalog, source: e.source, id, groupIds: e.ids,
+        catalog, source: e.source, id, groupIds: e.ids, displayId: e.display_id ?? null,
         name: e.name, kind: e.kind ?? null, level: e.level ?? null, target: e.target ?? null,
         page: e.page ?? null, errorCode: e.error_code ?? { type: 'none' },
         descFr: e.desc_fr ?? '', descEn: e.desc_en ?? '',
         defaults: e.defaults ?? null, timing: e.timing ?? null,
         imported: e.import ?? 'curated', manualNote: e.manual_note ?? null,
-        nameNorm: strip(e.name), frNorm: strip(e.desc_fr), enNorm: strip(e.desc_en),
+        nameNorm: strip(e.display_id ? `${e.display_id} ${e.name}` : e.name), frNorm: strip(e.desc_fr), enNorm: strip(e.desc_en),
       });
     }
   }

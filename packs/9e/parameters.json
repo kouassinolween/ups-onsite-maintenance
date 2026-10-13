@@ -1,0 +1,124 @@
+{
+  "_source": "Eaton 9E 6-20 kVA (MASTIFF) Service Manual Rev 1.0 : ch. 5 (outils de service, p. 44-45), ch. 6 (affichage et voyants, p. 59-64), ch. 8 (tests au niveau composant, p. 75-84). Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié.",
+
+  "service_tool_settings": {
+    "label": "Réglages par l'outil de service (ch. 5)",
+    "settings": [
+      { "parameter": "Nombre d'EBM (modules batterie externes)", "default": "0 (modèles Ki et KiXL)", "note": "À renseigner avec l'outil de service si le nombre d'EBM installés n'est pas la valeur par défaut. Batterie interne : 1 groupe de 9 Ah (6Ki, 10Ki, 20Ki) ou 1 groupe de 7 Ah (15Ki). EBM 180 V et 240 V : 2 groupes de 9 Ah. EBM 480 V : 1 groupe de 9 Ah." },
+      { "parameter": "Mode haut rendement (HE)", "default": "désactivé", "note": "À activer avec l'outil de service si nécessaire ; interdit en parallèle." },
+      { "parameter": "Tension de sortie", "default": null, "note": "Sélectionnable avec l'outil de service : 220 V, 230 V ou 240 V." }
+    ],
+    "source": "9E §5.2 à §5.4, p. 44-45"
+  },
+
+  "display_modes": {
+    "label": "Modes de fonctionnement affichés (page fréquence d'entrée et mode)",
+    "modes": [
+      { "code": "00", "mode": "Mise sous tension (Power on)" },
+      { "code": "01", "mode": "Veille (Standby)" },
+      { "code": "02", "mode": "Bypass" },
+      { "code": "03", "mode": "Ligne (Line)" },
+      { "code": "04", "mode": "Batterie (Battery)" },
+      { "code": "05", "mode": "Test batterie (Battery test)" },
+      { "code": "06", "mode": "Défaut (Fault)" },
+      { "code": "07", "mode": "Convertisseur (Converter)" },
+      { "code": "08", "mode": "ECO" },
+      { "code": "09", "mode": "Arrêt (Shut down)" }
+    ],
+    "note": "En cas d'alarme, le LCD affiche automatiquement le code correspondant : l'icône clignote pour un avertissement et reste allumée pour un défaut. Pages d'affichage : tensions d'entrée R, S, T (pages S et T absentes en entrée monophasée), fréquence d'entrée et mode, tension et fréquence de sortie, taux de charge et information parallèle (« UP2 » = deux UPS en capacité, « P2 » = redondance), tension batterie (séries A et B pour 15K(S) et 20K(S)), pourcentage batterie et mode système, code d'alarme courant et code de défaut courant.",
+    "source": "9E §6.3 « LCD Panel Display », p. 59-63"
+  },
+
+  "buzzer": {
+    "label": "Avertisseur sonore (par priorité)",
+    "rows": [
+      { "priority": 1, "condition": "Défaut et panne de l'UPS", "beep": "Continu" },
+      { "priority": 2, "condition": "Mode normal", "beep": "Aucun bip" },
+      { "priority": 3, "condition": "Mode batterie / test batterie", "beep": "Un bip toutes les 4 s" },
+      { "priority": 4, "condition": "Mode bypass", "beep": "Un bip par seconde quand la batterie est faible" },
+      { "priority": 5, "condition": "Surcharge", "beep": "Un bip toutes les 2 minutes ; un bip toutes les 500 ms" },
+      { "priority": 6, "condition": "Autre alarme", "beep": "Un bip par seconde" }
+    ],
+    "note": "La ligne « Surcharge » du manuel donne deux cadences ; la correspondance exacte avec les niveaux de surcharge n'est pas lisible dans le texte extrait.",
+    "source": "9E p. 63-64"
+  },
+
+  "fuse_checks": {
+    "label": "Fusibles à contrôler avant tout diagnostic (ch. 8)",
+    "fuses": [
+      { "circuit": "Carte EMI d'entrée : fusibles d'entrée", "6Ki": "F5, F6", "10Ki(XL)": "F1, F2, F3", "15Ki / 20Ki(XL)": "F1 à F6" },
+      { "circuit": "Carte EMI de sortie : fusibles de sortie", "6Ki": "F1, F2", "10Ki(XL)": "F1, F2", "15Ki / 20Ki(XL)": "F1 à F4" },
+      { "circuit": "Carte PSDR : fusible batterie (carte PFC)", "6Ki": "F303, F305", "10Ki(XL)": "F4", "15Ki / 20Ki(XL)": "F1, F2" },
+      { "circuit": "Carte PSDR : fusible de sortie onduleur", "6Ki": "-", "10Ki(XL)": "F2, F3", "15Ki / 20Ki(XL)": "F1 à F4" },
+      { "circuit": "Chargeur 1,4 A (6Ki / 10Ki)", "6Ki": "F1 à F6", "10Ki(XL)": "F1 à F6", "15Ki / 20Ki(XL)": "-" },
+      { "circuit": "Chargeur 4,4 A (10KiXL)", "6Ki": "-", "10Ki(XL)": "F1 à F6", "15Ki / 20Ki(XL)": "-" },
+      { "circuit": "Chargeur 2 A / 5 A (15Ki / 20Ki(XL))", "6Ki": "-", "10Ki(XL)": "-", "15Ki / 20Ki(XL)": "F1 à F4" },
+      { "circuit": "EBM : fusibles du module batterie externe", "6Ki": "F1, F2", "10Ki(XL)": "F1, F2", "15Ki / 20Ki(XL)": "F1, F2" }
+    ],
+    "warning": "Si un fusible est ouvert, le remplacer seul ne règle pas le problème : l'ouverture d'un fusible est presque toujours causée par la défaillance d'autres composants ; les trouver et les remplacer avant de redémarrer.",
+    "source": "9E §8, p. 75-76"
+  },
+
+  "component_checks": {
+    "label": "Contrôles de composants par fonction (ch. 8)",
+    "blocks": [
+      {
+        "block": "Convertisseur AC/DC (PFC)",
+        "checks": [
+          "SCR : 10Ki(XL) Q9, Q10, Q11, Q5, Q6, Q26, Q27 ; 15Ki/20Ki(XL) Q3 à Q6, Q11, Q12, Q14, Q15 : résistance 11 à 25 Ω (défaut : court-circuit, ouvert ou valeur modifiée).",
+          "IGBT : 6Ki Q16, Q16A, Q21, Q21A ; 10Ki(XL) Q15, Q16, Q21, Q22 ; 15Ki/20Ki(XL) Q17 à Q22 : chute de diode (EC) 0,38 V ; diode (CE) infinie (défaut : court-circuit ou ouvert).",
+          "Diodes : 6Ki / 10Ki(XL) D13, D14 ; 15Ki/20Ki(XL) D7, D8, D15, D16 : 0,36 V.",
+          "Résistances : 6Ki R75, R83, R84, R91 ; 10Ki(XL) R63, R75, R83, R97 : 10 Ω ; 15Ki/20Ki(XL) R51 à R53, R67, R69, R71 : 4,99 Ω ; R45 à R47, R62, R64, R65 : 10 / 22 Ω.",
+          "Si les résistances de rang 4 sont défaillantes, le module driver IGBT PFC correspondant est probablement endommagé (CN6 et CN7 pour 6K ; PCB5 et PCB7 pour 10Ki(XL) ; CN2 et CN3 pour 15Ki/20Ki(XL)). Si les SCR sont défaillants, remplacer le module driver SCR (CN9 pour 6K ; PCB4 pour 10Ki(XL) ; CN9 et PCB1 pour 15Ki/20Ki(XL))."
+        ]
+      },
+      {
+        "block": "Convertisseur DC/AC (onduleur)",
+        "checks": [
+          "IGBT : 6Ki Q2, Q3, Q12, Q24 ; 10Ki(XL) Q1 à Q4, Q12, Q13, Q23, Q24 ; 15Ki/20Ki(XL) Q2, Q3, Q7 à Q12, Q16 à Q18 : chute de diode 0,38 V (EC) ; diode (CE) infinie.",
+          "Diodes : 6Ki / 10Ki(XL) D1, D2 ; 15Ki/20Ki(XL) D1, D2, D6, D7 : 0,36 V.",
+          "Résistances 10 Ω : 6Ki R13, R19, R29, R176 ; 10Ki(XL) R13, R15, R17, R19, R29, R74, R173, R176 ; 15Ki/20Ki(XL) R115 à R126.",
+          "Résistances 27 Ω : 15Ki/20Ki(XL) R7, R9, R14 ; R57, R58, R60. Résistances 39 Ω : 6Ki R7, R9, R39, R177 ; 10Ki(XL) R5, R7, R9, R10, R35, R162, R174, R177 ; 15Ki/20Ki(XL) R23, R24, R26 ; R40, R41, R45.",
+          "Si les défauts sont des résistances de rang 3, 4 ou 5, le module driver IGBT INV correspondant est probablement endommagé (CN1 et CN2 pour 6K ; PCB3 et PCB8 pour 10Ki(XL) ; CN2 à CN5 pour 15Ki/20Ki(XL))."
+        ]
+      },
+      {
+        "block": "Chargeur 1,4 A",
+        "checks": [
+          "Fusibles F1 à F4 : 0 Ω (ouvert = défaut).",
+          "Pont REC1 : 0,4 V ; MOSFET Q1 (SD) : 0,4 V ; diodes D1, D4, D7, D8 : 0,45 V ; résistance R12 : 10 Ω.",
+          "Si tout est normal et que le chargeur ne fonctionne pas, essayer de changer le circuit U6."
+        ]
+      },
+      {
+        "block": "Chargeur 4,4 A",
+        "checks": [
+          "Fusibles F1 à F4 : 0 Ω.",
+          "Pont REC1 : 0,4 V ; MOSFET Q3, Q7, Q8 (SD) : 0,4 V ; diodes D2, D35, D41 : 0,45 V ; résistances R33, R35 : 47 Ω.",
+          "Si tout est normal et que le chargeur ne fonctionne pas, essayer de changer le circuit U4."
+        ]
+      },
+      {
+        "block": "Chargeur 2 A / 5 A",
+        "checks": [
+          "Fusibles F1 à F4 : 0 Ω.",
+          "Ponts BR1, BR2 : 0,408 V / 0,490 V ; MOSFET Q1, Q2 (SD) : 0,5 V ; diodes D1, D6 : 0,38 V ; diodes D3, D4 : 0,4 V ; résistances R3, R14 : 2,2 Ω.",
+          "Si tout est normal et que le chargeur ne fonctionne pas, essayer de changer les circuits U9 et U14."
+        ]
+      }
+    ],
+    "source": "9E §8, p. 76-81"
+  },
+
+  "typical_voltages": {
+    "label": "Tensions types après réparation",
+    "values": [
+      { "item": "Tension du bus DC +", "test_point": "P6 et P7 sur la carte PFC", "expected": "+350 V c.c. à +390 V c.c." },
+      { "item": "Tension du bus DC -", "test_point": "P9 et P12 sur la carte PFC", "expected": "-350 V c.c. à -390 V c.c." },
+      { "item": "Tension de sortie", "test_point": "P1 et P4 sur la carte INV", "expected": "230 V c.a. (ou 220 V, selon le réglage)" },
+      { "item": "Équilibre DC de sortie", "test_point": "P1 et P4 sur la carte INV", "expected": "100 mV maximum" }
+    ],
+    "source": "9E §8, p. 83"
+  }
+}

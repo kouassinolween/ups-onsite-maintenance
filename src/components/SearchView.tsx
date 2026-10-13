@@ -12,7 +12,7 @@ export function EventCard({ e, onOpen }: { e: CatalogEvent; onOpen: () => void }
   return (
     <button type="button" className="card" onClick={onOpen}>
       <div className="l1">
-        <span className="id">{e.source} {e.id}</span>
+        <span className="id">{e.source} {e.displayId ?? e.id}</span>
         <span className="nm">{e.name}</span>
         <Badge cls={`b-${e.kind}`}>{KIND_LABEL[e.kind ?? ''] ?? '?'}</Badge>
         {e.imported === 'auto' && <Badge cls="b-auto">à relire</Badge>}
@@ -49,7 +49,7 @@ export function SearchView({ data, onOpen }: { data: CatalogData; onOpen: (key: 
         </select>
         <select aria-label="Source" value={filters.source} onChange={(e) => set('source', e.target.value as SearchFilters['source'])}>
           <option value="">Toutes sources</option>
-          <option value="UPM">UPM</option><option value="MCU">MCU</option><option value="CSB">CSB</option>
+          <option value="UPM">UPM</option><option value="MCU">MCU</option><option value="CSB">CSB</option><option value="UPS">UPS (9E)</option>
         </select>
         <select aria-label="Type" value={filters.kind} onChange={(e) => set('kind', e.target.value as SearchFilters['kind'])}>
           <option value="">Tous types</option>
