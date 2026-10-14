@@ -60,3 +60,17 @@ npm run packs:validate
 - Aucun mot de passe constructeur n'est stocké.
 - Toute entrée `import: "auto"` est à relire ; tout candidat alarme → pièce est à confirmer par mesure.
 - L'application est une aide : elle ne remplace ni la documentation constructeur ni les procédures de sécurité du site.
+
+## Accès par mot de passe
+
+L'application affiche un écran de mot de passe si la variable de build `VITE_ACCESS_HASH` est définie (sinon l'accès est libre).
+
+```powershell
+node tools/hash-password.mjs      # saisir le mot de passe : affiche VITE_ACCESS_HASH=<empreinte>
+```
+
+Placer l'empreinte dans Netlify (Site configuration > Environment variables > `VITE_ACCESS_HASH`), puis relancer un déploiement.
+Pour un essai local : `$env:VITE_ACCESS_HASH="<empreinte>"; npm run dev`.
+
+Limite : protection côté navigateur (dissuasive). L'empreinte est dans le bundle et les fichiers `/packs/*.json` restent atteignables par URL ;
+une protection serveur exige l'offre Netlify payante. Ne jamais commiter le mot de passe en clair.
