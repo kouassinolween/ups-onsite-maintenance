@@ -1,0 +1,374 @@
+{
+  "_source": "CSB VRLA Battery User Manual (rev mai 2024) : §2 sécurité, §3-4 transport et stockage, §5 installation, §6 charge, §7 décharge, §8 maintenance, §9 dépannage, §10 garantie ; CSB Safety Data Sheets SDS-CSB-001 (boîtier ABS) et SDS-CSB-002 (boîtier PP), rév. 01.01.2024. Reformulé en français, texte non recopié.",
+  "_status": "BROUILLON À VALIDER par un technicien certifié. Synthèse des pratiques de diagnostic recommandées par CSB pour ses batteries VRLA-AGM ; le constructeur précise que le jugement final revient au support technique CSB. Les valeurs sont données par élément (cellule) à 25 °C : un bloc de 12 V compte 6 éléments. Vérifier la fiche technique du modèle exact (série HR, HRL, XHRL, UPS, GP, TPL…) avant toute décision.",
+
+  "principes": {
+    "summary": "Le diagnostic d'une batterie VRLA repose sur des mesures régulières comparées à l'historique et à la moyenne du groupe : tension de floating, courant de floating, température, résistance / impédance / conductance de chaque bloc, serrage des connexions, test de capacité. Une dérive progressive ou un bloc qui s'écarte nettement des autres signale un défaut avant la panne.",
+    "rules": [
+      "Numéroter tous les blocs de la chaîne pour associer chaque mesure à un bloc et suivre sa tendance.",
+      "Effectuer les inspections au minimum chaque trimestre, manuellement ou par supervision automatique.",
+      "Relever les mêmes grandeurs, avec le même instrument, à chaque visite ; les tendances valent mieux qu'une valeur isolée.",
+      "Mesurer la résistance, l'impédance ou la conductance par bloc est optionnel mais recommandé : ces données facilitent le diagnostic et aident à prévoir le test de capacité.",
+      "Prévenir les personnes concernées avant l'intervention et vérifier que l'outillage et les équipements de sécurité du site sont disponibles.",
+      "En cas de doute sur une valeur, contacter le support technique CSB avant de décider du remplacement."
+    ]
+  },
+
+  "securite": {
+    "before_work": [
+      "Retirer montre, bagues et objets métalliques ; utiliser des outils isolés ; porter lunettes ou écran facial et gants isolants.",
+      "Ne pas poser d'outil métallique sur les batteries ; ne pas ouvrir ni fermer un circuit sous tension ; respecter les polarités.",
+      "Toucher un élément métallique relié à la terre (le rack par exemple) avant de manipuler pour décharger l'électricité statique.",
+      "Vérifier par la mesure que la batterie n'est pas mise à la terre accidentellement avant de travailler sur un rack métallique.",
+      "Nettoyer avec un chiffon humide essoré, jamais avec un tissu sec (risque d'électricité statique) ni une brosse métallique sur les bornes.",
+      "Aucune flamme, étincelle ou fumée à proximité : les batteries peuvent dégager un mélange explosif d'hydrogène, surtout en surcharge.",
+      "Prudence avec les chargeurs sans transformateur d'isolement : la chaîne peut être au potentiel du réseau.",
+      "Couvrir les parties actives exposées avec une couverture isolante lors d'une intervention longue."
+    ],
+    "chemical_and_fire": [
+      "L'électrolyte (acide sulfurique dilué) est corrosif et conducteur : en cas de contact avec la peau, laver immédiatement à l'eau ; dans les yeux, rincer abondamment au moins 10 à 15 minutes et consulter un médecin.",
+      "Neutraliser un épandage avec un kit anti-acide ou une solution de bicarbonate de soude (environ 1 livre pour 1 gallon d'eau selon le manuel).",
+      "Ne jamais démonter ni ouvrir un bloc ; ne pas mélanger avec d'autres technologies (piles sèches, NiCd).",
+      "Incendie : poudre chimique, mousse ou gaz inerte ; les fumées sont irritantes, corrosives voire toxiques ; refroidir le boîtier à l'eau après extinction ; intervenir à contre-vent avec appareil respiratoire isolant.",
+      "Si un bloc présente corrosion, fissure, déformation ou échauffement dès la première utilisation, ne pas l'utiliser et contacter le fournisseur.",
+      "Fin de vie : batterie à recycler (plomb et acide), jamais en décharge ; le plomb impose de se laver les mains après manipulation et de ne pas manger, boire ni fumer sur place."
+    ],
+    "ventilation": "Prévoir une entrée et une sortie d'air dans le local ou l'armoire ; limiter la concentration d'hydrogène à moins de 1 % du volume. Laisser 5 à 10 mm entre blocs pour le refroidissement. L'émission de gaz est minimale à vide, en décharge et en début de recharge, occasionnelle en floating, maximale en égalisation et surcharge."
+  },
+
+  "valeurs_reference": [
+    { "parameter": "Tension de floating", "value": "2,275 ± 0,025 V/élément à 25 °C (13,65 V ± 0,15 par bloc 12 V)", "section": "§6" },
+    { "parameter": "Courant de charge initial", "value": "≤ 0,3 CA", "section": "§6" },
+    { "parameter": "Tension d'égalisation", "value": "2,45 V/élément pendant 5 à 8 h", "section": "§6" },
+    { "parameter": "Usage cyclique", "value": "2,45 ± 0,05 V/élément ; arrêt quand le courant tombe sous 0,05 CA, max 24 h avant retour en floating", "section": "§6" },
+    { "parameter": "Compensation en température", "value": "-3,3 mV/°C/élément (veille), -5 mV/°C/élément (cyclique) ; inutile entre 5 et 35 °C", "section": "§6" },
+    { "parameter": "Température de charge", "value": "5 à 35 °C recommandé ; au-delà de 40 °C prolongé : risque d'emballement thermique", "section": "§6" },
+    { "parameter": "Ondulation de courant maximale en charge", "value": "< 0,05 CA", "section": "§6" },
+    { "parameter": "Ondulation de tension maximale en charge", "value": "< 0,5 % de la tension de floating", "section": "§6" },
+    { "parameter": "Dispersion de tension de floating entre blocs", "value": "+6 % / -3 % au démarrage de la vie, ± 2 % après 6 mois", "section": "§6" },
+    { "parameter": "Capacité minimale avant remplacement", "value": "80 % de la capacité nominale", "section": "§9" },
+    { "parameter": "Température admise en décharge", "value": "éviter < -15 °C et > 50 °C", "section": "§7" },
+    { "parameter": "Échauffement en charge", "value": "stopper la charge si la température monte de plus de 10 °C", "section": "§5" },
+    { "parameter": "Autodécharge à 25 °C", "value": "environ 3 % par mois", "section": "§4" }
+  ],
+
+  "couples_serrage": [
+    { "bolt": "M5", "min_nm": 4.14, "max_nm": 5.73, "peak_nm": 6.4 },
+    { "bolt": "M6", "min_nm": 9.8, "max_nm": 13.58, "peak_nm": 15.09 },
+    { "bolt": "M8", "min_nm": 29.3, "max_nm": 40.57, "peak_nm": 45.08 }
+  ],
+  "couples_serrage_note": "Valeurs du §5 du manuel CSB. Serrer avec une clé dynamométrique isolée et une seconde clé en contre-serrage pour les assemblages vis-écrou. Vérifier la valeur indiquée par le fabricant du bloc ou du rack avant de serrer.",
+
+  "inspections_periodiques": [
+    {
+      "frequency": "Trimestrielle (3 mois)",
+      "actions": "Propreté et absence de débris ; équipements de sécurité du site disponibles ; examen visuel (bornes, échauffement, boîtier ou couvercle) ; tension continue de chaque polarité par rapport à la terre pour détecter un défaut d'isolement ; relevé de la tension et du courant de floating ; température de l'armoire et des blocs."
+    },
+    {
+      "frequency": "Semestrielle (6 mois)",
+      "actions": "Contrôles trimestriels, plus résistance ou conductance de blocs choisis au hasard pour suivre la tendance et repérer les écarts importants à la moyenne."
+    },
+    {
+      "frequency": "Annuelle (12 mois)",
+      "actions": "Contrôles semestriels, plus resserrage au couple de toutes les connexions inter-blocs."
+    },
+    {
+      "frequency": "Tous les 2 ans (24 mois)",
+      "actions": "Test de capacité à la charge réelle ou à la valeur nominale correspondant à l'application."
+    }
+  ],
+
+  "outillage": [
+    "Voltmètre numérique",
+    "Pince ampèremétrique (courant continu)",
+    "Testeur d'impédance ou de conductance",
+    "Banc de charge",
+    "Enregistreur",
+    "Clés à douille et à œil isolées",
+    "Clé dynamométrique",
+    "Tournevis isolé",
+    "Gants isolants, écran facial ou lunettes, douche oculaire portable, extincteur"
+  ],
+
+  "inspection_visuelle": [
+    {
+      "symptom": "Couvercle ou boîtier fissuré",
+      "causes": "Choc ou mauvaise manipulation",
+      "consequences": "Assèchement de l'élément ou défaut à la terre ; risque d'inflammation des gaz internes",
+      "action": "Remplacer le bloc endommagé"
+    },
+    {
+      "symptom": "Couvercle ou boîtier éclaté",
+      "causes": "Inflammation des gaz internes (source externe, fusion d'un conducteur, étincelle interne en court-circuit), surtout au-delà de la durée de vie",
+      "consequences": "Blessures, dégâts matériels, perte de la charge secourue",
+      "action": "Remplacer le bloc et évaluer les autres blocs de la chaîne"
+    },
+    {
+      "symptom": "Signes d'échauffement du boîtier",
+      "causes": "Fissure et fuite d'électrolyte vers un rack relié à la terre : défaut à la terre",
+      "consequences": "Danger pour le personnel, fumée ou incendie, emballement thermique",
+      "action": "Supprimer le défaut à la terre, remplacer le bloc défectueux et évaluer l'équilibre de la chaîne"
+    },
+    {
+      "symptom": "Boîtier déformé (gonflé) de façon permanente",
+      "causes": "Emballement thermique : température élevée, surcharge, courant de recharge excessif, éléments en court-circuit, défaut à la terre ou combinaison",
+      "consequences": "Émission de sulfure d'hydrogène (odeur d'œuf pourri), incendie, incapacité à tenir la charge",
+      "action": "Remplacer le système de batterie et corriger la cause de l'emballement"
+    },
+    {
+      "symptom": "Odeur d'œuf pourri",
+      "causes": "Emballement thermique prolongé (mêmes causes que le gonflement)",
+      "consequences": "Produit d'un emballement thermique avancé",
+      "action": "Remplacer le système de batterie et corriger la cause"
+    },
+    {
+      "symptom": "Graisse fondue à la borne",
+      "causes": "Connexion chaude : résistance excessive due à un serrage insuffisant, contact sale ou corrosion",
+      "consequences": "Chute de tension, autonomie réduite, bornes abîmées ; dans le pire cas, borne fondue et couvercle enflammé",
+      "action": "Nettoyer et remonter la connexion si elle n'est pas abîmée ; remplacer tout bloc à bornes endommagées"
+    },
+    {
+      "symptom": "Corrosion aux bornes",
+      "causes": "Électrolyte résiduel de fabrication ou fuite par le joint de borne attaquant le connecteur",
+      "consequences": "Résistance de connexion accrue, échauffement et chute de tension en décharge rapide",
+      "action": "Démonter, nettoyer les surfaces, appliquer une graisse anti-oxydation, remonter ; si la fuite vient de la borne, remplacer le bloc"
+    }
+  ],
+
+  "resultats_test_capacite": [
+    {
+      "symptom": "Autonomie réduite à 25 °C avec baisse de tension régulière",
+      "causes": "Usure normale",
+      "consequences": "Incapacité à alimenter la charge, puis éléments en court-circuit",
+      "action": "Remplacer le système quand sa capacité atteint 80 % de la nominale, ou avant"
+    },
+    {
+      "symptom": "Autonomie réduite avec chute brutale ou paliers de tension",
+      "causes": "Éléments individuels de faible capacité",
+      "consequences": "Éléments inversés en décharge, très chauds, qui ne se rechargent plus",
+      "action": "Remplacer les blocs de faible capacité identifiés"
+    },
+    {
+      "symptom": "Chute de tension initiale excessive dès les premières secondes",
+      "causes": "Batterie froide ; câblage sous-dimensionné ; connexions à haute résistance ; batterie sous-dimensionnée ; éléments en court-circuit",
+      "consequences": "Chute de tension ; éléments en court-circuit : échauffement, emballement, arc interne et explosion",
+      "action": "Réchauffer ; ajouter des câbles en parallèle ; nettoyer et remonter les connexions ; ajouter les chaînes parallèles requises ; remplacer les blocs en court-circuit et évaluer toute la chaîne"
+    }
+  ],
+
+  "courant_floating": [
+    {
+      "symptom": "Courant de floating nul dans la chaîne",
+      "causes": "Bloc ou connexion ouvert dans la chaîne série ; se vérifie par la tension de floating ou l'impédance de chaque bloc",
+      "consequences": "Pas de reprise de charge ; un arc interne en décharge peut enflammer les gaz ; une connexion lâche peut abîmer la borne sous charge",
+      "action": "Remplacer le bloc ouvert ou réparer la connexion externe défaillante"
+    },
+    {
+      "symptom": "Courant de floating supérieur à 0,03 CA à 25 °C",
+      "causes": "Batteries pas encore rechargées ; température supérieure à 25 °C ; éléments éventuellement en court-circuit ; début ou état d'emballement thermique",
+      "consequences": "Emballement thermique, fusion de la batterie, sulfure d'hydrogène, incendie",
+      "action": "Déterminer la cause précise et agir en conséquence"
+    },
+    {
+      "symptom": "Courant d'ondulation alternatif supérieur à 5 A par 100 Ah",
+      "causes": "Filtrage insuffisant du chargeur",
+      "consequences": "Échauffement de la batterie",
+      "action": "Améliorer le filtrage de sortie du chargeur"
+    }
+  ],
+
+  "tension_continue": [
+    {
+      "symptom": "Tension de floating du système supérieure à 2,3 V/élément en moyenne à 25 °C",
+      "causes": "Tension de sortie du chargeur mal réglée",
+      "consequences": "Dégazage excessif et assèchement de l'électrolyte ; risque d'emballement thermique",
+      "action": "Remettre la tension du chargeur à la valeur recommandée"
+    },
+    {
+      "symptom": "Tension de floating du système inférieure à 2,25 V/élément en moyenne",
+      "causes": "Tension de sortie du chargeur mal réglée",
+      "consequences": "Sous-charge : perte progressive d'autonomie et de capacité, sulfatation irréversible si elle persiste",
+      "action": "Corriger la tension ; égaliser 48 à 72 h puis faire un test de capacité ; si la perte est définitive, remplacer l'ensemble"
+    },
+    {
+      "symptom": "Tension d'égalisation du système supérieure à 2,45 V/élément",
+      "causes": "Tension d'égalisation du chargeur mal réglée",
+      "consequences": "Surcharge, dégazage, assèchement, risque d'emballement thermique",
+      "action": "Remettre la tension à la valeur recommandée"
+    },
+    {
+      "symptom": "Tension d'égalisation du système inférieure à 2,45 V/élément",
+      "causes": "Tension d'égalisation du chargeur mal réglée",
+      "consequences": "Égalisation et charge d'appoint moins efficaces, durée allongée",
+      "action": "Si possible corriger la tension, sinon accepter une égalisation plus longue"
+    },
+    {
+      "symptom": "Tension de floating d'un bloc inférieure à 2,2 V/élément (13,3 V pour 6 éléments, 11,1 V pour 5, 6,6 V pour 3)",
+      "causes": "Élément probablement en court-circuit ; se vérifie par une mesure d'impédance ou de conductance",
+      "consequences": "Autonomie réduite, courant de floating accru, échauffement en décharge, emballement thermique",
+      "action": "Remplacer le bloc"
+    },
+    {
+      "symptom": "Tension de floating d'un bloc supérieure à 2,42 V/élément (14,5 V pour 6 éléments, 12,1 V pour 5, 7,3 V pour 3)",
+      "causes": "Élément probablement ouvert ; se vérifie par un courant de floating nul ou une impédance très élevée",
+      "consequences": "Incapacité à tenir la charge ; arc interne pouvant enflammer les gaz",
+      "action": "Remplacer le bloc"
+    },
+    {
+      "symptom": "Tension continue entre une borne de sortie et la terre (rack), ou défaut à la terre signalé par la supervision",
+      "causes": "Boîtier endommagé laissant fuir l'électrolyte vers la surface reliée à la terre",
+      "consequences": "Risque d'électrocution ; boîtier brûlé localement ou incendie",
+      "action": "Trouver l'origine du défaut à la terre et remplacer le bloc"
+    }
+  ],
+
+  "temperature": [
+    {
+      "symptom": "Température ambiante élevée",
+      "causes": "Climatisation ou ventilation insuffisante",
+      "consequences": "Durée de vie réduite",
+      "action": "Refroidir le local ou accepter une durée de vie réduite"
+    },
+    {
+      "symptom": "Température de batterie élevée",
+      "causes": "Ambiance chaude ; ventilation d'armoire insuffisante ; cycle décharge-recharge (normal si l'élévation reste sous 10 °C) ; ondulation alternative supérieure à 5 A rms par 100 Ah",
+      "consequences": "Durée de vie réduite, risque d'emballement thermique",
+      "action": "Améliorer la climatisation ou la ventilation ; limiter le courant de recharge ; corriger l'ondulation excessive"
+    },
+    {
+      "symptom": "Courant de recharge élevé",
+      "causes": "Tension de charge trop haute ; éléments en court-circuit",
+      "consequences": "La combinaison peut mener à l'emballement thermique",
+      "action": "Limiter le courant ; revenir aux spécifications ; retirer les éléments en court-circuit et évaluer toute la chaîne"
+    }
+  ],
+
+  "test_forte_charge_10s": [
+    {
+      "symptom": "Tension aux bornes légèrement inférieure au minimum du point à 10 secondes",
+      "causes": "Batterie non entièrement chargée, ou batterie ancienne de capacité un peu plus faible",
+      "consequences": "Autonomie réduite",
+      "action": "Recharger complètement la batterie puis refaire le test"
+    },
+    {
+      "symptom": "Tension aux bornes nettement inférieure au minimum du point à 10 secondes",
+      "causes": "Batterie déchargée ou détérioration du chemin conducteur, de la grille, de la matière active ou du volume d'électrolyte ; élément en court-circuit ; élément ouvert",
+      "consequences": "Autonomie réduite, emballement thermique (court-circuit) ou incapacité à tenir la charge (ouvert)",
+      "action": "Recharger puis réinitialiser le bloc, ou le remplacer selon le cas"
+    }
+  ],
+
+  "ondulation_tension_alternative": [
+    {
+      "symptom": "Ondulation crête à crête supérieure à 4 % de la tension de floating continue",
+      "causes": "Filtrage insuffisant de la sortie du chargeur",
+      "consequences": "La batterie cycle à la fréquence d'ondulation : échauffement et détérioration de la matière active",
+      "action": "Améliorer le filtrage du chargeur"
+    },
+    {
+      "symptom": "Un bloc de la chaîne montre une ondulation double de celle des autres",
+      "causes": "Impédance proportionnellement plus élevée : chemin conducteur dégradé, élément sec, en court-circuit ou ouvert",
+      "consequences": "Autonomie réduite, risque d'emballement thermique",
+      "action": "Vérifier l'état du bloc et le remplacer si nécessaire"
+    }
+  ],
+
+  "connexions": [
+    {
+      "symptom": "Résistance de connexion en hausse de 20 % ou plus par rapport à l'origine",
+      "causes": "Cycles d'échauffement et de refroidissement qui relâchent le serrage ; contamination et corrosion",
+      "consequences": "Bornes brûlées ou fondues en décharge rapide ; chute de tension et autonomie réduite",
+      "action": "Resserrer la connexion au couple requis"
+    },
+    {
+      "symptom": "Serrage inférieur au couple spécifié",
+      "causes": "Relâchement par cycles thermiques",
+      "consequences": "Connexions lâches, bornes brûlées ou fondues en décharge",
+      "action": "Resserrer au couple requis"
+    },
+    {
+      "symptom": "Impédance ou résistance en hausse de 50 % par rapport à l'origine, ou conductance réduite de moitié",
+      "causes": "Bloc déchargé ou chemin conducteur, grille, matière active ou électrolyte détériorés ; élément en court-circuit ; élément ouvert",
+      "consequences": "Autonomie réduite, emballement thermique, incapacité à tenir la charge",
+      "action": "Recharger puis réinitialiser le bloc, ou le remplacer"
+    }
+  ],
+
+  "arbre_de_decision": {
+    "summary": "Ordre de travail suggéré, déduit des tableaux de dépannage du constructeur, pour une alarme batterie ou une autonomie insuffisante constatée sur site.",
+    "steps": [
+      "1. Sécurité : contrôler visuellement l'armoire (boîtier gonflé, fuite, odeur d'œuf pourri, fumée). En cas d'odeur ou de gonflement, ne pas intervenir sans les mesures de sécurité du site : emballement thermique probable.",
+      "2. Température : relever la température des blocs et de l'armoire ; comparer à 25 °C.",
+      "3. Chargeur : vérifier la tension de floating totale rapportée au nombre d'éléments (2,25 à 2,30 V/élément) et l'ondulation (courant et tension).",
+      "4. Courant de floating : nul (circuit ouvert), supérieur à 0,03 CA (court-circuit, emballement) ou normal.",
+      "5. Tension de chaque bloc : repérer les blocs sous 2,2 V/élément (court-circuit) ou au-dessus de 2,42 V/élément (ouvert).",
+      "6. Impédance, résistance ou conductance de chaque bloc : comparer à la valeur d'origine et à la moyenne de la chaîne (+ 50 % = bloc à traiter).",
+      "7. Connexions : contrôler le couple de serrage, la résistance de connexion (+ 20 %) et la corrosion.",
+      "8. Défaut à la terre : mesurer la tension de chaque polarité par rapport à la terre.",
+      "9. Test de capacité si les mesures ne tranchent pas, ou tous les 2 ans ; remplacer à 80 % de la capacité nominale.",
+      "10. Après remplacement d'un bloc : relever tension, courant, température et consigner les valeurs dans le rapport."
+    ]
+  },
+
+  "stockage_et_mise_en_service": {
+    "storage": [
+      "Stocker en intérieur, au frais, au sec et propre ; l'autodécharge est d'environ 3 % par mois à 25 °C.",
+      "Stockage inférieur à 25 °C : charge d'appoint tous les 6 mois, 16 à 24 h à 2,275 V/élément.",
+      "Stockage de 25 à 30 °C : charge d'appoint tous les 3 mois, 5 à 8 h à 2,45 V/élément.",
+      "Stockage au-dessus de 30 °C : à éviter."
+    ],
+    "before_installation": [
+      "Contrôler l'aspect de chaque bloc (boîtier, bornes) ; écarter tout bloc présentant dommage, court-circuit, choc ou corrosion.",
+      "Mesurer la tension à vide et la résistance interne de chaque bloc avant installation ; mettre de côté les blocs hors de ± 2 écarts-types du lot et solliciter CSB.",
+      "Charge de fraîcheur avant mise en service : tension constante 2,45 V/élément pendant 8 à 12 h, ambiance de 5 à 35 °C.",
+      "Pendant la charge, surveiller tension, courant et température ; arrêter et analyser si la température monte de plus de 10 °C."
+    ],
+    "connection": [
+      "Raccorder avec le disjoncteur ouvert, positif sur positif et négatif sur négatif.",
+      "Contrôler la tension totale de la chaîne : elle doit valoir environ le nombre de blocs multiplié par la tension d'un bloc ; sinon revoir les polarités.",
+      "Numéroter les blocs à partir de 1, dans le même ordre de polarité pour toutes les chaînes parallèles.",
+      "La connexion en série augmente la tension, la connexion en parallèle augmente la capacité."
+    ]
+  },
+
+  "decharge_profonde": {
+    "summary": "Une batterie peut se rétablir après une décharge profonde accidentelle et plusieurs jours à l'état déchargé, mais seulement jusqu'à 2 ou 3 décharges profondes consécutives.",
+    "steps": [
+      "Recharger immédiatement après toute décharge ; ne jamais laisser une batterie déchargée.",
+      "Ne pas descendre sous la tension finale de décharge indiquée par la fiche technique (risque de sulfatation).",
+      "Récupération : charge à tension constante 2,45 V/élément, courant max 0,3 CA, durée supérieure à 24 h.",
+      "Si une charge ne suffit pas, répéter 2 ou 3 cycles charge-décharge."
+    ]
+  },
+
+  "garantie_et_releves": {
+    "summary": "Pour une réclamation garantie, le constructeur demande un rapport de service avec des relevés terrain. Préparer ces données pendant le diagnostic.",
+    "required_readings": [
+      "Modèle et code de date de chaque bloc",
+      "Date d'installation",
+      "Température de la batterie",
+      "Tension de floating à vide (sans charge)",
+      "Tension en charge",
+      "Tension en circuit ouvert",
+      "Bon de commande ou commande d'origine, description du défaut, coordonnées du client"
+    ],
+    "conditions": [
+      "Un bloc est jugé défectueux s'il ne restitue pas 80 % de sa capacité nominale après 48 h de recharge puis décharge mesurée en Ah.",
+      "La période de garantie est réduite de moitié par tranche de 10 °C au-dessus de 25 °C ; au-delà de 50 °C elle est annulée.",
+      "Installation, charge, stockage et entretien doivent suivre les instructions du constructeur ; les interventions par un tiers non agréé annulent la garantie.",
+      "Moins de 4 unités : retour non obligatoire mais rapport de service avec relevés exigé ; plus de 4 unités : retour pour analyse.",
+      "Toute reprise de matériel exige une autorisation de retour (RMA) préalable du constructeur."
+    ]
+  },
+
+  "lien_avec_onduleur_eaton": {
+    "summary": "Quand une alarme batterie est levée par l'onduleur, comparer les paramètres du chargeur de l'UPS aux valeurs du constructeur de la batterie avant de conclure à un bloc défectueux.",
+    "checks": [
+      "La tension de floating réglée dans l'UPS doit correspondre au nombre d'éléments de la chaîne multiplié par 2,275 V (± 0,025), compensée en température si la batterie est hors de 5-35 °C.",
+      "Vérifier que le nombre de blocs et la capacité en Ah déclarés dans l'EEPROM correspondent à la batterie réellement installée (voir le guide EEPROM).",
+      "Contrôler l'ondulation de la tension et du courant fournie par le redresseur de l'UPS avant de mettre en cause les blocs.",
+      "La gestion avancée de batterie (ABM) du 93PM, ou ses équivalents, modifie les phases de charge ; la tension relevée peut alors s'écarter transitoirement du floating."
+    ],
+    "caution": "Cette correspondance est une aide : les valeurs de charge à retenir restent celles de la fiche technique du modèle de batterie installé et de la documentation de l'UPS."
+  }
+}

@@ -7,6 +7,7 @@ describe('parseDocRoute', () => {
     expect(parseDocRoute('#/v/93t/modes')).toEqual({ family: '93t', tab: 'modes' });
     expect(parseDocRoute('#/v/93pm/parallel')).toEqual({ family: '93pm', tab: 'parallel' });
     expect(parseDocRoute('#/v/93ps/context')).toEqual({ family: '93ps', tab: 'context' });
+    expect(parseDocRoute('#/v/batteries/troubleshooting')).toEqual({ family: 'batteries', tab: 'troubleshooting' });
   });
   it("laisse passer les routes d'événements et les inconnues", () => {
     expect(parseDocRoute('#/ups93t%7CUPM%7C53')).toBeNull();
@@ -14,6 +15,7 @@ describe('parseDocRoute', () => {
     expect(parseDocRoute('#/v/9e/modes')).toBeNull();
     expect(parseDocRoute('#/v/93ps/modes')).toBeNull();
     expect(parseDocRoute('#/v/93t/context')).toBeNull();
+    expect(parseDocRoute('#/v/93t/troubleshooting')).toBeNull();
     expect(parseDocRoute('')).toBeNull();
   });
 });

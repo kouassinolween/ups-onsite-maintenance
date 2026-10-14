@@ -28,6 +28,7 @@ npm run build      # production : dist/ (PWA, packs inclus)
 | `packs/93pm/access.json` | Niveaux d'accès HMI 93PM et menus par niveau (sans mots de passe) |
 | `packs/93pm/procedures.json` | Procédures 93PM : remplacement (480 V et 400 V), couples, sécurité, firmware, calibrage, dépannage |
 | `packs/repair/suggestions.json` | Pistes de réparation suggérées après l'explication d'une alarme (20 catégories, associées par mots-clés) |
+| `packs/batteries/troubleshooting.json` | Batteries troubleshooting : synthèse CSB VRLA (sécurité, valeurs de référence, inspections, symptôme / cause / action, garantie) |
 | `packs/eeprom/guide.json` | Guide transverse de paramétrage de l'EEPROM (93T, 93E, 93PM, 93PS, 9E) |
 | `packs/93e/` | Pack Eaton 93E : catalogues d'événements 15-80 kVA et 300-400 kVA (extraction automatique), procédures, pièces, paramètres |
 | `packs/9e/` | Pack Eaton 9E 6-20 kVA : codes d'anomalie et d'alarme, démontage, pièces, paramètres |

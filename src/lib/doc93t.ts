@@ -82,9 +82,9 @@ export interface ParallelDoc {
 
 export interface Doc93T { procedures: ProceduresDoc; modes: ModesDoc; parallel: ParallelDoc }
 
-export type DocTab = 'procedures' | 'modes' | 'parallel' | 'options' | 'context' | 'parts' | 'parameters' | 'eeprom';
+export type DocTab = 'procedures' | 'modes' | 'parallel' | 'options' | 'context' | 'parts' | 'parameters' | 'eeprom' | 'troubleshooting';
 export const TAB_LABEL: Record<DocTab, string> = {
-  procedures: 'Procédures', modes: 'Modes', parallel: 'Parallèle', options: 'Options', context: 'Alarmes (contexte)', parts: 'Pièces', parameters: 'Paramètres', eeprom: "Paramétrer l'EEPROM",
+  procedures: 'Procédures', modes: 'Modes', parallel: 'Parallèle', options: 'Options', context: 'Alarmes (contexte)', parts: 'Pièces', parameters: 'Paramètres', eeprom: "Paramétrer l'EEPROM", troubleshooting: 'Batteries troubleshooting',
 };
 
 async function getJson<T>(name: string): Promise<T> {
@@ -102,7 +102,7 @@ export async function loadDoc93t(): Promise<Doc93T> {
   return { procedures, modes, parallel };
 }
 
-export type DocFamily = '93t' | '93pm' | '93ps' | '93e' | '9e' | 'eeprom';
+export type DocFamily = '93t' | '93pm' | '93ps' | '93e' | '9e' | 'eeprom' | 'batteries';
 export const DOC_FAMILIES: { id: DocFamily; label: string }[] = [
   { id: '93t', label: '93T' },
   { id: '93pm', label: '93PM' },
@@ -110,6 +110,7 @@ export const DOC_FAMILIES: { id: DocFamily; label: string }[] = [
   { id: '93e', label: '93E' },
   { id: '9e', label: '9E' },
   { id: 'eeprom', label: 'EEPROM (toutes gammes)' },
+  { id: 'batteries', label: 'Batteries (CSB)' },
 ];
 
 /** Onglets disponibles par famille (le 93PS n'a que le contexte d'alarmes pour l'instant). */
@@ -120,6 +121,7 @@ export const TABS_BY_FAMILY: Record<DocFamily, DocTab[]> = {
   '93e': ['procedures', 'parts', 'parameters'],
   '9e': ['procedures', 'parts', 'parameters'],
   eeprom: ['eeprom'],
+  batteries: ['troubleshooting'],
 };
 export interface DocRoute { family: DocFamily; tab: DocTab }
 
@@ -128,7 +130,7 @@ export interface DocRoute { family: DocFamily; tab: DocTab }
  * désigne le 93T. Retourne null pour toute autre route.
  */
 export function parseDocRoute(hash: string): DocRoute | null {
-  const m = /^#\/v\/(?:(93t|93pm|93ps|93e|9e|eeprom)\/)?(procedures|modes|parallel|options|context|parts|parameters|eeprom)$/.exec(hash);
+  const m = /^#\/v\/(?:(93t|93pm|93ps|93e|9e|eeprom|batteries)\/)?(procedures|modes|parallel|options|context|parts|parameters|eeprom|troubleshooting)$/.exec(hash);
   if (!m) return null;
   const family = (m[1] as DocFamily | undefined) ?? '93t';
   const tab = m[2] as DocTab;
@@ -154,6 +156,7 @@ export const PM_FILES: Record<DocTab, { file: string; title?: string }[]> = {
   parts: [{ file: 'parts.json' }],
   parameters: [{ file: 'parameters.json' }],
   eeprom: [{ file: 'guide.json' }],
+  troubleshooting: [{ file: 'troubleshooting.json' }],
 };
 
 export const loadPmProcedures = (family: DocFamily = '93pm'): Promise<ProceduresDoc> =>
