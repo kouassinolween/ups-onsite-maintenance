@@ -113,10 +113,16 @@ export function parseDirect(q: string): DirectQuery | null {
 
 /**
  * Numérotation CSB d'avant le firmware 1.24 : les événements CSB commençaient au n° 320 au lieu de 384
- * (manuel d'alarmes Rev 003 §2.3 et spécification Panda Premier REV 171). Le décalage de 64 est déduit de ces
- * deux débuts de plage ; il n'est pas confirmé événement par événement.
+ * (manuel d'alarmes Rev 003, notes des §2.3 et §3.2). Le décalage de 64 se déduit de ces deux débuts de plage.
+ * Contrôle sur l'image firmware CSB 1.0.3 (déc. 2012) : la table des noms d'événements suit exactement l'ordre
+ * du catalogue actuel de 384 à 458 (75 événements, aucune insertion ni suppression) ; les numéros 459-485 n'y
+ * existent pas encore. Le n° absolu (320) reste celui indiqué par le manuel, non relu dans le binaire.
  */
 export const LEGACY_CSB_OFFSET = 64;
+/** Dernier n° CSB actuel dont l'ordre est confirmé par le firmware CSB 1.0.3. */
+export const LEGACY_CSB_VERIFIED_MAX = 458;
+export const legacyCsbVerified = (currentId: number): boolean =>
+  currentId >= CSB_CURRENT.min && currentId <= LEGACY_CSB_VERIFIED_MAX;
 const CSB_CURRENT = { min: 384, max: 485 };
 
 /** N° CSB actuel (384-485) -> n° d'avant firmware 1.24, ou null hors plage. */

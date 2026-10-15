@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { currentCsbId, expandEvents, kitsContaining, legacyCsbId, parseDirect, search, type RawEvent } from './catalog';
+import { currentCsbId, expandEvents, kitsContaining, legacyCsbId, legacyCsbVerified, parseDirect, search, type RawEvent } from './catalog';
 
 describe('parseDirect', () => {
   it('reconnaît les saisies directes', () => {
@@ -35,6 +35,9 @@ describe('ancienne numérotation CSB', () => {
     expect(currentCsbId(320)).toBe(384);
     expect(currentCsbId(421)).toBe(485);
     expect(currentCsbId(422)).toBeNull();
+    expect(legacyCsbVerified(458)).toBe(true);
+    expect(legacyCsbVerified(459)).toBe(false);
+    expect(legacyCsbVerified(383)).toBe(false);
   });
   it("propose l'événement actuel pour un numéro d'ancien firmware", () => {
     const r = search(csb, 'CSB 360');

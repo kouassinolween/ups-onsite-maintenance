@@ -1,5 +1,5 @@
 import { useDeferredValue, useMemo, useState } from 'react';
-import { CATALOGS, KIND_LABEL, LEGACY_CSB_OFFSET, search, type SearchFilters } from '../lib/catalog';
+import { CATALOGS, KIND_LABEL, LEGACY_CSB_OFFSET, legacyCsbVerified, search, type SearchFilters } from '../lib/catalog';
 import type { CatalogData, CatalogEvent } from '../lib/types';
 
 const MAX_RENDER = 120;
@@ -80,7 +80,9 @@ export function SearchView({ data, onOpen }: { data: CatalogData; onOpen: (key: 
         <>
           <p className="muted" aria-live="polite">
             Si le numéro vient d'un firmware CSB antérieur à 1.24 (numérotation à partir de 320), CSB {direct.id} correspond
-            à CSB {legacy[0].id} (décalage de {LEGACY_CSB_OFFSET}, déduit des débuts de plage : à confirmer avec la version firmware).
+            à CSB {legacy[0].id} (décalage de {LEGACY_CSB_OFFSET}{legacyCsbVerified(legacy[0].id)
+              ? ' ; ordre confirmé sur le firmware CSB 1.0.3'
+              : ' ; événement absent du firmware CSB 1.0.3, correspondance non vérifiée'}).
           </p>
           <ul className="results">
             {legacy.map((e) => (

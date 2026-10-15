@@ -1,4 +1,4 @@
-import { CATALOGS, KIND_LABEL, SOURCE_LABEL, TARGET_LABEL, kitsContaining, LEGACY_CSB_OFFSET, legacyCsbId } from '../lib/catalog';
+import { CATALOGS, KIND_LABEL, SOURCE_LABEL, TARGET_LABEL, kitsContaining, LEGACY_CSB_OFFSET, legacyCsbId, legacyCsbVerified } from '../lib/catalog';
 import type { CatalogData, CatalogEvent } from '../lib/types';
 import { DecoderPanel } from './DecoderPanel';
 import { suggestRepairs } from '../lib/repair';
@@ -137,7 +137,7 @@ export function DetailView({
             <tr><th>Source</th><td>{SOURCE_LABEL[e.source] ?? e.source}</td></tr>
             <tr><th>{e.displayId ? 'Code affiché' : "Numéro d'événement"}</th><td>{e.displayId ?? e.id} {group}</td></tr>
             {e.catalog === 'modular' && e.source === 'CSB' && legacyCsbId(e.id) !== null && (
-              <tr><th>Numéro avant firmware 1.24</th><td>{legacyCsbId(e.id)} <span className="muted">(décalage de {LEGACY_CSB_OFFSET}, à confirmer)</span></td></tr>
+              <tr><th>Numéro avant firmware 1.24</th><td>{legacyCsbId(e.id)} <span className="muted">(décalage de {LEGACY_CSB_OFFSET} ; {legacyCsbVerified(e.id) ? 'ordre confirmé sur le firmware CSB 1.0.3' : 'événement absent du firmware CSB 1.0.3, non vérifié'})</span></td></tr>
             )}
             {e.aliases.length > 0 && <tr><th>Ancien nom (firmware 2015)</th><td>{e.aliases.join(' · ')}</td></tr>}
             {e.page != null && <tr><th>Manuel</th><td>{def?.manual ?? 'Manuel Eaton'}, p. {e.page}</td></tr>}
