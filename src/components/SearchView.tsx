@@ -1,5 +1,5 @@
 import { useDeferredValue, useMemo, useState } from 'react';
-import { CATALOGS, KIND_LABEL, search, type SearchFilters } from '../lib/catalog';
+import { CATALOGS, KIND_LABEL, LEGACY_CSB_OFFSET, search, type SearchFilters } from '../lib/catalog';
 import type { CatalogData, CatalogEvent } from '../lib/types';
 
 const MAX_RENDER = 120;
@@ -27,7 +27,7 @@ export function SearchView({ data, onOpen }: { data: CatalogData; onOpen: (key: 
   const [filters, setFilters] = useState<SearchFilters>({ catalog: 'modular', source: '', kind: '', target: '' });
   const deferred = useDeferredValue(q);
 
-  const { direct, results } = useMemo(() => search(data.events, deferred, filters), [data.events, deferred, filters]);
+  const { direct, results, legacy } = useMemo(() => search(data.events, deferred, filters), [data.events, deferred, filters]);
   const set = <K extends keyof SearchFilters>(k: K, v: SearchFilters[K]) => setFilters((f) => ({ ...f, [k]: v }));
 
   return (
@@ -69,13 +69,26 @@ export function SearchView({ data, onOpen }: { data: CatalogData; onOpen: (key: 
             (results.length > MAX_RENDER ? ` (les ${MAX_RENDER} premiers sont affichés ; affinez la recherche)` : '')}
       </p>
       <ul className="results">
-        {results.length === 0 && <li className="empty">{q ? 'Aucun événement ne correspond.' : 'Saisissez une recherche.'}</li>}
+        {results.length === 0 && legacy.length === 0 && <li className="empty">{q ? 'Aucun événement ne correspond.' : 'Saisissez une recherche.'}</li>}
         {results.slice(0, MAX_RENDER).map((e) => (
           <li key={e.key}>
             <EventCard e={e} onOpen={() => onOpen(e.key, direct?.code ?? null)} />
           </li>
         ))}
       </ul>
+      {legacy.length > 0 && direct && (
+        <>
+          <p className="muted" aria-live="polite">
+            Si le numéro vient d'un firmware CSB antérieur à 1.24 (numérotation à partir de 320), CSB {direct.id} correspond
+            à CSB {legacy[0].id} (décalage de {LEGACY_CSB_OFFSET}, déduit des débuts de plage : à confirmer avec la version firmware).
+          </p>
+          <ul className="results">
+            {legacy.map((e) => (
+              <li key={e.key}><EventCard e={e} onOpen={() => onOpen(e.key, direct.code)} /></li>
+            ))}
+          </ul>
+        </>
+      )}
     </section>
   );
 }

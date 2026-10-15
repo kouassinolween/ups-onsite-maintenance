@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { expandEvents, kitsContaining, parseDirect, search, type RawEvent } from './catalog';
+import { currentCsbId, expandEvents, kitsContaining, legacyCsbId, parseDirect, search, type RawEvent } from './catalog';
 
 describe('parseDirect', () => {
   it('reconnaît les saisies directes', () => {
@@ -21,6 +21,29 @@ const raw: RawEvent[] = [
 const modular = expandEvents('modular', raw);
 const mono = expandEvents('monoblock', [{ source: 'UPM', ids: [47], name: 'Fan Failed', kind: 'alarm' }]);
 const all = [...modular, ...mono];
+
+describe('ancienne numérotation CSB', () => {
+  const csb = expandEvents('modular', [
+    { source: 'CSB', ids: [384], name: 'Online Command', kind: 'command' },
+    { source: 'CSB', ids: [424], name: 'Service Reminders Dismissed', kind: 'notice' },
+    { source: 'CSB', ids: [360], name: 'Autre', kind: 'notice' },
+  ]);
+  it('convertit dans les deux sens dans les plages connues', () => {
+    expect(legacyCsbId(384)).toBe(320);
+    expect(legacyCsbId(485)).toBe(421);
+    expect(legacyCsbId(383)).toBeNull();
+    expect(currentCsbId(320)).toBe(384);
+    expect(currentCsbId(421)).toBe(485);
+    expect(currentCsbId(422)).toBeNull();
+  });
+  it("propose l'événement actuel pour un numéro d'ancien firmware", () => {
+    const r = search(csb, 'CSB 360');
+    expect(r.results.map((e) => e.id)).toEqual([360]);
+    expect(r.legacy.map((e) => e.id)).toEqual([424]);
+    expect(search(csb, 'CSB 320').legacy.map((e) => e.id)).toEqual([384]);
+    expect(search(csb, 'CSB 384').legacy).toEqual([]);
+  });
+});
 
 describe('anciens noms', () => {
   const ev = expandEvents('modular', [

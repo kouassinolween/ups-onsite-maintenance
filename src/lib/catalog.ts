@@ -111,6 +111,23 @@ export function parseDirect(q: string): DirectQuery | null {
   return { source: m[1].toUpperCase() as Source, id: Number(m[2]), code: m[3] ?? null };
 }
 
+/**
+ * Numérotation CSB d'avant le firmware 1.24 : les événements CSB commençaient au n° 320 au lieu de 384
+ * (manuel d'alarmes Rev 003 §2.3 et spécification Panda Premier REV 171). Le décalage de 64 est déduit de ces
+ * deux débuts de plage ; il n'est pas confirmé événement par événement.
+ */
+export const LEGACY_CSB_OFFSET = 64;
+const CSB_CURRENT = { min: 384, max: 485 };
+
+/** N° CSB actuel (384-485) -> n° d'avant firmware 1.24, ou null hors plage. */
+export const legacyCsbId = (id: number): number | null =>
+  id >= CSB_CURRENT.min && id <= CSB_CURRENT.max ? id - LEGACY_CSB_OFFSET : null;
+
+/** N° lu sur un ancien firmware (320-421) -> n° CSB actuel, ou null hors plage. */
+export const currentCsbId = (legacy: number): number | null =>
+  legacy + LEGACY_CSB_OFFSET >= CSB_CURRENT.min && legacy + LEGACY_CSB_OFFSET <= CSB_CURRENT.max
+    ? legacy + LEGACY_CSB_OFFSET : null;
+
 // Termes d'usage du terrain -> vocabulaire anglais du HMI (comparaison sans accents).
 const SYNONYMS: Record<string, string[]> = {
   ventilateur: ['fan'], ventilateurs: ['fan'], batterie: ['battery', 'batteries'], batteries: ['battery', 'batteries'],
@@ -137,6 +154,8 @@ export function search(events: CatalogEvent[], query: string, filters: SearchFil
   const direct = parseDirect(query);
   const tokens = strip(query).split(/\s+/).filter(Boolean);
   const scored: { e: CatalogEvent; score: number }[] = [];
+  const legacy: CatalogEvent[] = [];
+  const asCurrent = direct && direct.source === 'CSB' ? currentCsbId(direct.id) : null;
   for (const e of events) {
     if (filters.catalog && e.catalog !== filters.catalog) continue;
     if (filters.source && e.source !== filters.source) continue;
@@ -144,7 +163,9 @@ export function search(events: CatalogEvent[], query: string, filters: SearchFil
     if (filters.target && e.target !== filters.target) continue;
     let score = 0;
     if (direct) {
-      if (e.source === direct.source && e.id === direct.id) score = 1000; else continue;
+      if (e.source === direct.source && e.id === direct.id) score = 1000;
+      else if (asCurrent !== null && e.catalog === 'modular' && e.source === 'CSB' && e.id === asCurrent) { legacy.push(e); continue; }
+      else continue;
     } else if (tokens.length) {
       let ok = true;
       for (const t of tokens) {
@@ -171,7 +192,8 @@ export function search(events: CatalogEvent[], query: string, filters: SearchFil
     (RANK_KIND[a.e.kind ?? ''] ?? 9) - (RANK_KIND[b.e.kind ?? ''] ?? 9) ||
     (RANK_SOURCE[a.e.source] ?? 9) - (RANK_SOURCE[b.e.source] ?? 9) ||
     a.e.id - b.e.id);
-  return { direct, results: scored.map((x) => x.e) };
+  legacy.sort((a, b) => a.id - b.id);
+  return { direct, results: scored.map((x) => x.e), legacy };
 }
 
 export function kitsContaining(kits: Kit[], ref: string): Kit[] {
