@@ -510,6 +510,7 @@
                                    29
                                ],
                        "name":  "Phase A/B/C Overload",
+                       "aliases":  ["PhaseA Overload","PhaseB Overload","PhaseC Overload"],
                        "kind":  "alarm",
                        "level":  10,
                        "target":  "user",
@@ -1210,6 +1211,7 @@
                                    73
                                ],
                        "name":  "5V / 24V Power Supply Failed",
+                       "aliases":  ["5V Power Supply Failed","24V Power Supply Failed"],
                        "kind":  "alarm",
                        "level":  15,
                        "target":  "user",
@@ -2389,6 +2391,7 @@
                                    196
                                ],
                        "name":  "Output AC Under/Over Voltage",
+                       "aliases":  ["Output AC Under Voltage","Output AC Over Voltage"],
                        "kind":  "notice",
                        "level":  6,
                        "target":  "service",
@@ -2995,6 +2998,7 @@
                                    226
                                ],
                        "name":  "ESS Enabled",
+                       "aliases":  ["ESS Enable"],
                        "kind":  "status",
                        "level":  2,
                        "target":  "service",
@@ -3033,6 +3037,7 @@
                                    228
                                ],
                        "name":  "VMMS Enabled",
+                       "aliases":  ["VMMS Enable"],
                        "kind":  "status",
                        "level":  2,
                        "target":  "service",
@@ -3323,6 +3328,7 @@
                                    253
                                ],
                        "name":  "UPS Phase A/B/C Output Overload (niveaux 1-4)",
+                       "aliases":  ["UPS PhaseA Output Overload","UPS PhaseB Output Overload","UPS PhaseC Output Overload"],
                        "kind":  "alarm",
                        "level":  10,
                        "target":  "user",
@@ -3345,6 +3351,7 @@
                                    255
                                ],
                        "name":  "MCU 5V / 24V Power Supply Failed",
+                       "aliases":  ["MCU 5V Power Supply Failed","MCU 24V Power Supply Failed"],
                        "kind":  "alarm",
                        "level":  15,
                        "target":  "user",
@@ -3537,6 +3544,7 @@
                                    284
                                ],
                        "name":  "Ground / Site Wiring Fault",
+                       "aliases":  ["Ground Wiring Fault","Site Wiring Fault"],
                        "kind":  "alarm",
                        "level":  10,
                        "target":  "user",
@@ -3553,6 +3561,7 @@
                                    265
                                ],
                        "name":  "External CAN Abnormal or Configuration Mismatch",
+                       "aliases":  ["External Can Bus Failed"],
                        "kind":  "alarm",
                        "level":  15,
                        "target":  "service",
@@ -4259,6 +4268,7 @@
                                    303
                                ],
                        "name":  "STS / Chimney Ambient Over Temperature",
+                       "aliases":  ["STS Ambient Over Temperature","Chimney Ambient Over Temperature"],
                        "kind":  "alarm",
                        "level":  12,
                        "target":  "user",
@@ -4295,6 +4305,7 @@
                                    305
                                ],
                        "name":  "Chimney Fan / Fan Power Board Cool Fan Failed",
+                       "aliases":  ["Chimney Fan Failed","Fan Power Board Cool Fan Failed"],
                        "kind":  "alarm",
                        "level":  10,
                        "target":  "user",
@@ -5557,6 +5568,7 @@
                                    393
                                ],
                        "name":  "Signal Input Remote VMMS / EMS Off",
+                       "aliases":  ["Signal Input Remote VMMS/ESS off"],
                        "kind":  "notice",
                        "level":  5,
                        "target":  "user",
@@ -6258,6 +6270,7 @@
                                    424
                                ],
                        "name":  "Service Reminders Dismissed",
+                       "aliases":  ["Clear Maintenance Reminder"],
                        "kind":  "notice",
                        "level":  5,
                        "target":  "user",
@@ -6350,6 +6363,7 @@
                                    428
                                ],
                        "name":  "Preventive Maintenance Needed",
+                       "aliases":  ["Maintenance Out Of Date"],
                        "kind":  "alarm",
                        "level":  10,
                        "target":  "user",

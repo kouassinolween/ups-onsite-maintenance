@@ -31,7 +31,7 @@ export interface RawEvent {
   source: Source; ids: number[]; name: string; kind?: EventKind | null; level?: number | null;
   target?: 'user' | 'service' | null; page?: number | null; error_code?: CatalogEvent['errorCode'];
   desc_fr?: string | null; desc_en?: string | null; defaults?: Record<string, string> | null; display_id?: string | null;
-  timing?: string | null; import?: 'auto' | 'curated'; manual_note?: string | null;
+  timing?: string | null; aliases?: string[] | null; import?: 'auto' | 'curated'; manual_note?: string | null;
 }
 
 export function expandEvents(catalog: CatalogId, raw: RawEvent[]): CatalogEvent[] {
@@ -46,6 +46,7 @@ export function expandEvents(catalog: CatalogId, raw: RawEvent[]): CatalogEvent[
         descFr: e.desc_fr ?? '', descEn: e.desc_en ?? '',
         defaults: e.defaults ?? null, timing: e.timing ?? null,
         imported: e.import ?? 'curated', manualNote: e.manual_note ?? null,
+        aliases: e.aliases ?? [], aliasNorm: strip((e.aliases ?? []).join(' | ')),
         nameNorm: strip(e.display_id ? `${e.display_id} ${e.name}` : e.name), frNorm: strip(e.desc_fr), enNorm: strip(e.desc_en),
       });
     }
@@ -152,6 +153,7 @@ export function search(events: CatalogEvent[], query: string, filters: SearchFil
         for (const v of [t, ...(SYNONYMS[t] ?? [])]) {
           if (e.nameNorm.startsWith(v)) best = Math.max(best, 40);
           else if (e.nameNorm.includes(v)) best = Math.max(best, 30);
+          else if (e.aliasNorm.includes(v)) best = Math.max(best, 20);
           else if (e.frNorm.includes(v)) best = Math.max(best, 12);
           else if (e.enNorm.includes(v)) best = Math.max(best, 4);
         }

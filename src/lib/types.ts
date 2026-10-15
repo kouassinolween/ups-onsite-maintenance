@@ -34,7 +34,10 @@ export interface CatalogEvent {
   timing: string | null;
   imported: 'auto' | 'curated';
   manualNote: string | null;
+  /** Anciens libellés (firmware 2015, spécification Panda Premier REV 171), cherchables. */
+  aliases: string[];
   nameNorm: string;
+  aliasNorm: string;
   frNorm: string;
   enNorm: string;
 }

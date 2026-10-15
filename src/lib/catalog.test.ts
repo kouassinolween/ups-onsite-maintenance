@@ -22,6 +22,17 @@ const modular = expandEvents('modular', raw);
 const mono = expandEvents('monoblock', [{ source: 'UPM', ids: [47], name: 'Fan Failed', kind: 'alarm' }]);
 const all = [...modular, ...mono];
 
+describe('anciens noms', () => {
+  const ev = expandEvents('modular', [
+    { source: 'MCU', ids: [226], name: 'ESS Enabled', kind: 'status', aliases: ['ESS Enable'] },
+    { source: 'UPM', ids: [48], name: 'Fan Failed', kind: 'alarm' },
+  ]);
+  it("retrouve un événement par son ancien nom", () => {
+    expect(search(ev, 'ess enable').results.map((e) => e.id)).toEqual([226]);
+    expect(search(ev, 'fan').results.map((e) => e.id)).toEqual([48]);
+  });
+});
+
 describe('expandEvents', () => {
   it('déplie les groupes d\'identifiants en une entrée par numéro', () => {
     expect(modular.filter((e) => e.name === 'Phase A/B/C Overload').map((e) => e.id)).toEqual([27, 28]);
